@@ -7,5 +7,5 @@ Tutorial:
 5. try github source or try this  https://wiki.allegro.cc/index.php?title=Tilemap_Example
    for one file source quick and easy.
    
-   ![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+   ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Template%20full.png?raw=true)
  
