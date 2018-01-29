@@ -6,4 +6,6 @@ Tutorial:
 4. Go to project options, enable Allergo settings
 5. try github source or try this  https://wiki.allegro.cc/index.php?title=Tilemap_Example
    for one file source quick and easy.
+   
+   ![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
  
