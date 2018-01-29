@@ -7,7 +7,19 @@ Tutorial:
 5. try github source or try this  https://wiki.allegro.cc/index.php?title=Tilemap_Example
    for one file source quick and easy.
    
-   Quality of Art, and design concepts. knowing none of us are artest, and that is not the main focus of our game (mostly logic and ways to challenge or programming capabilities).
+Libraries to make life east-peasy:
+	Boost
+	Allergo
+	Agui
+	FreeType
+	Ogg
+	libcurl
+	MiniZip
+	ImGui
+	
+   
+Quality of Art, and design concepts:
+knowing none of us are artest, and that is not the main focus of our game (mostly logic and ways to challenge or programming capabilities).
    Here are two examples of design. of course once we implement everything else we can go back and draw some art for the game.
    ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Template%20full.png?raw=true)
    
