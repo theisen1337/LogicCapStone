@@ -1,0 +1,1 @@
+﻿D:\GitHubFiles\LogicCapStone\newTileMap.vcxproj(159,5): error : This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is ..\packages\AllegroDeps.1.7.0.0\build\native\AllegroDeps.targets.

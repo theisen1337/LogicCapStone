@@ -132,12 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Interact.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Ore.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Tiles.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="Interact.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ore.cpp" />
     <ClCompile Include="TileMap.cpp" />
