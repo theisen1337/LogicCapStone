@@ -1,18 +1,29 @@
 #include "Tile.h"
 
 Tile::Tile(Tile::Types tileType)
+{	
+		//Constructor
+	type = tileType;
+	genPicture();
+}
+
+void Tile::setType(Tile::Types tileType)
 {
+		//Set the tile type and generate new picture
 	type = tileType;
 	genPicture();
 }
 
 void Tile::genPicture()
-{
+{	
+		//Switch statement for setting picture of the tile
+	std::string path;
 	switch (type)
 	{
 	case Tile::GRASS:
 		//IF Grass set pic to grass image
-
+		path = "Images\\Tiles\\grass.png";
+		pic = al_load_bitmap(path.c_str());
 		break;
 	case Tile::WATER:
 		//IF water set pic to water image

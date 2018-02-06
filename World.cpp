@@ -3,13 +3,16 @@
 
 
 World::World()
-{
+{	
+		//Sets the vector size
 	world.resize(worldSize, std::vector<Chunk>(worldSize, Chunk()));
+		//Runs the initial generation of map
 	initialGeneration();
 }
 
 void World::initialGeneration()
 {
+	//Assign world positions to chunks
 	for (int i = 0; i < worldSize; i++)
 	{
 		for (int j = 0; j < worldSize; j++) {

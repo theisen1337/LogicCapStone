@@ -4,34 +4,40 @@
 class Chunk
 {
 private:
-	int tileDimensions = 64;
+		//Chunk width and heights
 	int chunkWidth = 64;
 	int chunkHeight = 64;
-	int spacing = 64;
+		//Position of the chunk in the world vector
 	int worldPosW;
 	int worldPosH;
-	std::vector<std::vector<Tile>> topLayer;
-	std::vector<std::vector<Tile>> middleLayer;
+		//2D vectors for bottom layer of map
 	std::vector<std::vector<Tile>> bottomLayer;
+		//Bool for if the chunk is currently generated
 	bool isGen = false;
 public:
-	// constructor
+		//Constructor
 	Chunk() {
-		bottomLayer.resize(tileDimensions, std::vector<Tile>(tileDimensions,Tile(Tile::GRASS)));
-		middleLayer.resize(tileDimensions, std::vector<Tile>(tileDimensions, Tile(Tile::EMPTY)));
-		topLayer.resize(tileDimensions, std::vector<Tile>(tileDimensions, Tile(Tile::EMPTY)));
+		bottomLayer.resize(chunkWidth, std::vector<Tile>(chunkHeight,Tile(Tile::GRASS)));
 	};
-	Tile* getTile(int x, int y) { return &topLayer[x][y]; };
+		//Get tile from bottom layer
+	Tile* getTile(int x, int y) { return &bottomLayer[x][y]; };
+		//Set Width of chunk
 	void setWidth(int w) { chunkWidth = w; };
+		//Set Height of chunk
 	void setHeight(int h) { chunkHeight = h; };
+		//Get Width of chunk
 	int getWidth() { return chunkWidth; };
+		//Get Height of chunk
 	int getHeight() { return chunkHeight; };
-	void setDimensions(int d) { tileDimensions = d; };
+		//Set world positions 
 	void setWorldPosW(int w) { worldPosW = w; };
 	void setWorldPosH(int h) { worldPosH = h; };
+		//Get world positions
 	int getWorldPosW() { return worldPosW; };
 	int getWorldPosH() { return worldPosH; };
+		//Get isGen boolean
 	bool getGen() { return isGen; };
+		//Toggle the state of the isGen variable
 	void toggleGen() { if (isGen) { isGen = false; } else { isGen = true; } }
 };
 
