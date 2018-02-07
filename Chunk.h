@@ -5,8 +5,8 @@ class Chunk
 {
 private:
 		//Chunk width and heights
-	int chunkWidth = 64;
-	int chunkHeight = 64;
+	int chunkWidth = 48;
+	int chunkHeight = 48;
 		//Position of the chunk in the world vector
 	int worldPosW;
 	int worldPosH;

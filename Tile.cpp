@@ -18,13 +18,11 @@ void Tile::setType(Tile::Types tileType)
 void Tile::genPicture()
 {	
 		//Switch statement for setting picture of the tile
-	std::string path;
 	switch (type)
 	{
 	case Tile::GRASS:
 		//IF Grass set pic to grass image
-		path = "Images\\Tiles\\grass.png";
-		pic = al_load_bitmap(path.c_str());
+		pic = al_load_bitmap("Tiles//grass.png");
 		break;
 	case Tile::WATER:
 		//IF water set pic to water image

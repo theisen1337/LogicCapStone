@@ -12,24 +12,27 @@ void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World world)
 	//Tile Atlas
 	Bitmap = al_create_bitmap(worldSize, worldSize);
 	//al_set_target_bitmap(Bitmap);
-	ALLEGRO_BITMAP *pic = NULL;
-	pic = al_load_bitmap("Tiles//grass.png");
+
+	Chunk tempChunk;
+	
+
 	//These two loops are for looping through world vector
 	for (int j = 0; j < worldDim; j++)
 	{
 		for (int k = 0; k < worldDim; k++)
 		{
-			//std::vector<std::vector<Chunk>> *tempWorld = &world.getWorld();
+			tempChunk = world.getChunk()[j][k];
 			//These two loops are for looping through map vectors
 			for (int l = 0; l < chunkDim; l++)
 			{
 				for (int m = 0; m < chunkDim; m++)
 				{
+					loadTilePic(tempChunk.getTiles()[l][m].getType());
 					/*
 					al_draw_filled_rectangle(
 						l*tileDim + (j * tileDim * chunkDim), m*tileDim + (k * tileDim * chunkDim), 
 						(l*tileDim) + (j * tileDim * chunkDim) + tileDim, (m*tileDim) + (k * tileDim * chunkDim) + tileDim,
-						al_map_rgb(1, 1, 1));*/
+						al_map_rgb(1, 1, 1));al_load_bitmap("Tiles//grass.png")*/
 					al_draw_scaled_bitmap(pic,
 						0,0,
 						tileDim, tileDim,
@@ -81,6 +84,27 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	
 	al_identity_transform(&transform);
 	al_use_transform(&transform);
+}
+
+void Artist::loadTilePic(Tile::Types type)
+{
+	//Tile::Types type = tile.getType();
+
+	switch (type)
+	{
+	case Tile::GRASS:
+		pic = al_load_bitmap("Tiles//grass.png");
+		break;
+	case Tile::WATER:
+
+		break;
+	case Tile::EMPTY:
+
+		break;
+	default:
+		break;
+	}
+
 }
 
 void Artist::drawBitmapTest(ALLEGRO_DISPLAY & dis)

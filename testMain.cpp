@@ -30,9 +30,9 @@ int main(void) {
 	//al_set_new_display_flags(ALLEGRO_RESIZABLE);
 	display = al_create_display(640, 480);
 	al_set_window_title(display, "Allegro 5 Tilemap Example");
-	
-	//Checking vectors of world and maps
 	/*
+	//Checking vectors of world and maps
+	std::cout << "Start Counting\n";
 	int numChunksGen = 0;
 	int numTilesLoaded = 0;
 	for (int i = 0; i < 3; i++)
@@ -58,17 +58,9 @@ int main(void) {
 	}
 	std::cout << "Number of Chunks: " << numChunksGen << "\n";
 	std::cout << "Number of Tiles: " << numTilesLoaded << "\n";
-	*/
+	
 
-	image = al_load_bitmap("Tiles//grass.png");
-	if (!image) {
-		al_show_native_message_box(display, "Error", "Error", "Failed to load image!",
-			NULL, ALLEGRO_MESSAGEBOX_ERROR);
-		al_destroy_display(display);
-		return 0;
-	}
-
-	//al_draw_bitmap(image, 200, 200, 0);
+*/
 
 	art.tileBuffer(*display, world); //NOT WORKING
 	//art.drawBitmapTest(*display); 

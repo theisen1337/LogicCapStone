@@ -13,11 +13,13 @@ private:
 		//Tile dimensions
 	int tileDim = 64;
 		//Chunk dimensions
-	int chunkDim = 64;
+	int chunkDim = 48;
 		//World dimensions
 	int worldDim = 3;
 		//Bitmap to hold all the tiles drawn to it.
 	ALLEGRO_BITMAP *Bitmap;
+		//Temp bitmap to hold pictures
+	ALLEGRO_BITMAP *pic = NULL;
 		/*
 		#Maps * #TilesPerMap * 64^2 = #Total Tiles Per World (150994994)
 		Number of pixels for world
@@ -30,7 +32,9 @@ public:
 	void tileBuffer(ALLEGRO_DISPLAY &dis, World world);
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate);
-
+		//Load the tile pictures
+	void loadTilePic(Tile::Types tile);
 	void drawBitmapTest(ALLEGRO_DISPLAY &dis);
 };
+
 
