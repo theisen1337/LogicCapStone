@@ -12,6 +12,7 @@ void Tile::setType(Tile::Types tileType)
 		//Set the tile type and generate new picture
 	type = tileType;
 	genPicture();
+	loaded = true;
 }
 
 void Tile::genPicture()

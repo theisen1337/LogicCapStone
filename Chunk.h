@@ -20,7 +20,7 @@ public:
 		bottomLayer.resize(chunkWidth, std::vector<Tile>(chunkHeight,Tile(Tile::GRASS)));
 	};
 		//Get tile from bottom layer
-	Tile* getTile(int x, int y) { return &bottomLayer[x][y]; };
+	std::vector<std::vector<Tile>> getTiles() { return bottomLayer; };
 		//Set Width of chunk
 	void setWidth(int w) { chunkWidth = w; };
 		//Set Height of chunk

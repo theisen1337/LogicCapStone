@@ -22,7 +22,7 @@ private:
 		#Maps * #TilesPerMap * 64^2 = #Total Tiles Per World (150994994)
 		Number of pixels for world
 		*/
-	int worldSize = 150994944;
+	int worldSize = 150994994;
 public:
 		//Constructor
 	Artist();

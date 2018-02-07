@@ -12,6 +12,8 @@ public:
 		WATER,
 		EMPTY
 	};
+		//Check if tile is loaded
+	bool loaded;
 		//Image of the tile
 	ALLEGRO_BITMAP *pic;
 		//Type of the tile
@@ -26,5 +28,7 @@ public:
 	void genPicture();
 		//Get the tile pic
 	ALLEGRO_BITMAP * getTilePic() { return pic; };
+		//Get loaded
+	bool getLoaded() { return loaded; };
 };
 

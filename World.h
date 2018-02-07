@@ -20,6 +20,6 @@ public:
 		//Update world depending on character position
 	void updateWorld(int charWorldW, int charWorldH);
 		//Get vector for the world
-	std::vector<std::vector<Chunk>> getWorld() { return world; };
+	std::vector<std::vector<Chunk>> getChunk() { return world; };
 };
 
