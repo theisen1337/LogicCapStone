@@ -46,14 +46,19 @@ ALLEGRO_FONT *font;
 int fps, fps_accum;
 double fps_time;
 
-
+//Character movement DF
+ALLEGRO_BITMAP *character;
+int x_position = 0;
+int y_position = 0;
+int initial_character_width = 0;
+int initial_character_height = 0;
 
 
 int main(void) {
 	ALLEGRO_TIMER *timer;
 	ALLEGRO_EVENT_QUEUE *queue;
 	bool redraw = true;
-	
+
 	srand(time(NULL));
 
 	/* Init Allegro 5 + addons. */
@@ -95,19 +100,48 @@ int main(void) {
 	scroll_x = 100 * 32 / 2;
 	scroll_y = 100 * 32 / 2;
 
+	//Intial make of character bitmap Character Movement DF
+	character = al_load_bitmap("Character.PNG");
+	initial_character_height = al_get_bitmap_height(character);
+	initial_character_width = al_get_bitmap_width(character);
+
+
+
 	while (1) {
 		//tile_map_create();
 		ALLEGRO_EVENT event;
 		al_wait_for_event(queue, &event);
 
+
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			break;
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
+			{
 				Map.Generate_Terrain();
+				x_position = 0;
+				y_position = 0;
+			}
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
+			
 		}
+#pragma region CharacterMovement
+		if (event.type == ALLEGRO_EVENT_KEY_CHAR)
+		{
+			if (event.keyboard.keycode == ALLEGRO_KEY_UP && event.keyboard.keycode == ALLEGRO_KEYMOD_SHIFT)
+				y_position -= 5;
+			if (event.keyboard.keycode == ALLEGRO_KEY_UP)
+				y_position -= 5;
+			if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+				y_position += 5;
+			if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+				x_position -=5;
+			if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+				x_position +=5;
+		}
+		//Character Movement DF
+#pragma endregion CharacterMovement
 		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			mouse = event.mouse.button;
 		}
@@ -130,6 +164,7 @@ int main(void) {
 			zoom += event.mouse.dz * 0.1 * zoom;
 			if (zoom < 0.1) zoom = 0.1;
 			if (zoom > 10) zoom = 10;
+			
 		}
 		if (event.type == ALLEGRO_EVENT_TIMER)
 			redraw = true;
@@ -142,13 +177,37 @@ int main(void) {
 			redraw = false;
 			double t = al_get_time();
 			//tile_map_draw(); //draw
-			Map.TileMapDraw(*display,scroll_x,scroll_y,zoom,rotate);
+			Map.TileMapDraw(*display, scroll_x, scroll_y, zoom, rotate);
 			if (font) {
-				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
+				al_draw_filled_rounded_rectangle(4, 4, 100, 75,
 					8, 8, al_map_rgba(0, 0, 0, 200));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", fps);
+					54, 15, ALLEGRO_ALIGN_CENTRE, "FPS: %d", fps);
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 30, ALLEGRO_ALIGN_CENTRE, "char width: %d", (int)((double)initial_character_width * (double)zoom));
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 45, ALLEGRO_ALIGN_CENTRE, "char height: %d", (int)((double)initial_character_height * (double)zoom));
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 60, ALLEGRO_ALIGN_CENTRE, "char bit width: %d", al_get_bitmap_width(character));
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 75, ALLEGRO_ALIGN_CENTRE, "Zoom: %f", zoom);
+
+				
 			}
+
+
+			//trying to resize the bitmap with the zoom: Character Movement DF
+			al_draw_scaled_bitmap(character,
+				x_position, y_position, //Source Origin
+				al_get_bitmap_width(character), //Source Width
+				al_get_bitmap_height(character), // Source Height
+				x_position, y_position, //Target Origin
+				(int)((double)initial_character_width * (double)zoom), //Target Width ---keeps performing op with each move
+				(int)((double)initial_character_height * (double)zoom), //Target Height ---keeps performing op with each move
+				0); //Flags
+
+
+			al_draw_bitmap(character, x_position, y_position, 0); //Draws the character at the specified position DF Character Movement
 			al_flip_display();
 			fps_accum++;
 			if (t - fps_time >= 1) {
@@ -158,5 +217,7 @@ int main(void) {
 			}
 		}
 	}
+
+
 	return 0;
 }
