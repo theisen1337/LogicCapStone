@@ -188,7 +188,7 @@ int main(void) {
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
 					54, 45, ALLEGRO_ALIGN_CENTRE, "char height: %d", (int)((double)initial_character_height * (double)zoom));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 60, ALLEGRO_ALIGN_CENTRE, "char bit width: %d", al_get_bitmap_width(character));
+					54, 60, ALLEGRO_ALIGN_CENTRE, "x_position: %d", x_position);
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
 					54, 75, ALLEGRO_ALIGN_CENTRE, "Zoom: %f", zoom);
 
@@ -196,18 +196,19 @@ int main(void) {
 			}
 
 
-			//trying to resize the bitmap with the zoom: Character Movement DF
-			al_draw_scaled_bitmap(character,
-				x_position, y_position, //Source Origin
-				al_get_bitmap_width(character), //Source Width
-				al_get_bitmap_height(character), // Source Height
-				x_position, y_position, //Target Origin
-				(int)((double)initial_character_width * (double)zoom), //Target Width ---keeps performing op with each move
-				(int)((double)initial_character_height * (double)zoom), //Target Height ---keeps performing op with each move
-				0); //Flags
-
-
-			al_draw_bitmap(character, x_position, y_position, 0); //Draws the character at the specified position DF Character Movement
+			//Code to draw the character, also scales and rotates it Character Movement DF
+			al_draw_scaled_rotated_bitmap(character,
+				((float)((double)initial_character_height * (double)zoom)) / 2,
+				((float)((double)initial_character_width * (double)zoom)) / 2,
+				x_position,
+				y_position,
+				zoom,
+				zoom,
+				rotate,
+				0);
+			
+			
+			//al_draw_bitmap(character, x_position, y_position, 0); //Draws the character at the specified position DF Character Movement
 			al_flip_display();
 			fps_accum++;
 			if (t - fps_time >= 1) {

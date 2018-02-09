@@ -23,8 +23,9 @@ private:
 	ALLEGRO_BITMAP * OreImage;
 	int travelSpeed = 1;
 	int health = 1;
+	int numberToDrop = 0;
 protected:
 	void setTravelSpeed(int speed);
 	void setHealth(int health);
-};
 
+};
