@@ -8,14 +8,21 @@ Tutorial:
    for one file source quick and easy.
    
 Libraries to make life east-peasy:
-	1. Boost
-	2. Allergo
-	3. Agui
-	4. FreeType
-	5. Ogg
-	6. libcurl
-	7. MiniZip
-	8. ImGui
+1. Boost
+
+2. Allergo
+
+3. Agui
+
+4. FreeType
+
+5. Ogg
+
+6. libcurl
+
+7. MiniZip
+
+8. ImGui
 	
    
 Quality of Art, and design concepts:
