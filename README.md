@@ -1,3 +1,8 @@
+
+Implementation Design:
+
+![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/CapstoneDesign.png)
+
 Tutorial:
 
 1. Make new Local Project
@@ -8,20 +13,14 @@ Tutorial:
    for one file source quick and easy.
    
 Libraries to make life east-peasy:
+
 1. Boost
-
 2. Allergo
-
 3. Agui
-
 4. FreeType
-
 5. Ogg
-
 6. libcurl
-
 7. MiniZip
-
 8. ImGui
 	
    
