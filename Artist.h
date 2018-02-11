@@ -24,7 +24,7 @@ private:
 		#Maps * #TilesPerMap * 64^2 = #Total Tiles Per World (150994994)
 		Number of pixels for world
 		*/
-	int worldSize = 150994994;
+	int worldSize = 0;
 public:
 		//Constructor
 	Artist();
@@ -32,8 +32,7 @@ public:
 	void tileBuffer(ALLEGRO_DISPLAY &dis, World world);
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate);
-		//Load the tile pictures
-	void loadTilePic(Tile::Types tile);
+
 	void drawBitmapTest(ALLEGRO_DISPLAY &dis);
 };
 

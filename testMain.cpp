@@ -18,13 +18,13 @@ ALLEGRO_BITMAP *image;
 
 
 int main(void) {
-	World world = World();
-	Artist art = Artist();
+	
 	al_init();
 	al_init_primitives_addon();
 	al_init_image_addon();
 	//al_init_font_addon();
-
+	World world = World();
+	Artist art = Artist();
 
 	/* Create our window. */
 	//al_set_new_display_flags(ALLEGRO_RESIZABLE);
