@@ -1,6 +1,8 @@
 #pragma once
 #include <allegro5/allegro.h>
 #include <string>
+#include <stdlib.h>
+#include <iostream>
 
 class Tile
 {
@@ -30,5 +32,6 @@ public:
 	ALLEGRO_BITMAP * getTilePic() { return pic; };
 		//Get loaded
 	bool getLoaded() { return loaded; };
+	int r;
 };
 

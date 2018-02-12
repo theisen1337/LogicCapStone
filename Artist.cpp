@@ -9,7 +9,8 @@ Artist::Artist()
 
 void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World world)
 {
-	al_set_target_backbuffer(&dis);
+	Bitmap = al_create_bitmap(2048, 2048);
+	al_set_target_bitmap(Bitmap);
 	//These two loops are for looping through world vector
 	for (int j = 0; j < worldDim; j++)
 	{
@@ -20,13 +21,13 @@ void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World world)
 				2048, 2048,
 				(j*2048), (k*2048),
 				2048, 2048, 0);
-			al_set_target_backbuffer(&dis);
+			//al_set_target_backbuffer(&dis);
 		}
 	}
-	
+	al_set_target_backbuffer(&dis);
 }
 
-void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate)
+void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world)
 {
 	int x, y;
 	ALLEGRO_TRANSFORM transform;
@@ -50,15 +51,27 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
 	al_hold_bitmap_drawing(1);
-	for (y = 0; y < 100; y++) {
-		for (x = 0; x < 100; x++) {
-			//int i = arr[x + y * 100];
-			//float u = 1 + i * 66;
-			float v = 1;
-			//al_draw_scaled_bitmap(Bitmap, u, v, 64, 64,
-				//x * 32, y * 32, 32, 32, 0);
+	/*
+	for (int j = 0; j < worldDim; j++)
+	{
+		for (int k = 0; k < worldDim; k++)
+		{
+			al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
+				0, 0,
+				2048, 2048,
+				(j * 2048), (k * 2048),
+				2048, 2048, 0);
+			//al_set_target_backbuffer(&dis);
 		}
 	}
+	*/
+	for (y = 0; y < 3; y++) {
+		for (x = 0; x < 3; x++) {
+			//al_draw_scaled_bitmap(Bitmap, 0, 0, 64, 64, x * 32, y * 32, 32, 32, 0);
+			al_draw_scaled_bitmap(Bitmap, 0, 0, 1024, 1024, x * 2048, y * 2048, 2048, 2048, 0);
+		}
+	}
+	
 	al_hold_bitmap_drawing(0);
 	
 	al_identity_transform(&transform);

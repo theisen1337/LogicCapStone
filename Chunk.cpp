@@ -10,6 +10,7 @@ void Chunk::genChunkMap()
 	{
 		for (int m = 0; m < chunkDim; m++)
 		{
+			bottomLayer[l][m].genPicture();
 			al_draw_scaled_bitmap(bottomLayer[l][m].getTilePic() ,
 				0, 0,
 				tileDim, tileDim,
