@@ -51,24 +51,11 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
 	al_hold_bitmap_drawing(1);
-	/*
-	for (int j = 0; j < worldDim; j++)
-	{
-		for (int k = 0; k < worldDim; k++)
-		{
-			al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
-				0, 0,
-				2048, 2048,
-				(j * 2048), (k * 2048),
-				2048, 2048, 0);
-			//al_set_target_backbuffer(&dis);
-		}
-	}
-	*/
 	for (y = 0; y < 3; y++) {
 		for (x = 0; x < 3; x++) {
-			//al_draw_scaled_bitmap(Bitmap, 0, 0, 64, 64, x * 32, y * 32, 32, 32, 0);
+
 			al_draw_scaled_bitmap(Bitmap, 0, 0, 1024, 1024, x * 2048, y * 2048, 2048, 2048, 0);
+			
 		}
 	}
 	
@@ -78,9 +65,5 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	al_use_transform(&transform);
 }
 
-void Artist::drawBitmapTest(ALLEGRO_DISPLAY & dis)
-{
-	al_draw_bitmap(Bitmap, 1024, 1024, 0);
-}
 
 

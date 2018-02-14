@@ -7,7 +7,7 @@ private:
 		//Chunk width and heights
 	int chunkDim = 32;
 		//Tile width and heights
-	int tileDim = 32;
+	int tileDim = 64;
 		//Position of the chunk in the world vector
 	int worldPosW;
 	int worldPosH;
@@ -19,11 +19,7 @@ private:
 	ALLEGRO_BITMAP *map;
 public:
 		//Constructor
-	Chunk() {
-		bottomLayer.resize(chunkDim, std::vector<Tile>(chunkDim,Tile(Tile::GRASS)));
-		map = al_create_bitmap(2048, 2048);
-		genChunkMap();
-	};
+	Chunk();
 		//Get tile from bottom layer
 	std::vector<std::vector<Tile>> getTiles() { return bottomLayer; };
 		//Set Width of chunk
@@ -44,6 +40,8 @@ public:
 	void genChunkMap();
 		//Get map
 	ALLEGRO_BITMAP * getMap() { return map; };
+		//Initial Generation of Tiles
+	void initalGen();
 
 };
 
