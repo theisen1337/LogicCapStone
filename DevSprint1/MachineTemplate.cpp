@@ -1,37 +1,20 @@
 #include "MachineTemplate.h"
 
-
-
-MachineTemplate::MachineTemplate()
+Miner::Miner()
 {
+	
 }
 
-
-MachineTemplate::~MachineTemplate()
+Smith::Smith()
 {
+	setTotalWork(100);
+	setWorkPerSecond(20);
+	setCraftRecipe(Item ore)
+	{
+
+	}
 }
 
-void MachineTemplate::setCraftRecipe(std::vector<std::string, int> recipe)
-{
-	CraftRecipe = recipe;
-}
-
-std::vector<std::string, int> MachineTemplate::getCraftRecipe()
-{
-	return std::vector<std::string, int>();
-}
-
-void MachineTemplate::setTotalWork(float totalWork)
+Chest::Chest()
 {
 }
-
-void MachineTemplate::setWorkPerSecond(float WorkPerSecond)
-{
-}
-
-bool MachineTemplate::isWorking()
-{
-	return false;
-}
-
-

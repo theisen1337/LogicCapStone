@@ -1,6 +1,8 @@
 #pragma once
 #include <allegro5/allegro.h>
 #include <string>
+#include <stdlib.h>
+#include <iostream>
 
 class Tile
 {
@@ -30,5 +32,15 @@ public:
 	ALLEGRO_BITMAP * getTilePic() { return pic; };
 		//Get loaded
 	bool getLoaded() { return loaded; };
-};
+		//Random variable
+	int r;
+		//Chunk Positions
+	int chunkX;
+	int chunkY;
+		//Setters and Getters for Chunk Positions
+	int getChunkX() { return chunkX; };
+	int getChunkY() { return chunkY; };
+	void setChunkX(int x) { chunkX = x; };
+	void setChunkY(int y) { chunkY = y; };
+ };
 

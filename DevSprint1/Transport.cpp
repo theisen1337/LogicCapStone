@@ -11,14 +11,14 @@ Transport::~Transport()
 {
 }
 
-void Transport::addItem(string item)
+void Transport::addItem(Item item)
 {
-	itemontrack.push_back(item);
+	itemsOntrack.push_back(item);
 }
 
-void Transport::removeItem(string item)
+void Transport::removeItem(Item item)
 {
-	itemontrack.erase()
+	itemsOntrack.pop_front();
 }
 
 void Transport::layTrack()

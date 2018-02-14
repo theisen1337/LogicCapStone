@@ -40,6 +40,9 @@ void Ore::gotHit(int damage)
 	}
 }
 
+Ore::~Ore()
+{
+}
 
 void Ore::setTravelSpeed(int speed)
 {
@@ -49,8 +52,4 @@ void Ore::setTravelSpeed(int speed)
 void Ore::setHealth(int health)
 {
 	this->health = health;
-}
-
-Ore::~Ore()
-{
 }

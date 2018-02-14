@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
-
+#include <deque>
+#include "Item.h"
+#include "Artist.h"
 
 
 class Transport
@@ -10,8 +11,8 @@ public:
 	Transport();
 	~Transport();
 
-	void addItem(string item);
-	void removeItem();
+	void addItem(Item item);
+	void removeItem(Item item);
 
 	void layTrack();
 	void removeTrack();
@@ -19,6 +20,8 @@ public:
 
 private:
 	
+	
+
 	//
 	int tracklength;
 	float trackspeed;
@@ -26,10 +29,10 @@ private:
 
 
 	//path for item to travel in float x and y
-	std::vector<float, float> trackpath;
+	std::deque<float, float> trackpath;
 
 	//hold item contents, REPLACE string with item object
-	std::vector<string> itemontrack;
+	std::deque<Item> itemsOntrack;
 
 	
 

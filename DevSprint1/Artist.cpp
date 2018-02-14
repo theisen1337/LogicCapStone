@@ -9,42 +9,25 @@ Artist::Artist()
 
 void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World world)
 {
-	//Tile Atlas
-	Bitmap = al_create_bitmap(worldSize, worldSize);
-	//al_set_target_bitmap(Bitmap);
-	ALLEGRO_BITMAP *pic = NULL;
-	pic = al_load_bitmap("Tiles//grass.png");
+	Bitmap = al_create_bitmap(2048, 2048);
+	al_set_target_bitmap(Bitmap);
 	//These two loops are for looping through world vector
 	for (int j = 0; j < worldDim; j++)
 	{
 		for (int k = 0; k < worldDim; k++)
 		{
-			//std::vector<std::vector<Chunk>> *tempWorld = &world.getWorld();
-			//These two loops are for looping through map vectors
-			for (int l = 0; l < chunkDim; l++)
-			{
-				for (int m = 0; m < chunkDim; m++)
-				{
-					/*
-					al_draw_filled_rectangle(
-						l*tileDim + (j * tileDim * chunkDim), m*tileDim + (k * tileDim * chunkDim), 
-						(l*tileDim) + (j * tileDim * chunkDim) + tileDim, (m*tileDim) + (k * tileDim * chunkDim) + tileDim,
-						al_map_rgb(1, 1, 1));*/
-					al_draw_scaled_bitmap(pic,
-						0,0,
-						tileDim, tileDim,
-						(l*tileDim) + (j * tileDim * chunkDim), (m*tileDim) + (k * tileDim * chunkDim),
-						tileDim, tileDim, 0);
-				}
-			}
+			al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
+				0, 0,
+				2048, 2048,
+				(j*2048), (k*2048),
+				2048, 2048, 0);
+			//al_set_target_backbuffer(&dis);
 		}
 	}
-	
-
-
+	al_set_target_backbuffer(&dis);
 }
 
-void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate)
+void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world)
 {
 	int x, y;
 	ALLEGRO_TRANSFORM transform;
@@ -68,24 +51,19 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
 	al_hold_bitmap_drawing(1);
-	for (y = 0; y < 100; y++) {
-		for (x = 0; x < 100; x++) {
-			//int i = arr[x + y * 100];
-			//float u = 1 + i * 66;
-			float v = 1;
-			//al_draw_scaled_bitmap(Bitmap, u, v, 64, 64,
-				//x * 32, y * 32, 32, 32, 0);
+	for (y = 0; y < 3; y++) {
+		for (x = 0; x < 3; x++) {
+
+			al_draw_scaled_bitmap(Bitmap, 0, 0, 1024, 1024, x * 2048, y * 2048, 2048, 2048, 0);
+			
 		}
 	}
+	
 	al_hold_bitmap_drawing(0);
 	
 	al_identity_transform(&transform);
 	al_use_transform(&transform);
 }
 
-void Artist::drawBitmapTest(ALLEGRO_DISPLAY & dis)
-{
-	al_draw_bitmap(Bitmap, 1024, 1024, 0);
-}
 
 

@@ -5,8 +5,9 @@ class Chunk
 {
 private:
 		//Chunk width and heights
-	int chunkWidth = 64;
-	int chunkHeight = 64;
+	int chunkDim = 32;
+		//Tile width and heights
+	int tileDim = 64;
 		//Position of the chunk in the world vector
 	int worldPosW;
 	int worldPosH;
@@ -14,21 +15,17 @@ private:
 	std::vector<std::vector<Tile>> bottomLayer;
 		//Bool for if the chunk is currently generated
 	bool isGen = false;
+		//Bitmap to hold all the tiles drawn to it.
+	ALLEGRO_BITMAP *map;
 public:
 		//Constructor
-	Chunk() {
-		bottomLayer.resize(chunkWidth, std::vector<Tile>(chunkHeight,Tile(Tile::GRASS)));
-	};
+	Chunk();
 		//Get tile from bottom layer
 	std::vector<std::vector<Tile>> getTiles() { return bottomLayer; };
 		//Set Width of chunk
-	void setWidth(int w) { chunkWidth = w; };
+	void setChunkDim(int w) { chunkDim = w; };
 		//Set Height of chunk
-	void setHeight(int h) { chunkHeight = h; };
-		//Get Width of chunk
-	int getWidth() { return chunkWidth; };
-		//Get Height of chunk
-	int getHeight() { return chunkHeight; };
+	int getChunkDim() { return chunkDim; };
 		//Set world positions 
 	void setWorldPosW(int w) { worldPosW = w; };
 	void setWorldPosH(int h) { worldPosH = h; };
@@ -38,6 +35,13 @@ public:
 		//Get isGen boolean
 	bool getGen() { return isGen; };
 		//Toggle the state of the isGen variable
-	void toggleGen() { if (isGen) { isGen = false; } else { isGen = true; } }
+	void toggleGen() { if (isGen) { isGen = false; } else { isGen = true; } };
+		//Generate chunk map
+	void genChunkMap();
+		//Get map
+	ALLEGRO_BITMAP * getMap() { return map; };
+		//Initial Generation of Tiles
+	void initalGen();
+
 };
 
