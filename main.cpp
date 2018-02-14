@@ -23,6 +23,8 @@
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
+#include "allegro5/allegro_native_dialog.h"
+#include "CharacterMovement.h"
 
 #include "TileMap.h"
 
@@ -48,11 +50,20 @@ double fps_time;
 
 //Character movement DF
 ALLEGRO_BITMAP *character;
-int x_position = 0;
-int y_position = 0;
-int initial_character_width = 0;
-int initial_character_height = 0;
+int xPosition = -44;
+int yPosition = 0;
+int initialCharacterWidth = 0;
+int initialCharacterHeight = 0;
+int charPositionX = 320; //starting x position for character
+int charPositionY = 240; //starting y position for character
 
+//map boundaries DF
+int leftMapBoundary = -3179;
+int rightMapBoundary = -44;
+int topMapBoundary = -2380;
+int bottomMapBoundary = 757;
+
+CharacterMovement move(xPosition, yPosition);
 
 int main(void) {
 	ALLEGRO_TIMER *timer;
@@ -73,6 +84,7 @@ int main(void) {
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 	display = al_create_display(640, 480);
 	al_set_window_title(display, "Allegro 5 Tilemap Example");
+
 
 	/* The example will work without those, but there will be no
 	* FPS display and no icon.
@@ -102,8 +114,8 @@ int main(void) {
 
 	//Intial make of character bitmap Character Movement DF
 	character = al_load_bitmap("Character.PNG");
-	initial_character_height = al_get_bitmap_height(character);
-	initial_character_width = al_get_bitmap_width(character);
+	initialCharacterHeight = al_get_bitmap_height(character);
+	initialCharacterWidth = al_get_bitmap_width(character);
 
 
 
@@ -119,8 +131,8 @@ int main(void) {
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
 			{
 				Map.Generate_Terrain();
-				x_position = 0;
-				y_position = 0;
+				move.setCharacterXPosition(0);
+				move.setCharacterYPosition(0);
 			}
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
@@ -129,16 +141,39 @@ int main(void) {
 #pragma region CharacterMovement
 		if (event.type == ALLEGRO_EVENT_KEY_CHAR)
 		{
-			if (event.keyboard.keycode == ALLEGRO_KEY_UP && event.keyboard.keycode == ALLEGRO_KEYMOD_SHIFT)
-				y_position -= 5;
 			if (event.keyboard.keycode == ALLEGRO_KEY_UP)
-				y_position -= 5;
+			{
+				move.moveCharacterUp();
+				if (move.getCharacterYPosition() < topMapBoundary)
+				{
+					move.setCharacterYPosition(topMapBoundary);
+				}
+			}
 			if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
-				y_position += 5;
+			{
+				move.moveCharacterDown();
+				if (move.getCharacterYPosition() > bottomMapBoundary)
+				{
+					move.setCharacterYPosition(bottomMapBoundary);
+				}
+			}
 			if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
-				x_position -=5;
+			{
+				move.moveCharacterLeft();
+				if (move.getCharacterXPosition() < leftMapBoundary)
+				{
+					move.setCharacterXPosition(leftMapBoundary);
+				}
+				
+			}
 			if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
-				x_position +=5;
+			{
+				move.moveCharacterRight();
+				if (move.getCharacterXPosition() > rightMapBoundary)
+				{
+					move.setCharacterXPosition(rightMapBoundary);
+				}
+			}
 		}
 		//Character Movement DF
 #pragma endregion CharacterMovement
@@ -177,18 +212,19 @@ int main(void) {
 			redraw = false;
 			double t = al_get_time();
 			//tile_map_draw(); //draw
-			Map.TileMapDraw(*display, scroll_x, scroll_y, zoom, rotate);
+			//Map.TileMapDraw(*display, scroll_x, scroll_y, zoom, rotate);
+			Map.TileMapDraw(*display, 48 * 50 + 300 + move.getCharacterXPosition(), 48 * 50 + 300 + move.getCharacterYPosition(), zoom, rotate);
 			if (font) {
 				al_draw_filled_rounded_rectangle(4, 4, 100, 75,
 					8, 8, al_map_rgba(0, 0, 0, 200));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
 					54, 15, ALLEGRO_ALIGN_CENTRE, "FPS: %d", fps);
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 30, ALLEGRO_ALIGN_CENTRE, "char width: %d", (int)((double)initial_character_width * (double)zoom));
+					54, 30, ALLEGRO_ALIGN_CENTRE, "char width: %d", (int)((double)initialCharacterWidth * (double)zoom));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 45, ALLEGRO_ALIGN_CENTRE, "char height: %d", (int)((double)initial_character_height * (double)zoom));
+					54, 45, ALLEGRO_ALIGN_CENTRE, "char height: %d", (int)((double)initialCharacterHeight * (double)zoom));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 60, ALLEGRO_ALIGN_CENTRE, "x_position: %d", x_position);
+					54, 60, ALLEGRO_ALIGN_CENTRE, "xPosition: %d", move.getCharacterXPosition());
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
 					54, 75, ALLEGRO_ALIGN_CENTRE, "Zoom: %f", zoom);
 
@@ -198,17 +234,16 @@ int main(void) {
 
 			//Code to draw the character, also scales and rotates it Character Movement DF
 			al_draw_scaled_rotated_bitmap(character,
-				((float)((double)initial_character_height * (double)zoom)) / 2,
-				((float)((double)initial_character_width * (double)zoom)) / 2,
-				x_position,
-				y_position,
+				((float)((double)initialCharacterHeight * (double)zoom)) / 2,
+				((float)((double)initialCharacterWidth * (double)zoom)) / 2,
+				charPositionX,
+				charPositionY,
 				zoom,
 				zoom,
 				rotate,
 				0);
 			
 			
-			//al_draw_bitmap(character, x_position, y_position, 0); //Draws the character at the specified position DF Character Movement
 			al_flip_display();
 			fps_accum++;
 			if (t - fps_time >= 1) {

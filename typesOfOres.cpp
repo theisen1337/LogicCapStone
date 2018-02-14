@@ -3,6 +3,7 @@
 typesOfOres::typesOfOres()
 {
 	addNewOreType("coal");
+	addNewOreType("iron");
 }
 
 int typesOfOres::getNumberOfDifferentOres()

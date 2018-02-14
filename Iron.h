@@ -1,14 +1,13 @@
 #pragma once
 
-#include "Ore.h"
+#include "ore.h"
 
-class Coal : public Ore
+class Iron : public Ore
 {
-public:
-	Coal() : Ore()
+	Iron() : Ore()
 	{
 		setTravelSpeed(2);
-		setHealth(3);
+		setHealth(2);
 	}
 	void LeftClickInteract();
 	void RightClickInteract();
