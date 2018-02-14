@@ -1,7 +1,14 @@
 #pragma once
-#include "Tiles.h"
+
+#include <stdlib.h>
+#include <time.h>
+
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include "allegro5/allegro_primitives.h"
+
+#include "main.h"
+
 
 class TileMap
 {
@@ -21,6 +28,4 @@ private:
 	int arr[100 * 100];
 
 	ALLEGRO_BITMAP *Bitmap;
-	Tiles tiles;
 };
-

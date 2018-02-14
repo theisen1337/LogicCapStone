@@ -15,48 +15,63 @@
 * Esc = Quit
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include "main.h"
 
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_primitives.h"
-#include "allegro5/allegro_font.h"
-
-#include "TileMap.h"
-
-/* Our window. */
+// Window Used for Display
 ALLEGRO_DISPLAY *display;
-/* Our tiles atlas. */
-//ALLEGRO_BITMAP *tiles;
-/* Our tilemap. */
+// Tilemap Test Image
 ALLEGRO_BITMAP *BlahtestImage;
-
-/* Keep track of pressed mouse button. */
-int mouse;
-/* Camera parameters. */
-float zoom = 0.5, rotate;
-float scroll_x, scroll_y;
-/* Our icon and font. */
-
-//ALLEGRO_BITMAP *icon;
+// Custom Font
 ALLEGRO_FONT *font;
-/* Simple FPS counter. */
-int fps, fps_accum;
-double fps_time;
 
+// Create Static Objects (Similar to Vulkan Use)
+static FileIO IO;
+static Interact Interactions;
+static TileMap Map;
+static Items Item;
+static Tiles Tile;
 
+// Initialization of Class
+LogisticsGame& LogisticsGame::getInstance()
+{
+	static LogisticsGame instance;
 
+	return instance;
+}
 
-int main(void) {
+// Return Objects for Extraneous Class Use
+FileIO *LogisticsGame::getIO()
+{
+	return &IO;
+}
+Interact *LogisticsGame::getInteractions()
+{
+	return &Interactions;
+}
+TileMap *LogisticsGame::getMap()
+{
+	return &Map;
+}
+Items *LogisticsGame::getItem()
+{
+	return &Item;
+}
+Tiles *LogisticsGame::getTile()
+{
+	return &Tile;
+}
+
+LogisticsGame game = LogisticsGame::getInstance();
+
+void LogisticsGame::run()
+{
+	// Built in Game Timer
 	ALLEGRO_TIMER *timer;
-	ALLEGRO_EVENT_QUEUE *queue;
-	bool redraw = true;
-	
+
+	// RANDOMIZATION //
 	srand(time(NULL));
 
-	/* Init Allegro 5 + addons. */
+	// Allegro Initialization
 	al_init();
 	al_init_image_addon();
 	al_init_primitives_addon();
@@ -64,99 +79,45 @@ int main(void) {
 	al_install_mouse();
 	al_install_keyboard();
 
-	/* Create our window. */
+	// Creates the Window we will be Using
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 	display = al_create_display(640, 480);
 	al_set_window_title(display, "Allegro 5 Tilemap Example");
 
-	/* The example will work without those, but there will be no
-	* FPS display and no icon.
-	*/
+	// Sets the default Font to be used
 	font = al_create_builtin_font(); // al_load_font("fixed_font.tga", 0, 0);
-	TileMap Map;
 
-
-
+	// Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
-	//tile_map_create();
+	// Creates Buffer and Generates the Map
 	Map.CreateTileBuffer(*display);
 	Map.Generate_Terrain();
 
+	// Initializes Timer
 	timer = al_create_timer(1.0 / 60);
-	queue = al_create_event_queue();
-	al_register_event_source(queue, al_get_keyboard_event_source());
-	al_register_event_source(queue, al_get_mouse_event_source());
-	al_register_event_source(queue, al_get_display_event_source(display));
-	al_register_event_source(queue, al_get_timer_event_source(timer));
+
+	// Initializes Interactions
+	Interact interactions(timer, display);
+
+	// Starts the Timer
 	al_start_timer(timer);
 
-	/* Center of map. */
-	scroll_x = 100 * 32 / 2;
-	scroll_y = 100 * 32 / 2;
+	// Begins Loop for Game
+	interactions.beginInteractions(Map, display, font);
+}
 
-	while (1) {
-		//tile_map_create();
-		ALLEGRO_EVENT event;
-		al_wait_for_event(queue, &event);
-
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-			break;
-		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-			if (event.keyboard.keycode == ALLEGRO_KEY_R)
-				Map.Generate_Terrain();
-			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				break;
-		}
-		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-			mouse = event.mouse.button;
-		}
-		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-			mouse = 0;
-		}
-		if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-			/* Left button scrolls. */
-			if (mouse == 1) {
-				float x = event.mouse.dx / zoom;
-				float y = event.mouse.dy / zoom;
-				scroll_x -= x * cos(rotate) + y * sin(rotate);
-				scroll_y -= y * cos(rotate) - x * sin(rotate);
-			}
-			/* Right button zooms/rotates. */
-			if (mouse == 2) {
-				rotate += event.mouse.dx * 0.01;
-				zoom += event.mouse.dy * 0.01 * zoom;
-			}
-			zoom += event.mouse.dz * 0.1 * zoom;
-			if (zoom < 0.1) zoom = 0.1;
-			if (zoom > 10) zoom = 10;
-		}
-		if (event.type == ALLEGRO_EVENT_TIMER)
-			redraw = true;
-		if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
-			al_acknowledge_resize(display);
-			redraw = true;
-		}
-
-		if (redraw && al_is_event_queue_empty(queue)) {
-			redraw = false;
-			double t = al_get_time();
-			//tile_map_draw(); //draw
-			Map.TileMapDraw(*display,scroll_x,scroll_y,zoom,rotate);
-			if (font) {
-				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
-					8, 8, al_map_rgba(0, 0, 0, 200));
-				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", fps);
-			}
-			al_flip_display();
-			fps_accum++;
-			if (t - fps_time >= 1) {
-				fps = fps_accum;
-				fps_accum = 0;
-				fps_time = t;
-			}
-		}
+int main(void) 
+{
+	try
+	{
+		game.run();
 	}
-	return 0;
+	catch (const std::runtime_error& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
 }

@@ -1,30 +1,12 @@
 #include "Tiles.h"
-#include <string>
-#include <stdio.h>
 
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_primitives.h"
-#include "allegro5/allegro_font.h"
-
-#include "FileIO.h"
-
-//#include "dirent.h"
-
-
-//FolderIO
-#include <iostream>
 //#include <boost/filesystem.hpp> //check out Boost Filesystem
 
-
-
-
-FileIO IO;
+FileIO IO = *(LogisticsGame::getIO());
 
 
 Tiles::Tiles()
 {
-	
 	loadTiles();
 }
 
@@ -33,7 +15,6 @@ void Tiles::loadTiles()
 	load_Terrian();
 	load_Grass();
 	load_Ore();
-	
 }
 
 void Tiles::load_Terrian()
@@ -42,8 +23,6 @@ void Tiles::load_Terrian()
 	{
 		IO.CreateDir("Terrain");
 	}
-
-
 }
 
 void Tiles::load_Grass()
@@ -109,8 +88,3 @@ int Tiles::getTotal()
 	}*/
 	return arrTiles.size();
 }
-
-
-
-
-

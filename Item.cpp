@@ -1,10 +1,15 @@
 #include "Item.h"
 
+FileIO IO = *(LogisticsGame::getIO());
+
 // Constructor
-Item::Item() {}
+Items::Items() 
+{
+	loadItems();
+}
 
 // Overloaded Constructor
-Item::Item(std::string name, std::string category, float value, int width, int height, int stackSize)
+Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize)
 {
 	itemName = name;
 	itemCategory = category;
@@ -16,36 +21,36 @@ Item::Item(std::string name, std::string category, float value, int width, int h
 }
 
 // Deconstructor
-Item::~Item() {}
+Items::~Items() {}
 
 // Getters which Get Values of Object
-std::string Item::getName()
+std::string Items::getName()
 {
 	return itemName;
 }
-std::string Item::getCategory()
+std::string Items::getCategory()
 {
 	return itemCategory;
 }
-float Item::getValue()
+float Items::getValue()
 {
 	return itemValue;
 }
-int Item::getWidth()
+int Items::getWidth()
 {
 	return itemWidth;
 }
-int Item::getHeight()
+int Items::getHeight()
 {
 	return itemHeight;
 }
-int Item::getStackSize()
+int Items::getStackSize()
 {
 	return itemStackSize;
 }
 
 // Setters to Change Values of Object
-void Item::setDropped()
+void Items::setDropped()
 {
 	if (itemDropped == true)
 	{
@@ -58,15 +63,60 @@ void Item::setDropped()
 }
 
 // Checks to see if item is dropped or not
-bool Item::checkDropped()
+bool Items::checkDropped()
 {
 	return itemDropped;
 }
 
-// This is called from Interactions Class when item is Right Clicked
-void Item::pickupItem()
+// This is called from Interactions Class when item is left Clicked
+void Items::pickupItem()
 {
 	// To Do
 }
 
-// This is called from Interactions Class when item is left clicked
+// This is called from Interactions Class when tile is right clicked with item
+void Items::placeItem()
+{
+	// To Do
+}
+
+
+
+void Items::loadItems()
+{
+	checkItemDirectory();
+	load_Ores();
+	//load_Armor();
+	//load_Weapons(); ...
+}
+
+void Items::checkItemDirectory()
+{
+	if (!IO.DirectoryExist("Items"))
+	{
+		IO.CreateDir("Items");
+	}
+}
+
+void Items::load_Ores()
+{
+	if (!IO.DirectoryExist("Items\\Ores"))
+	{
+		IO.CreateDir("Items\\Ores");
+	}
+
+	std::string test[] = { "ITEM_COAL.png" };
+
+	for (int i = 0; i < test->length(); i++)
+	{
+		std::string file = "Items\\Ores\\" + test[i];
+		ALLEGRO_BITMAP *testImage = al_load_bitmap(file.c_str());
+		arrItems.push_back(testImage);
+	}
+}
+
+ALLEGRO_BITMAP * Items::getBitMap()
+{
+
+	return ItemImage;
+}

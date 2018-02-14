@@ -5,12 +5,14 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 
+#include "main.h"
+
 class Ore
 {
 public:
 	Ore();
 	Ore(std::string OreType);
-	Ore(int OreType);
+	//Ore(int OreType);
 	~Ore();
 
 

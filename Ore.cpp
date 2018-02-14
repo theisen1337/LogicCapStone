@@ -1,5 +1,4 @@
 #include "Ore.h"
-#include <string>
 
 
 Ore::Ore()

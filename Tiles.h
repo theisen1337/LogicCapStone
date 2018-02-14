@@ -1,10 +1,15 @@
 #pragma once
-#include "allegro5/allegro.h"
+#include <string>
+#include <stdio.h>
 #include <vector>
+#include <iostream>
+
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
+
+#include "main.h"
 
 class Tiles
 {

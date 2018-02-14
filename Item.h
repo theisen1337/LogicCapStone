@@ -1,16 +1,23 @@
 #pragma once
 
 #include <string>
+#include <stdio.h>
+#include <iostream>
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include "allegro5/allegro_primitives.h"
+#include "allegro5/allegro_font.h"
 
-class Item
+#include "main.h"
+
+
+class Items
 {
 public:
-	Item();
-	Item(std::string name, std::string category, float value, int width, int height, int stackSize);
-	~Item();
+	Items();
+	Items(std::string name, std::string category, float value, int width, int height, int stackSize);
+	~Items();
 
 	std::string getName();
 	std::string getCategory();
@@ -23,9 +30,21 @@ public:
 	bool checkDropped();
 
 	void pickupItem();
+	void placeItem();
+
+	void loadItems();
+	void checkItemDirectory();
+	void load_Ores();
+	//ALLEGRO_BITMAP * getItem(unsigned int index);
+
+	ALLEGRO_BITMAP * getBitMap();
+
 
 private:
 	ALLEGRO_BITMAP * ItemImage;
+
+	//std::vector<ALLEGRO_BITMAP*> grassTiles;
+	std::vector<ALLEGRO_BITMAP*> arrItems;
 
 	std::string itemName;
 	std::string itemCategory;
