@@ -4,6 +4,7 @@
 class Miner: public MachineBase
 {
 public:
+	Miner();
 private:
 };
 
@@ -17,6 +18,7 @@ private:
 class Chest : public MachineBase
 {
 public:
+	Chest();
 private:
 };
 

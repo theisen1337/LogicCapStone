@@ -6,6 +6,6 @@ void Coal::Interact()
 
 void Coal::Drop()
 {
-	// TODO: create a coal item obj
+	// TODO: create a coal Items obj
 }
 

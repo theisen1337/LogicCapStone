@@ -7,7 +7,7 @@ Chunk::Chunk()
 {
 	bottomLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::GRASS)));
 	initalGen();
-	map = al_create_bitmap(2048, 2048);
+	map = al_create_bitmap(1024, 1024);
 	genChunkMap();
 }
 

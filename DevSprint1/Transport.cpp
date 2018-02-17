@@ -1,5 +1,5 @@
 #include "Transport.h"
-
+#include "Items.h"
 
 
 Transport::Transport()
@@ -11,14 +11,14 @@ Transport::~Transport()
 {
 }
 
-void Transport::addItem(Item item)
+void Transport::addItems(Items Items)
 {
-	itemsOntrack.push_back(item);
+	ItemsOntrack.push_back(Items);
 }
 
-void Transport::removeItem(Item item)
+void Transport::removeItems(Items Items)
 {
-	itemsOntrack.pop_front();
+	ItemsOntrack.pop_front();
 }
 
 void Transport::layTrack()

@@ -30,28 +30,28 @@ public:
 	void setDropped();
 	bool checkDropped();
 
-	void pickupItem();
-	void placeItem();
+	void pickupItems();
+	void placeItems();
 
 	void loadItems();
-	void checkItemDirectory();
+	void checkItemsDirectory();
 	void load_Ores();
-	//ALLEGRO_BITMAP * getItem(unsigned int index);
+	//ALLEGRO_BITMAP * getItems(unsigned int index);
 
 	ALLEGRO_BITMAP * getBitMap();
 
 
 private:
-	ALLEGRO_BITMAP * ItemImage;
+	ALLEGRO_BITMAP * ItemsImage;
 
 	//std::vector<ALLEGRO_BITMAP*> grassTiles;
 	std::vector<ALLEGRO_BITMAP*> arrItems;
 
-	std::string itemName;
-	std::string itemCategory;
-	float itemValue;
-	int itemStackSize;
-	bool itemDropped;
-	int itemWidth;
-	int itemHeight;
+	std::string ItemsName;
+	std::string ItemsCategory;
+	float ItemsValue;
+	int ItemstackSize;
+	bool ItemsDropped;
+	int ItemsWidth;
+	int ItemsHeight;
 };

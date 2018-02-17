@@ -1,11 +1,11 @@
 #include "ItemLayer.h"
 
-Item Items = *(LogisticsGame::getItem());
+//Items Items = *(LogisticsGame::getItems());
 
-ItemLayer::ItemLayer() {}
-ItemLayer::~ItemLayer() {}
+ItemsLayer::ItemsLayer() {}
+ItemsLayer::~ItemsLayer() {}
 
-ALLEGRO_BITMAP * ItemLayer::getItem(unsigned int index)
+ALLEGRO_BITMAP * ItemsLayer::getItems(unsigned int index)
 {
 	if (index >= (arrItems.size()))
 	{

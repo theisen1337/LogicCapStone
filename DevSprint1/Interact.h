@@ -7,8 +7,9 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "main.h"
-
+#include "Artist.h"
+#include "World.h"
+#include "Items.h"
 
 class Interact
 {

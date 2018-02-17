@@ -2,7 +2,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 
-#include "Item.h"
+#include "Items.h"
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 
 struct Stack 
 {
-	Item i;
+	Items i;
 	int n;
 };
 
@@ -66,8 +66,8 @@ private:
 	float time; // may be depericated
 	bool Busy;
 	
-	//setup vectors for item, such that vector<item> = {{f},{},{}
-	//string = item object temp value
+	//setup vectors for Items, such that vector<Items> = {{f},{},{}
+	//string = Items object temp value
 	std::vector<Stack> CraftRecipe;
 	std::vector<Stack> InputBuffer;
 

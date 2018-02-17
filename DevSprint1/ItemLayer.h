@@ -9,21 +9,23 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "main.h"
+//#include "main.h"
 
-class ItemLayer
+#include "Items.h"
+
+class ItemsLayer
 {
 public:
-	ItemLayer();
-	~ItemLayer();
+	ItemsLayer();
+	~ItemsLayer();
 
 	//void drawTile(int i, float x, float y, float w, float h);
-	ALLEGRO_BITMAP * getItem(unsigned int index);
+	ALLEGRO_BITMAP * getItems(unsigned int index);
 
 private:
 	int SIZE_X = 100;
 	int SIZE_Y = 100;
 	int arr[100 * 100];
 
-	std::vector<Item> arrItems;
+	std::vector<Items> arrItems;
 };

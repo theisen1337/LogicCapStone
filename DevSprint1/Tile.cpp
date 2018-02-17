@@ -26,19 +26,19 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			pic = al_load_bitmap("Tiles//grass1.png");
+			pic = al_load_bitmap("Terrain//Grass//grass1.png");
 			break;
 		case 2:
-			pic = al_load_bitmap("Tiles//grass2.png");
+			pic = al_load_bitmap("Terrain//Grass//grass2.png");
 			break;
 		case 3:
-			pic = al_load_bitmap("Tiles//grass3.png");
+			pic = al_load_bitmap("Terrain//Grass//grass3.png");
 			break;
 		case 4:
-			pic = al_load_bitmap("Tiles//grass4.png");
+			pic = al_load_bitmap("Terrain//Grass//grass4.png");
 			break;
 		default:
-			pic = al_load_bitmap("Tiles//grass1.png");
+			pic = al_load_bitmap("Terrain//Grass//grass1.png");
 			break;
 		}
 		break;
@@ -47,7 +47,7 @@ void Tile::genPicture()
 
 		break;
 	case Tile::EMPTY:
-		pic = al_load_bitmap("Tiles//test.png");
+		pic = al_load_bitmap("Terrain//Dev//test.png");
 
 		break;
 	default:

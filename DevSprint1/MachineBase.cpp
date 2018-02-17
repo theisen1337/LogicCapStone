@@ -17,7 +17,7 @@ MachineBase::~MachineBase()
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 {
 	CraftRecipe = recipe;
-	for(int i; i < recipe.size();i++)
+	for(int i = 0; i < recipe.size();i++)
 		recipe[i].n *= 3;
 
 	InputBuffer = recipe;
@@ -26,8 +26,11 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 {
 	CraftRecipe = recipe;
-	for (int i; i < recipe.size(); i++)
-		recipe[i].n *= multiplier;
+	if (!recipe.empty())
+	{
+		for (int i = 0; i < recipe.size(); i++)
+			recipe[i].n *= multiplier;
+	}
 
 	InputBuffer = recipe;
 }
@@ -35,7 +38,7 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe, int *multiplier)
 {
 	CraftRecipe = recipe;
-	for (int i; i < recipe.size(); i++)
+	for (int i = 0; i < recipe.size(); i++)
 		recipe[i].n = multiplier[i];
 
 	InputBuffer = recipe;

@@ -1,9 +1,14 @@
 #pragma once
 
 #include <deque>
-#include "Item.h"
+#include "Items.h"
 #include "Artist.h"
 
+struct XYPoint
+{
+	float x;
+	float y;
+};
 
 class Transport
 {
@@ -11,8 +16,8 @@ public:
 	Transport();
 	~Transport();
 
-	void addItem(Item item);
-	void removeItem(Item item);
+	void addItems(Items Items);
+	void removeItems(Items Items);
 
 	void layTrack();
 	void removeTrack();
@@ -28,11 +33,11 @@ private:
 	float anchorPointX, anchorPointY;
 
 
-	//path for item to travel in float x and y
-	std::deque<float, float> trackpath;
+	//path for Items to travel in float x and y
+	std::deque<XYPoint> trackpath;
 
-	//hold item contents, REPLACE string with item object
-	std::deque<Item> itemsOntrack;
+	//hold Items contents, REPLACE string with Items object
+	std::deque<Items> ItemsOntrack;
 
 	
 

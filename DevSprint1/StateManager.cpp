@@ -8,11 +8,9 @@ ALLEGRO_BITMAP *BlahtestImage;
 ALLEGRO_FONT *font;
 
 // Create Static Objects (Similar to Vulkan Use)
-static FileIO IO;
-static Interact Interactions;
-World Map;
-static Artist Art;
-//static Items Item;
+//static FileIO IO;
+
+//static Items Items;
 //static Tile Tile;
 
 
@@ -35,9 +33,9 @@ static Artist Art;
 //{
 //	return &Art;
 //}
-//Items *LogisticsGame::getItem()
+//Items *LogisticsGame::getItems()
 //{
-//	return &Item;
+//	return &Items;
 //}
 //Tiles *LogisticsGame::getTile()
 //{
@@ -76,6 +74,14 @@ void StateManager::run()
 									 // Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
+
+	//#######################################################################################################
+	//	Initalize the main Highest level root objects
+	//#######################################################################################################
+	Interact Interactions;
+	World Map;
+	Artist Art;
+	//#######################################################################################################
 	// Creates Buffer and Generates the Map
 	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();

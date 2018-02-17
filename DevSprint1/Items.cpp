@@ -1,6 +1,6 @@
-#include "Item.h"
-
-FileIO IO = *(LogisticsGame::getIO());
+#include "Items.h"
+#include "FileIO.h"
+FileIO IO;
 
 // Constructor
 Items::Items() 
@@ -11,13 +11,13 @@ Items::Items()
 // Overloaded Constructor
 Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize)
 {
-	itemName = name;
-	itemCategory = category;
-	itemValue = value;
-	itemDropped = true;
-	itemWidth = width;
-	itemHeight = height;
-	itemStackSize = stackSize;
+	ItemsName = name;
+	ItemsCategory = category;
+	ItemsValue = value;
+	ItemsDropped = true;
+	ItemsWidth = width;
+	ItemsHeight = height;
+	ItemstackSize = stackSize;
 }
 
 // Deconstructor
@@ -26,56 +26,56 @@ Items::~Items() {}
 // Getters which Get Values of Object
 std::string Items::getName()
 {
-	return itemName;
+	return ItemsName;
 }
 std::string Items::getCategory()
 {
-	return itemCategory;
+	return ItemsCategory;
 }
 float Items::getValue()
 {
-	return itemValue;
+	return ItemsValue;
 }
 int Items::getWidth()
 {
-	return itemWidth;
+	return ItemsWidth;
 }
 int Items::getHeight()
 {
-	return itemHeight;
+	return ItemsHeight;
 }
 int Items::getStackSize()
 {
-	return itemStackSize;
+	return ItemstackSize;
 }
 
 // Setters to Change Values of Object
 void Items::setDropped()
 {
-	if (itemDropped == true)
+	if (ItemsDropped == true)
 	{
-		itemDropped = false;
+		ItemsDropped = false;
 	}
-	if (itemDropped == false)
+	if (ItemsDropped == false)
 	{
-		itemDropped = true;
+		ItemsDropped = true;
 	}
 }
 
-// Checks to see if item is dropped or not
+// Checks to see if Items is dropped or not
 bool Items::checkDropped()
 {
-	return itemDropped;
+	return ItemsDropped;
 }
 
-// This is called from Interactions Class when item is left Clicked
-void Items::pickupItem()
+// This is called from Interactions Class when Items is left Clicked
+void Items::pickupItems()
 {
 	// To Do
 }
 
-// This is called from Interactions Class when tile is right clicked with item
-void Items::placeItem()
+// This is called from Interactions Class when tile is right clicked with Items
+void Items::placeItems()
 {
 	// To Do
 }
@@ -84,13 +84,13 @@ void Items::placeItem()
 
 void Items::loadItems()
 {
-	checkItemDirectory();
+	checkItemsDirectory();
 	load_Ores();
 	//load_Armor();
 	//load_Weapons(); ...
 }
 
-void Items::checkItemDirectory()
+void Items::checkItemsDirectory()
 {
 	if (!IO.DirectoryExist("Items"))
 	{
@@ -105,7 +105,7 @@ void Items::load_Ores()
 		IO.CreateDir("Items\\Ores");
 	}
 
-	std::string test[] = { "ITEM_COAL.png" };
+	std::string test[] = { "Items_COAL.png" };
 
 	for (int i = 0; i < test->length(); i++)
 	{
@@ -118,5 +118,5 @@ void Items::load_Ores()
 ALLEGRO_BITMAP * Items::getBitMap()
 {
 
-	return ItemImage;
+	return ItemsImage;
 }
