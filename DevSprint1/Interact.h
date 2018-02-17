@@ -9,6 +9,7 @@
 
 #include "main.h"
 
+
 class Interact
 {
 public:
@@ -21,7 +22,7 @@ public:
 
 	void callFunctions();
 
-	void beginInteractions(TileMap Map, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font);
+	void beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font);
 private:
 	ALLEGRO_EVENT_QUEUE *queue;
 	ALLEGRO_EVENT event;

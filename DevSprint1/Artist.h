@@ -29,7 +29,7 @@ public:
 		//Constructor
 	Artist();
 		//Create the tile buffer bitmap
-	void tileBuffer(ALLEGRO_DISPLAY &dis, World world);
+	void tileBuffer(ALLEGRO_DISPLAY &dis, World &world);
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world);
 };

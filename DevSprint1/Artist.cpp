@@ -7,7 +7,7 @@ Artist::Artist()
 
 }
 
-void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World world)
+void Artist::tileBuffer(ALLEGRO_DISPLAY &dis, World &world)
 {
 	Bitmap = al_create_bitmap(2048, 2048);
 	al_set_target_bitmap(Bitmap);

@@ -1,6 +1,6 @@
 #include "Interact.h"
 
-TileMap Map = *(LogisticsGame::getMap());
+//World Map = *(LogisticsGame::getMap());
 
 Interact::Interact() {}
 Interact::Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display)
@@ -44,7 +44,7 @@ void Interact::callFunctions()
 	// If Y object ...
 }
 
-void Interact::beginInteractions(TileMap Map, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font)
+void Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font)
 {
 	while (1) {
 
@@ -54,7 +54,7 @@ void Interact::beginInteractions(TileMap Map, ALLEGRO_DISPLAY * display, ALLEGRO
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) 
 		{
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
-				Map.Generate_Terrain();
+				Map.initialGeneration();
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
 		}
@@ -92,8 +92,8 @@ void Interact::beginInteractions(TileMap Map, ALLEGRO_DISPLAY * display, ALLEGRO
 		if (redraw && al_is_event_queue_empty(queue)) {
 			redraw = false;
 			double t = al_get_time();
+			Art.drawWorld(*display, scroll_x, scroll_y, zoom, rotate,Map);
 			//tile_map_draw(); //draw
-			Map.TileMapDraw(*display, scroll_x, scroll_y, zoom, rotate);
 			if (font) {
 				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
 					8, 8, al_map_rgba(0, 0, 0, 200));

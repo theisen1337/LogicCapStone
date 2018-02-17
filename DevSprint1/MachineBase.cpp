@@ -83,6 +83,7 @@ void MachineBase::Compute()
 
 void MachineBase::Draw()
 {
+	
 }
 
 //Placement methods
