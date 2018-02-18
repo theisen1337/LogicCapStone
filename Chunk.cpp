@@ -5,10 +5,10 @@
 
 Chunk::Chunk()
 {
-	bottomLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::GRASS)));
+	terrainLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::GRASS)));
+	oreLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::EMPTY)));
 	initalGen();
-	map = al_create_bitmap(2048, 2048);
-	genChunkMap();
+	map = al_create_bitmap(1024, 1024);
 }
 
 void Chunk::genChunkMap()
@@ -21,9 +21,16 @@ void Chunk::genChunkMap()
 	{
 		for (int m = 0; m < chunkDim; m++)
 		{
-			bottomLayer[l][m].genPicture();
-			pic = bottomLayer[l][m].getTilePic();
+			terrainLayer[l][m].genPicture();
+			oreLayer[l][m].genPicture();
+			pic = terrainLayer[l][m].getTilePic();
 			al_draw_scaled_bitmap( pic,
+				0, 0,
+				al_get_bitmap_width(pic), al_get_bitmap_height(pic),
+				(l*tileDim), (m*tileDim),
+				tileDim, tileDim, 0);
+			pic = oreLayer[l][m].getTilePic();
+			al_draw_scaled_bitmap(pic,
 				0, 0,
 				al_get_bitmap_width(pic), al_get_bitmap_height(pic),
 				(l*tileDim), (m*tileDim),
@@ -40,8 +47,20 @@ void Chunk::initalGen()
 	{
 		for (int j = 0; j < chunkDim; j++)
 		{
-			bottomLayer[i][j].setChunkX(i);
-			bottomLayer[i][j].setChunkY(j);
+			terrainLayer[i][j].setChunkX(i);
+			terrainLayer[i][j].setChunkY(j);
+			oreLayer[i][j].setChunkX(i);
+			oreLayer[i][j].setChunkY(j);
 		}
 	}
 }
+
+void Chunk::genChunk() //Might be worthless
+{
+	terrainLayer = gen.setTiles(terrainLayer);
+	oreLayer = gen.setOres(oreLayer, terrainLayer);
+	terrainLayer = gen.getTerrain();
+	genChunkMap();
+}
+
+

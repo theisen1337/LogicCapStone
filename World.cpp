@@ -18,6 +18,7 @@ void World::initialGeneration()
 		for (int j = 0; j < worldSize; j++) {
 			world[i][j].setWorldPosW(i);
 			world[i][j].setWorldPosH(j);
+			world[i][j].genChunk();
 			world[i][j].toggleGen();
 		}
 	}
