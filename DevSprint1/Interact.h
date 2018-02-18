@@ -15,7 +15,7 @@ class Interact
 {
 public:
 	Interact();
-	Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
+	//Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	~Interact();
 
 	void leftClick();
@@ -23,15 +23,15 @@ public:
 
 	void callFunctions();
 
-	void beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font);
-private:
-	ALLEGRO_EVENT_QUEUE *queue;
-	ALLEGRO_EVENT event;
+	int beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue);
+
+	void Redraw();
+
 
 	/* Keep track of pressed mouse button. */
 	int mouse;
 	/* Camera parameters. */
-	float zoom = 0.5, rotate;
+	float zoom = 0.5, rotate = 0.0f;
 
 	bool redraw = true;
 
@@ -42,4 +42,10 @@ private:
 	/* Simple FPS counter. */
 	int fps, fps_accum;
 	double fps_time;
+
+private:
+	//ALLEGRO_EVENT_QUEUE *queue;
+	//ALLEGRO_EVENT event;
+
+	
 };

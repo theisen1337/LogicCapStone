@@ -3,16 +3,18 @@
 //World Map = *(LogisticsGame::getMap());
 
 Interact::Interact() {}
-Interact::Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display)
-{
-	queue = al_create_event_queue();
-	al_register_event_source(queue, al_get_keyboard_event_source());
-	al_register_event_source(queue, al_get_mouse_event_source());
-	al_register_event_source(queue, al_get_display_event_source(display));
-	al_register_event_source(queue, al_get_timer_event_source(timer));
 
-	al_wait_for_event(queue, &event);
-}
+ALLEGRO_EVENT event;
+//Interact::Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display)
+//{
+//	queue = al_create_event_queue();
+//	al_register_event_source(queue, al_get_keyboard_event_source());
+//	al_register_event_source(queue, al_get_mouse_event_source());
+//	al_register_event_source(queue, al_get_display_event_source(display));
+//	al_register_event_source(queue, al_get_timer_event_source(timer));
+//
+//	al_wait_for_event(queue, &event);
+//}
 
 Interact::~Interact() {}
 
@@ -44,19 +46,22 @@ void Interact::callFunctions()
 	// If Y object ...
 }
 
-void Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font)
+int Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue)
 {
-	while (1) {
+	al_wait_for_event(queue, &event);
 
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-			break;
+	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+	{
+		return 0;
+	}
+			
 
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) 
 		{
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
 				Map.initialGeneration();
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				break;
+				return 0;
 		}
 		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			mouse = event.mouse.button;
@@ -89,24 +94,6 @@ void Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 			redraw = true;
 		}
 
-		if (redraw && al_is_event_queue_empty(queue)) {
-			redraw = false;
-			double t = al_get_time();
-			Art.drawWorld(*display, scroll_x, scroll_y, zoom, rotate,Map);
-			//tile_map_draw(); //draw
-			if (font) {
-				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
-					8, 8, al_map_rgba(0, 0, 0, 200));
-				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", fps);
-			}
-			al_flip_display();
-			fps_accum++;
-			if (t - fps_time >= 1) {
-				fps = fps_accum;
-				fps_accum = 0;
-				fps_time = t;
-			}
-		}
-	}
+		return 1;
 }
+

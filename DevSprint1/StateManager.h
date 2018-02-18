@@ -36,5 +36,6 @@ class StateManager
 		//static Tile* getTile();
 
 		void run();
+		void MainLoop(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font);
 };
 

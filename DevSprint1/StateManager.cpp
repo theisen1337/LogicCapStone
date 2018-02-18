@@ -7,6 +7,9 @@ ALLEGRO_BITMAP *BlahtestImage;
 // Custom Font
 ALLEGRO_FONT *font;
 
+ALLEGRO_EVENT_QUEUE *queue;
+
+
 // Create Static Objects (Similar to Vulkan Use)
 //static FileIO IO;
 
@@ -90,12 +93,57 @@ void StateManager::run()
 	timer = al_create_timer(1.0 / 60);
 
 	// Initializes Interactions
-	Interact interactions(timer, display);
+	queue = al_create_event_queue();
+	al_register_event_source(queue, al_get_keyboard_event_source());
+	al_register_event_source(queue, al_get_mouse_event_source());
+	al_register_event_source(queue, al_get_display_event_source(display));
+	al_register_event_source(queue, al_get_timer_event_source(timer));
+
+	
 
 	// Starts the Timer
 	al_start_timer(timer);
 
 	// Begins Loop for Game
-	interactions.beginInteractions(Map, Art, display, font);
+
+	MainLoop(Map, Art, display, font);
+	//interactions.beginInteractions(Map, Art, display, font);
 }
 
+void StateManager::MainLoop(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font)
+{
+	Interact interactions;
+	while (true) {
+
+		
+		if (interactions.beginInteractions(Map, Art, display, font, queue) == 0)
+		{
+			break;
+		}
+
+		if (interactions.redraw && al_is_event_queue_empty(queue)) {
+			interactions.redraw = false;
+			double t = al_get_time();
+			Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
+			//tile_map_draw(); //draw
+			if (font) {
+				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
+					8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
+			}
+			al_flip_display();
+			interactions.fps_accum++;
+			if (t - interactions.fps_time >= 1) {
+				interactions.fps = interactions.fps_accum;
+				interactions.fps_accum = 0;
+				interactions.fps_time = t;
+			}
+		}
+		//Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
+		//al_flip_display();
+
+		//interactions.Redraw();
+		
+	}
+}
