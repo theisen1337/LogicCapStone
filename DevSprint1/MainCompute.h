@@ -1,12 +1,10 @@
 #pragma once
 
-#include "InitStatics.h"
+#include "MachineLayer.h"
 class MainCompute
 {
 public:
-	
-	void Compute();
-private:
-	InitStatics IS;
+	void Compute(MachineLayer &ML);
+
 };
 

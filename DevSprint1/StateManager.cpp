@@ -1,7 +1,9 @@
 #include "StateManager.h"
+
 #include "MainDraw.h"
 #include "MainCompute.h"
-#include "InitStatics.h" 
+
+#include "MachineLayer.h"
 
 
 // Window Used for Display
@@ -21,9 +23,9 @@ Interact Interactions;
 World Map;
 Artist Art;
 Interact interactions;
-InitStatics IS;
 MainDraw mainDraw;
 MainCompute mainCompute;
+MachineLayer machineLayer;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -137,7 +139,7 @@ void StateManager::Drawing()
 		Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
 
-		mainDraw.Draw(); //Main Draw for Layers
+		mainDraw.Draw(machineLayer); //Main Draw for Layers
 
 		if (font) {
 			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
@@ -173,7 +175,7 @@ void StateManager::Computing()
 	*/
 	//#####################################################################
 
-	mainCompute.Compute();
+	mainCompute.Compute(machineLayer);
 
 	//#####################################################################
 	/*
