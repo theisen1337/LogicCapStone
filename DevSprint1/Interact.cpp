@@ -46,13 +46,13 @@ void Interact::callFunctions()
 	// If Y object ...
 }
 
-int Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue)
+bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue)
 {
 	al_wait_for_event(queue, &event);
 
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 	{
-		return 0;
+		return false; //exit game
 	}
 			
 
@@ -61,7 +61,7 @@ int Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * displ
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
 				Map.initialGeneration();
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				return 0;
+				return false; //exit game
 		}
 		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			mouse = event.mouse.button;
@@ -94,6 +94,6 @@ int Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * displ
 			redraw = true;
 		}
 
-		return 1;
+		return true; //Keep running the Game
 }
 
