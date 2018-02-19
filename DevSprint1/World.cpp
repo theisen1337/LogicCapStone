@@ -4,9 +4,14 @@
 
 World::World()
 {	
-		//Sets the vector size
+	
+}
+
+void World::InitalizeClass()
+{
+	//Sets the vector size
 	world.resize(worldSize, std::vector<Chunk>(worldSize, Chunk()));
-		//Runs the initial generation of map
+	//Runs the initial generation of map
 	initialGeneration();
 }
 
