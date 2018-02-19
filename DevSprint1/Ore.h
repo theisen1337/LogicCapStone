@@ -16,6 +16,7 @@ public:
 	virtual void Interact();
 	virtual void Drop();
 	void gotHit(int damage);
+	void draw();
 	~Ore();
 
 
