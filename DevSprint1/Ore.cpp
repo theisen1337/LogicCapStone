@@ -40,6 +40,10 @@ void Ore::gotHit(int damage)
 	}
 }
 
+void Ore::draw()
+{
+}
+
 Ore::~Ore()
 {
 }
