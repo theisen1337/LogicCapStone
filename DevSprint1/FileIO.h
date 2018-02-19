@@ -8,7 +8,7 @@
 #include <windows.h> //delete file
 #include <cstdio>
 
-#include "main.h"
+#include "StateManager.h"
 
 
 class FileIO

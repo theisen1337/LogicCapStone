@@ -3,13 +3,14 @@
 #include <string>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "main.h"
+//#include "main.h"
 
 
 class Items
@@ -26,31 +27,33 @@ public:
 	int getHeight();
 	int getStackSize();
 
-	void setDropped();
+	void setDropped(bool boolVar);
 	bool checkDropped();
 
-	void pickupItem();
-	void placeItem();
+	void pickupItems();
+	void placeItems();
 
 	void loadItems();
-	void checkItemDirectory();
+	void checkItemsDirectory();
 	void load_Ores();
-	//ALLEGRO_BITMAP * getItem(unsigned int index);
+	//ALLEGRO_BITMAP * getItems(unsigned int index);
 
 	ALLEGRO_BITMAP * getBitMap();
 
+	void Draw();
+
 
 private:
-	ALLEGRO_BITMAP * ItemImage;
+	ALLEGRO_BITMAP * ItemsImage;
 
 	//std::vector<ALLEGRO_BITMAP*> grassTiles;
 	std::vector<ALLEGRO_BITMAP*> arrItems;
 
-	std::string itemName;
-	std::string itemCategory;
-	float itemValue;
-	int itemStackSize;
-	bool itemDropped;
-	int itemWidth;
-	int itemHeight;
+	std::string ItemsName;
+	std::string ItemsCategory;
+	float ItemsValue;
+	int ItemstackSize;
+	bool ItemsDropped;
+	int ItemsWidth;
+	int ItemsHeight;
 };
