@@ -1,8 +1,9 @@
 #include "MainCompute.h"
 
+#include "MachineLayer.h"
 
 
-void MainCompute::Compute()
+void MainCompute::Compute(MachineLayer &ML)
 {
-	IS.getML().Compute();
+	ML.Compute();
 }

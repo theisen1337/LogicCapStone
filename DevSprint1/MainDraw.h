@@ -1,13 +1,10 @@
 #pragma once
 #include "MachineLayer.h"
-#include "InitStatics.h"
 
 
 class MainDraw
 {
 public:
-	void Draw();
+	void Draw(MachineLayer & ML);
 
-private:
-	InitStatics IS;
 };

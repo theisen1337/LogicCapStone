@@ -1,7 +1,8 @@
 #include "MainDraw.h"
+#include "MachineLayer.h"
 	
-	void MainDraw::Draw()
+	void MainDraw::Draw(MachineLayer & ML)
 	{
-		IS.getML().Draw();
+		ML.Draw();
 
 	}
