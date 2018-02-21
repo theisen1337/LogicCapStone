@@ -44,6 +44,16 @@ void Ore::draw()
 {
 }
 
+void Ore::setXCoordinate(int x)
+{
+	xCoordinate = x;
+}
+
+void Ore::setYCoordinate(int y)
+{
+	yCoordinate = y;
+}
+
 Ore::~Ore()
 {
 }
