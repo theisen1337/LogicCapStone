@@ -1,5 +1,11 @@
 #include "CharacterMovement.h"
 
+CharacterMovement::CharacterMovement()//DF
+{
+	characterXPosition = 0;
+	characterYPosition = 0;
+}
+
 CharacterMovement::CharacterMovement(int xPosition, int yPosition)
 {
 	characterXPosition = xPosition;

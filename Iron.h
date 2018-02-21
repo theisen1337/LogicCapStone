@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ore.h"
+#include "allegro5/allegro_native_dialog.h"
 
 class Iron : public Ore
 {

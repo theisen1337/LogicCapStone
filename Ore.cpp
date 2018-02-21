@@ -11,10 +11,6 @@ Ore::Ore(std::string oreType)
 
 }
 
-Ore::Ore(int OreType)
-{
-}
-
 int Ore::getHealth()
 {
 	return health;
@@ -25,14 +21,10 @@ int Ore::getTravelSpeed()
 	return travelSpeed;
 }
 
-void Ore::LeftClickInteract()
+void Ore::Interact()
 {
+	//TODO: Implement
 }
-
-void Ore::RightClickInteract()
-{
-}
-
 
 void Ore::Drop()
 {
@@ -48,25 +40,18 @@ void Ore::gotHit(int damage)
 	}
 }
 
-void Ore::setPositionX(float x)
+void Ore::draw()
 {
-	xPosition = x;
 }
 
-float Ore::getPositionX()
+void Ore::setXCoordinate(int x)
 {
-	return xPosition;
+	xCoordinate = x;
 }
 
-void Ore::setPositionY(float y)
+void Ore::setYCoordinate(int y)
 {
-	yPosition = y;
-}
-
-
-float Ore::getPositionY()
-{
-	return yPosition;
+	yCoordinate = y;
 }
 
 Ore::~Ore()

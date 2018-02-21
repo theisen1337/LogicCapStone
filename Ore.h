@@ -4,7 +4,6 @@
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
-#include "allegro5/allegro_native_dialog.h"
 
 class Ore
 {
@@ -14,14 +13,14 @@ public:
 	Ore(int OreType);
 	int getHealth();
 	int getTravelSpeed();
-	virtual void LeftClickInteract();
-	virtual void RightClickInteract();
+	virtual void Interact();
 	virtual void Drop();
 	void gotHit(int damage);
-	void setPositionX(float x);
-	float getPositionX();
-	void setPositionY(float y);
-	float getPositionY();
+	void draw();
+	int getXCoordinate() { return xCoordinate; }
+	void setXCoordinate(int x);
+	int getYCoordinate() { return yCoordinate; }
+	void setYCoordinate(int y);
 	~Ore();
 
 
@@ -30,8 +29,8 @@ private:
 	int travelSpeed = 1;
 	int health = 1;
 	int numberToDrop = 0;
-	float xPosition = 0.0f;
-	float yPosition = 0.0f;
+	int xCoordinate = 0;
+	int yCoordinate = 0;
 protected:
 	void setTravelSpeed(int speed);
 	void setHealth(int health);

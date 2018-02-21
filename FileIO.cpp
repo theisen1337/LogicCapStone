@@ -1,10 +1,4 @@
 #include "FileIO.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
-
-#include <windows.h> //delete file
-#include <cstdio>
 
 /*
 	A class wrapper for file input/output to be used through-out program.
@@ -20,7 +14,6 @@
 FileIO::FileIO()
 {
 }
-
 
 FileIO::~FileIO()
 {

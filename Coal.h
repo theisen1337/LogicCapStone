@@ -10,7 +10,6 @@ public:
 		setTravelSpeed(2);
 		setHealth(3);
 	}
-	void LeftClickInteract();
-	void RightClickInteract();
+	void Interact();
 	void Drop();
 };
