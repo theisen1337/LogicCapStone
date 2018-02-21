@@ -17,6 +17,10 @@ public:
 	virtual void Drop();
 	void gotHit(int damage);
 	void draw();
+	int getXCoordinate() { return xCoordinate; }
+	void setXCoordinate(int x);
+	int getYCoordinate() { return yCoordinate; }
+	void setYCoordinate(int y);
 	~Ore();
 
 
@@ -25,6 +29,8 @@ private:
 	int travelSpeed = 1;
 	int health = 1;
 	int numberToDrop = 0;
+	int xCoordinate = 0;
+	int yCoordinate = 0;
 protected:
 	void setTravelSpeed(int speed);
 	void setHealth(int health);
