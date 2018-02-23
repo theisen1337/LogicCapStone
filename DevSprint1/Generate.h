@@ -3,7 +3,7 @@
 #include <vector>
 #include "Ore.h"
 #include "Tile.h"
-
+//
 using namespace std;
 
 class Generation
