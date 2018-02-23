@@ -4,6 +4,7 @@
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include "allegro5/allegro_native_dialog.h"
 
 class Ore
 {
@@ -13,7 +14,8 @@ public:
 	Ore(int OreType);
 	int getHealth();
 	int getTravelSpeed();
-	virtual void Interact();
+	virtual void leftClickInteract();
+	virtual void rightClickInteract();
 	virtual void Drop();
 	void gotHit(int damage);
 	void draw();
