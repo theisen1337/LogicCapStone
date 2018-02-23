@@ -11,6 +11,8 @@
 #include "World.h"
 #include "Items.h"
 
+#include "CharacterMovement.h"
+
 class Interact
 {
 public:
@@ -42,6 +44,15 @@ public:
 	/* Simple FPS counter. */
 	int fps, fps_accum;
 	double fps_time;
+
+	/* Character Position and Image DF*/
+	int charXPosition = 0;
+	int charYPosition = 0;
+	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
+	CharacterMovement movement;
+	int mapXBoundary = 6100;
+	int mapYBoundary = 6100;
+	
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;

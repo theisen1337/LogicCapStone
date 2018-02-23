@@ -19,3 +19,8 @@ OreLayer::OreLayer()
 OreLayer::~OreLayer()
 {
 }
+
+void OreLayer::addToLayer(Ore newOre)
+{
+	layer.push_back(newOre);
+}

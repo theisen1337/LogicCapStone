@@ -11,4 +11,5 @@ public:
 	void Draw();
 	OreLayer();
 	~OreLayer();
+	void addToLayer(Ore newOre);
 };

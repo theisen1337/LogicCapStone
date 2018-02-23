@@ -138,6 +138,7 @@ void StateManager::Drawing()
 		double t = al_get_time();
 		Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
+		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, interactions.character, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 
 		mainDraw.Draw(machineLayer); //Main Draw for Layers
 

@@ -4,6 +4,7 @@
 
 Interact::Interact() {}
 
+
 ALLEGRO_EVENT event;
 //Interact::Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display)
 //{
@@ -52,7 +53,7 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 	{
-		return false; //exit game
+		return false;
 	}
 			
 
@@ -61,7 +62,42 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 			if (event.keyboard.keycode == ALLEGRO_KEY_R)
 				Map.initialGeneration();
 			if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				return false; //exit game
+				return false;
+		}/*DF*/
+		if (event.type == ALLEGRO_EVENT_KEY_CHAR)
+		{
+			if (event.keyboard.keycode == ALLEGRO_KEY_UP)
+			{
+				movement.moveCharacterUp();
+				if (movement.getCharacterYPosition() < 0)
+				{
+					movement.setCharacterYPosition(0);
+				}
+			}
+			if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+			{
+				movement.moveCharacterDown();
+				if (movement.getCharacterYPosition() > mapYBoundary)
+				{
+					movement.setCharacterYPosition(mapYBoundary);
+				}
+			}
+			if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+			{
+				movement.moveCharacterLeft();
+				if (movement.getCharacterXPosition() < 0)
+				{
+					movement.setCharacterXPosition(0);
+				}
+			}
+			if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+			{
+				movement.moveCharacterRight();
+				if (movement.getCharacterXPosition() > mapXBoundary)
+				{
+					movement.setCharacterXPosition(mapXBoundary);
+				}
+			}
 		}
 		if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
 			mouse = event.mouse.button;
@@ -94,6 +130,6 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 			redraw = true;
 		}
 
-		return true; //Keep running the Game
+		return true;
 }
 
