@@ -2,6 +2,14 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
+
+#include <windows.h> //delete file
+#include <cstdio>
+
+#include "StateManager.h"
+
 
 class FileIO
 {
