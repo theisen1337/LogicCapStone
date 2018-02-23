@@ -1,11 +1,25 @@
 #include "ItemLayer.h"
 
-//Items Items = *(LogisticsGame::getItems());
+ItemLayer::ItemLayer() 
+{
+	// Example. Do not use in production.
+	
+	//CoalOreItem coalOre1 = CoalOreItem();
+	//IronOreItem ironOre1 = IronOreItem();
 
-ItemsLayer::ItemsLayer() {}
-ItemsLayer::~ItemsLayer() {}
+	//arrItems.push_back(coalOre1);
+	//arrItems.push_back(ironOre1);
+}
 
-ALLEGRO_BITMAP * ItemsLayer::getItems(unsigned int index)
+ItemLayer::~ItemLayer() {}
+
+void ItemLayer::Draw()
+{
+	//for (int i = 0; i < arrItems.size(); i++)
+	//	arrItems.at(i).Draw();
+}
+
+ALLEGRO_BITMAP * ItemLayer::getItems(unsigned int index)
 {
 	if (index >= (arrItems.size()))
 	{

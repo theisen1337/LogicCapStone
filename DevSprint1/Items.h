@@ -27,7 +27,7 @@ public:
 	int getHeight();
 	int getStackSize();
 
-	void setDropped();
+	void setDropped(bool boolVar);
 	bool checkDropped();
 
 	void pickupItems();
@@ -39,6 +39,8 @@ public:
 	//ALLEGRO_BITMAP * getItems(unsigned int index);
 
 	ALLEGRO_BITMAP * getBitMap();
+
+	void Draw();
 
 
 private:

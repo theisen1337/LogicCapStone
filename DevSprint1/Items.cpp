@@ -50,16 +50,9 @@ int Items::getStackSize()
 }
 
 // Setters to Change Values of Object
-void Items::setDropped()
+void Items::setDropped(bool boolVar)
 {
-	if (ItemsDropped == true)
-	{
-		ItemsDropped = false;
-	}
-	if (ItemsDropped == false)
-	{
-		ItemsDropped = true;
-	}
+	ItemsDropped = boolVar;
 }
 
 // Checks to see if Items is dropped or not
@@ -119,4 +112,9 @@ ALLEGRO_BITMAP * Items::getBitMap()
 {
 
 	return ItemsImage;
+}
+
+void Draw()
+{
+	//
 }
