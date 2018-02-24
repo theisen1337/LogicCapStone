@@ -1,6 +1,6 @@
 #include "Tile.h"
 #include <vector>
-#include "Generation.h"
+#include "generate.h"
 
 #pragma once
 class Chunk

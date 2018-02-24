@@ -13,10 +13,10 @@ public:
 		GRASS,
 		WATER,
 		DIRT,
-		ORE_COAL,
-		ORE_IRON,
-		TEMP_c,
-		TEMP_i,
+		COAL,
+		IRON,
+		TEMP_COAL,
+		TEMP_IRON,
 		EMPTY
 	};
 		//Check if tile is loaded

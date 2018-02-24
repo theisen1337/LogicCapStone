@@ -90,13 +90,23 @@ void Tile::genPicture()
 		
 		break;
 
-	case Tile::ORE_COAL:
+	case Tile::COAL:
 		pic = al_load_bitmap("Terrain//Ore//coal.png");
 
 		break;
 
-	case Tile::ORE_IRON:
+	case Tile::IRON:
 		pic = al_load_bitmap("Terrain//Ore//iron.png");
+
+		break;
+
+	case Tile::TEMP_IRON:
+		pic = al_load_bitmap("Terrain//Ore//iron.png");
+
+		break;
+
+	case Tile::TEMP_COAL:
+		pic = al_load_bitmap("Terrain//Ore//coal.png");
 
 		break;
 
@@ -109,14 +119,4 @@ void Tile::genPicture()
 	}
 }
 
-/*TO DO'S
--refrences to image file dependant on type
-	:randomly select out of a selection of grass.png that look
-	 slightly different to allow more variety to the look of the
-	 map.
 
--Tile positioning
-	:Data information to hold the tiles position. This information
-	 is like what layer and coords on the layer. (may not need)
-
-*/

@@ -20,11 +20,7 @@ private:
 	ALLEGRO_BITMAP *Bitmap;
 		//Temp bitmap to hold pictures
 	ALLEGRO_BITMAP *pic = NULL;
-		/*
-		#Maps * #TilesPerMap * 64^2 = #Total Tiles Per World (150994994)
-		Number of pixels for world
-		*/
-	int worldSize = 0;
+		
 public:
 		//Constructor
 	Draw();
@@ -33,5 +29,4 @@ public:
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world);
 };
-
 

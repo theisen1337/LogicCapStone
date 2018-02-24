@@ -70,12 +70,14 @@ void StateManager::run()
 	al_set_new_display_flags(ALLEGRO_RESIZABLE);
 	display = al_create_display(640, 480);
 	al_set_window_title(display, "Allegro 5 Tilemap Example");
-
+	int test = al_get_display_option(display, ALLEGRO_MAX_BITMAP_SIZE);
+	std::cout << test;
 	// Sets the default Font to be used
 	font = al_create_builtin_font(); // al_load_font("fixed_font.tga", 0, 0);
 
 									 // Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 
 	//#######################################################################################################
@@ -88,7 +90,7 @@ void StateManager::run()
 	// Creates Buffer and Generates the Map
 	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
-
+	
 									// Initializes Timer
 	timer = al_create_timer(1.0 / 60);
 
@@ -114,6 +116,7 @@ void StateManager::MainLoop(World &Map, Draw &Art, ALLEGRO_DISPLAY * display, AL
 {
 	
 	Interact interactions;
+	
 	while (true) {
 
 		
@@ -126,7 +129,7 @@ void StateManager::MainLoop(World &Map, Draw &Art, ALLEGRO_DISPLAY * display, AL
 			interactions.redraw = false;
 			double t = al_get_time();
 			Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
-			//tile_map_draw(); //draw
+			
 			if (font) {
 				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
 					8, 8, al_map_rgba(0, 0, 0, 200));
