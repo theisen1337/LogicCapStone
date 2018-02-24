@@ -25,7 +25,10 @@ Artist Art;
 Interact interactions;
 MainDraw mainDraw;
 MainCompute mainCompute;
+
 MachineLayer machineLayer;
+ItemLayer itemLayer;
+OreLayer oreLayer;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -112,7 +115,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, Art, display, font, queue);
+	GAMERUN = interactions.beginInteractions(Map, Art, display, font, queue, itemLayer, oreLayer, machineLayer);
 
 	//#####################################################################
 	/*

@@ -11,6 +11,12 @@
 #include "World.h"
 #include "Items.h"
 
+#include "ItemLayer.h"
+#include "MachineLayer.h"
+#include "OreLayer.h"
+
+#include <math.h>
+
 #include "CharacterMovement.h"
 
 class Interact
@@ -20,14 +26,10 @@ public:
 	//Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	~Interact();
 
-	void leftClick();
-	void rightClick();
+	void interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
-	void callFunctions();
+	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
-	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue);
-
-	void Redraw();
 
 
 	/* Keep track of pressed mouse button. */
@@ -52,11 +54,14 @@ public:
 	CharacterMovement movement;
 	int mapXBoundary = 6100;
 	int mapYBoundary = 6100;
-	
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;
 	//ALLEGRO_EVENT event;
 
-	
+	int start_x;
+	int start_y;
+	int end_x;
+	int end_y;
+	float distance;
 };
