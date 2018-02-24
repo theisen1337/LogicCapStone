@@ -1,5 +1,7 @@
 #include "Tile.h"
 #include <vector>
+#include "generate.h"
+
 #pragma once
 class Chunk
 {
@@ -12,16 +14,20 @@ private:
 	int worldPosW;
 	int worldPosH;
 		//2D vectors for bottom layer of map
-	std::vector<std::vector<Tile>> bottomLayer;
+	std::vector<std::vector<Tile>> terrainLayer;
+		//2D vectors for ore layer of map
+	std::vector<std::vector<Tile>> oreLayer;
 		//Bool for if the chunk is currently generated
 	bool isGen = false;
 		//Bitmap to hold all the tiles drawn to it.
 	ALLEGRO_BITMAP *map;
+		//Generations
+	Generation gen;
 public:
 		//Constructor
 	Chunk();
 		//Get tile from bottom layer
-	std::vector<std::vector<Tile>> getTiles() { return bottomLayer; };
+	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
 		//Set Width of chunk
 	void setChunkDim(int w) { chunkDim = w; };
 		//Set Height of chunk
@@ -42,6 +48,7 @@ public:
 	ALLEGRO_BITMAP * getMap() { return map; };
 		//Initial Generation of Tiles
 	void initalGen();
-
+		//Generate Chunk Resources
+	void genChunk();
 };
 

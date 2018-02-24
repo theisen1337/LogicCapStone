@@ -9,16 +9,12 @@ using namespace std;
 class Generation
 {
 public:
-	vector < vector<Tile> > createTileGrid(int xAxis, int yAxis, Tile til);
-	vector < vector<Ore> > createOreGrid(int xAxis, int yAxis, Ore oreo);
+	vector < vector<Tile> > setTileGrid(vector < vector <Tile> > tile);
+	vector < vector<Tile> > setOreGrid(vector < vector<Tile> > oreo, vector < vector<Tile> > tiles);
 	void showTiles(vector < vector <Tile> > tiles);
-	void lakeAlGore(vector < vector <Tile> > &tiles);
-	void oreAlGore(vector < vector <Ore> > &ores, vector < vector <Tile> > &tiles);
-	void revampOre(vector < vector <Ore> > &ores);
+	vector < vector <Tile> > lakeAlGore(vector < vector <Tile> > tiles);
+	vector < vector <Tile> > oreAlGore(vector < vector <Tile> > ores, vector < vector <Tile> > tiles);
+	vector < vector <Tile> > revampOre(vector < vector <Tile> > ores);
 private:
-	Tile til;
-	Ore ore;
-	int xAxis; //may be useless and rely on TileMap's SIZE_X number instead 
-	int yAxis;
-
+	int chunkSize = 32;
 };

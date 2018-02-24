@@ -42,12 +42,76 @@ void Tile::genPicture()
 			break;
 		}
 		break;
+
 	case Tile::WATER:
 		//IF water set pic to water image
+		r = rand() % 4 + 1;
+		switch (r)
+		{
+		case 1:
+			pic = al_load_bitmap("Terrain//Water//water1.png");
+			break;
+		case 2:
+			pic = al_load_bitmap("Terrain//Water//water2.png");
+			break;
+		case 3:
+			pic = al_load_bitmap("Terrain//Water//water3.png");
+			break;
+		case 4:
+			pic = al_load_bitmap("Terrain//Water//water4.png");
+			break;
+		default:
+			pic = al_load_bitmap("Terrain//Water//water1.png");
+			break;
+		}
+		break;
+
+	case Tile::DIRT:
+		//IF dirt set pic to dirt image
+		r = rand() % 4 + 1;
+		switch (r)
+		{
+		case 1:
+			pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
+			break;
+		case 2:
+			pic = al_load_bitmap("Terrain//Dirt//dirt2.png");
+			break;
+		case 3:
+			pic = al_load_bitmap("Terrain//Dirt//dirt3.png");
+			break;
+		case 4:
+			pic = al_load_bitmap("Terrain//Dirt//dirt4.png");
+			break;
+		default:
+			pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
+			break;
+		}
+		
+		break;
+
+	case Tile::COAL:
+		pic = al_load_bitmap("Terrain//Ore//coal.png");
 
 		break;
+
+	case Tile::IRON:
+		pic = al_load_bitmap("Terrain//Ore//iron.png");
+
+		break;
+
+	case Tile::TEMP_IRON:
+		pic = al_load_bitmap("Terrain//Ore//iron.png");
+
+		break;
+
+	case Tile::TEMP_COAL:
+		pic = al_load_bitmap("Terrain//Ore//coal.png");
+
+		break;
+
 	case Tile::EMPTY:
-		pic = al_load_bitmap("Terrain//Dev//test.png");
+		pic = al_load_bitmap("Terrain//Empty//empty.png");
 
 		break;
 	default:

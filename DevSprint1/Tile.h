@@ -12,6 +12,11 @@ public:
 	{
 		GRASS,
 		WATER,
+		DIRT,
+		COAL,
+		IRON,
+		TEMP_COAL,
+		TEMP_IRON,
 		EMPTY
 	};
 		//Check if tile is loaded

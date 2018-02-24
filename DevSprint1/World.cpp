@@ -4,14 +4,9 @@
 
 World::World()
 {	
-	
-}
-
-void World::InitalizeClass()
-{
-	//Sets the vector size
+		//Sets the vector size
 	world.resize(worldSize, std::vector<Chunk>(worldSize, Chunk()));
-	//Runs the initial generation of map
+		//Runs the initial generation of map
 	initialGeneration();
 }
 
@@ -21,9 +16,11 @@ void World::initialGeneration()
 	for (int i = 0; i < worldSize; i++)
 	{
 		for (int j = 0; j < worldSize; j++) {
-			world[i][j].setWorldPosW(i);
-			world[i][j].setWorldPosH(j);
-			world[i][j].toggleGen();
+			world[i][j].initalGen();
+			//world[i][j].setWorldPosW(i);
+			//world[i][j].setWorldPosH(j);
+			world[i][j].genChunk();
+			//world[i][j].toggleGen();
 		}
 	}
 
