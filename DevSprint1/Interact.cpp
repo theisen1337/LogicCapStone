@@ -2,7 +2,7 @@
 
 //World Map = *(LogisticsGame::getMap());
 
-Interact::Interact() {}
+Interact::Interact() { }
 
 ALLEGRO_EVENT event;
 

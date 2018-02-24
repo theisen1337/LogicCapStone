@@ -50,7 +50,7 @@ public:
 	/* Character Position and Image DF*/
 	int charXPosition = 0;
 	int charYPosition = 0;
-	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
+	//ALLEGRO_BITMAP *character;
 	CharacterMovement movement;
 	int mapXBoundary = 6100;
 	int mapYBoundary = 6100;

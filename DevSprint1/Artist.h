@@ -6,6 +6,8 @@
 #include "World.h"
 #include "Chunk.h"
 #include "Tile.h"
+
+#include "CharacterPlayer.h"
 #pragma once
 class Artist
 {
@@ -33,7 +35,7 @@ public:
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world);
 
-	void drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world, ALLEGRO_BITMAP *character, int xPosition, int yPosition);
+	void drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world, CharacterPlayer &c, int xPosition, int yPosition);
 };
 
 

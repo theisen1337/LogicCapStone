@@ -14,7 +14,7 @@ public:
 	std::vector<std::vector<Chunk>> world;
 		//Constructor
 	World();
-	
+	void InitalizeClass();
 		//First generation of world
 	void initialGeneration();
 		//Update world depending on character position

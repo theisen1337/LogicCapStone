@@ -4,7 +4,7 @@
 #include "MainCompute.h"
 
 #include "MachineLayer.h"
-
+#include "CharacterPlayer.h"
 
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
@@ -22,6 +22,7 @@ ALLEGRO_EVENT_QUEUE *queue;
 Interact Interactions;
 World Map;
 Artist Art;
+Draw draw;
 Interact interactions;
 MainDraw mainDraw;
 MainCompute mainCompute;
@@ -29,6 +30,7 @@ MainCompute mainCompute;
 MachineLayer machineLayer;
 ItemLayer itemLayer;
 OreLayer oreLayer;
+CharacterPlayer player;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -39,8 +41,7 @@ bool GAMERUN = true;
 
 void StateManager::run()
 {
-	// Built in Game Timer
-	ALLEGRO_TIMER *timer;
+	
 
 	// RANDOMIZATION //
 	srand(time(NULL));
@@ -70,7 +71,10 @@ void StateManager::run()
 	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
 
+	
 									// Initializes Timer
+									// Built in Game Timer
+	ALLEGRO_TIMER *timer;
 	timer = al_create_timer(1.0 / 60);
 
 	// Initializes Interactions
@@ -136,12 +140,12 @@ void StateManager::Drawing()
 	*/
 	//#####################################################################
 
-	if (interactions.redraw && al_is_event_queue_empty(queue)) {
+	if (true) {//	interactions.redraw && al_is_event_queue_empty(queue)
 		interactions.redraw = false;
 		double t = al_get_time();
-		Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
+		draw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
-		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, interactions.character, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 
 		mainDraw.Draw(machineLayer); //Main Draw for Layers
 
@@ -150,7 +154,14 @@ void StateManager::Drawing()
 				8, 8, al_map_rgba(0, 0, 0, 200));
 			al_draw_textf(font, al_map_rgb(255, 255, 255),
 				54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
+
+			al_draw_filled_rounded_rectangle(4, 44, 100, 74,
+				8, 8, al_map_rgba(0, 0, 0, 200));
+			al_draw_textf(font, al_map_rgb(255, 255, 255),
+				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", mainCompute.getCPS());
 		}
+
+		
 		al_flip_display();
 		interactions.fps_accum++;
 		if (t - interactions.fps_time >= 1) {

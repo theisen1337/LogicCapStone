@@ -98,11 +98,11 @@ void MachineBase::Compute()
 	}
 	else
 	{
-		for (int n = 0; n < InputBuffer.size; n++)
+		for (int n = 0; n < InputBuffer.size(); n++)
 			if (InputBuffer[n].n < CraftRecipe[n].n)
 				return; //end method if there is not enough ingredents for recipe.
 
-		for (int n = 0; n < InputBuffer.size; n++) //Remove the Items in the Input, and use them for the recipe.
+		for (int n = 0; n < InputBuffer.size(); n++) //Remove the Items in the Input, and use them for the recipe.
 			InputBuffer[n].n -= CraftRecipe[n].n;
 
 
