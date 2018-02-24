@@ -5,7 +5,7 @@ class World
 {
 private:
 		//Dimensions of world vector 
-	int worldSize = 3;
+	int worldSize = 2;
 		//offset of world vector (Rounds down, so center of vector is 1,1)
 	int offset = 3/2;
 	 

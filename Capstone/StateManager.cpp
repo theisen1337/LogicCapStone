@@ -65,6 +65,7 @@ void StateManager::run()
 	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 	Map.InitalizeClass();
+	player.InitializeClass();
 
 	// Creates Buffer and Generates the Map
 	mainDraw.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);

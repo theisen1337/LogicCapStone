@@ -13,7 +13,7 @@ private:
 	//Chunk dimensions
 	int chunkDim = 32;
 	//World dimensions
-	int worldDim = 3;
+	int worldDim = 2;
 	//Bitmap to hold all the tiles drawn to it.
 	ALLEGRO_BITMAP *Bitmap;
 	//Temp bitmap to hold pictures

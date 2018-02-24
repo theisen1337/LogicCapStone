@@ -17,6 +17,7 @@ public:
 		IRON,
 		TEMP_COAL,
 		TEMP_IRON,
+		TEMP_WATER,
 		EMPTY
 	};
 		//Check if tile is loaded

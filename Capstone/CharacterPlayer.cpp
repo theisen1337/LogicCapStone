@@ -5,11 +5,16 @@
 
 CharacterPlayer::CharacterPlayer()
 {
-	FileIO file;
-	characterPIC = al_load_bitmap("Character//Character.png");
+	//FileIO file;
+	//characterPIC = al_load_bitmap("Character//Character.png");
 }
 
 
 CharacterPlayer::~CharacterPlayer()
 {
+}
+
+void CharacterPlayer::InitializeClass()
+{
+	characterPIC = al_load_bitmap("Character//Character.png");
 }

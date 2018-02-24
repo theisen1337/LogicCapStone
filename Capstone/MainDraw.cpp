@@ -9,13 +9,13 @@
 
 	void MainDraw::tileBuffer(ALLEGRO_DISPLAY & dis, World & world)
 	{
-		al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-		Bitmap = al_create_bitmap(6144, 6144);
+		//al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+		Bitmap = al_create_bitmap(4096, 4096);
 		al_set_target_bitmap(Bitmap);
 		//These two loops are for looping through world vector
-		for (int j = 0; j < worldDim; j++)
+		for (int j = 0; j < 2; j++)
 		{
-			for (int k = 0; k < worldDim; k++)
+			for (int k = 0; k < 2; k++)
 			{
 
 				//al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
@@ -32,8 +32,7 @@
 
 	void MainDraw::drawWorld(ALLEGRO_DISPLAY & dis, float scroll_x, float scroll_y, float zoom, float rotate, World world)
 	{
-		al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-		int x, y;
+		//al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 		ALLEGRO_TRANSFORM transform;
 		float w, h;
 
@@ -104,7 +103,7 @@
 
 		//DF FIX THIS
 
-		//al_draw_scaled_bitmap(c.getPic(), 0, 0, al_get_bitmap_width(c.getPic()), al_get_bitmap_height(c.getPic()), xPosition, yPosition, al_get_bitmap_width(c.getPic()), al_get_bitmap_height(c.getPic()), 0);
+		al_draw_scaled_bitmap(c.getPic(), 0, 0, 48, 48, xPosition, yPosition, 48, 48, 0);
 
 		al_hold_bitmap_drawing(0);
 

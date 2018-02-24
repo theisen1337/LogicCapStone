@@ -10,7 +10,7 @@ World::World()
 void World::InitalizeClass()
 {
 	//Sets the vector size
-	world.resize(worldSize, std::vector<Chunk>(worldSize, Chunk()));
+	world.resize(2, std::vector<Chunk>(2, Chunk()));
 	//Runs the initial generation of map
 	initialGeneration();
 }
