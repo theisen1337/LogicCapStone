@@ -9,7 +9,7 @@ Items::Items()
 }
 
 // Overloaded Constructor
-Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize)
+Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y)
 {
 	ItemsName = name;
 	ItemsCategory = category;
@@ -18,10 +18,30 @@ Items::Items(std::string name, std::string category, float value, int width, int
 	ItemsWidth = width;
 	ItemsHeight = height;
 	ItemstackSize = stackSize;
+	xCoordinate = x;
+	yCoordinate = y;
 }
 
 // Deconstructor
 Items::~Items() {}
+
+int Items::getCoordinateX()
+{
+	return xCoordinate;
+}
+int Items::getCoordinateY()
+{
+	return yCoordinate;
+}
+
+void Items::leftClick()
+{
+
+}
+void Items::rightClick()
+{
+
+}
 
 // Getters which Get Values of Object
 std::string Items::getName()

@@ -12,6 +12,15 @@ MachineBase::~MachineBase()
 {
 }
 
+void MachineBase::leftClick()
+{
+
+}
+void MachineBase::rightClick()
+{
+
+}
+
 //Recipe information
 
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe)

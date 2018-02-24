@@ -12,6 +12,7 @@
 #include "Items.h"
 
 #include <vector>
+#include <array>
 #include "ItemTemplate.h"
 
 class ItemLayer

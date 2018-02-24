@@ -6,7 +6,7 @@
 class OreLayer
 {
 public:
-	std::vector<Ore> layer;
+	std::vector<Ore> arrOres;
 	void Compute();
 	void Draw();
 	OreLayer();

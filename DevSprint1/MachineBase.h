@@ -46,6 +46,9 @@ public:
 	int getTileX();
 	int getTileY();
 
+	void leftClick();
+	void rightClick();
+
 private:
 	// MAS = MachineAnimateSheet
 	ALLEGRO_BITMAP * MAS_OFF_Image;

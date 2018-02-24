@@ -17,7 +17,7 @@ class Items
 {
 public:
 	Items();
-	Items(std::string name, std::string category, float value, int width, int height, int stackSize);
+	Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
 	~Items();
 
 	std::string getName();
@@ -26,6 +26,9 @@ public:
 	int getWidth();
 	int getHeight();
 	int getStackSize();
+
+	int getCoordinateX();
+	int getCoordinateY();
 
 	void setDropped(bool boolVar);
 	bool checkDropped();
@@ -40,7 +43,10 @@ public:
 
 	ALLEGRO_BITMAP * getBitMap();
 
-	void Draw();
+	//void Draw();
+
+	void leftClick();
+	void rightClick();
 
 
 private:
@@ -56,4 +62,6 @@ private:
 	bool ItemsDropped;
 	int ItemsWidth;
 	int ItemsHeight;
+	int xCoordinate;
+	int yCoordinate;
 };

@@ -14,8 +14,8 @@ public:
 	Ore(int OreType);
 	int getHealth();
 	int getTravelSpeed();
-	virtual void leftClickInteract();
-	virtual void rightClickInteract();
+	virtual void leftClick();
+	virtual void rightClick();
 	virtual void Drop();
 	void gotHit(int damage);
 	void draw();

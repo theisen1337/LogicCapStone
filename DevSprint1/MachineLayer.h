@@ -8,7 +8,7 @@ class MachineLayer
 {
 public:
 
-	std::vector<MachineBase> Layer;
+	std::vector<MachineBase> arrMachines;
 	void Compute();
 	void Draw();
 	MachineLayer();
