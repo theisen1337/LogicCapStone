@@ -23,6 +23,6 @@ public:
 	//void oreoCookie(vector < vector <Tile> > &ores, vector < vector <Tile> > &tiles);
 private:
 	int chunkSize = 32;
-	int oreReach = 2; //was 3
+	int oreReach = 3; //was 3
 	int baseChance = 12; //was 4
 };
