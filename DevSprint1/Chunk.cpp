@@ -11,6 +11,8 @@ Chunk::Chunk()
 	genChunkMap();
 }
 
+
+
 void Chunk::genChunkMap()
 {
 		//

@@ -21,9 +21,22 @@ int Ore::getTravelSpeed()
 	return travelSpeed;
 }
 
-void Ore::Interact()
+void Ore::leftClickInteract()
 {
-	//TODO: Implement
+	al_show_native_message_box(al_get_current_display(),
+		"Character Interaction",
+		"Character left clicked on an ore",
+		"Success",
+		NULL, ALLEGRO_MESSAGEBOX_ERROR);
+}
+
+void Ore::rightClickInteract()
+{
+	al_show_native_message_box(al_get_current_display(),
+		"Character Interaction",
+		"Character right clicked on an ore ore",
+		"Success",
+		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
 void Ore::Drop()
@@ -38,6 +51,20 @@ void Ore::gotHit(int damage)
 	{
 		Drop();
 	}
+}
+
+void Ore::draw()
+{
+}
+
+void Ore::setXCoordinate(int x)
+{
+	xCoordinate = x;
+}
+
+void Ore::setYCoordinate(int y)
+{
+	yCoordinate = y;
 }
 
 Ore::~Ore()

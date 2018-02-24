@@ -1,5 +1,11 @@
 #include "StateManager.h"
 
+#include "MainDraw.h"
+#include "MainCompute.h"
+
+#include "MachineLayer.h"
+
+
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
 // Tilemap Test Image
@@ -10,44 +16,25 @@ ALLEGRO_FONT *font;
 ALLEGRO_EVENT_QUEUE *queue;
 
 
-// Create Static Objects (Similar to Vulkan Use)
-//static FileIO IO;
+//#######################################################################################################
+//	Initalize the main Highest level root objects
+//#######################################################################################################
+Interact Interactions;
+World Map;
+Artist Art;
+Interact interactions;
+MainDraw mainDraw;
+MainCompute mainCompute;
 
-//static Items Items;
-//static Tile Tile;
-
-
-// Initialization of Class
-
-// Return Objects for Extraneous Class Use
-//FileIO *LogisticsGame::getIO()
-//{
-//	return &IO;
-//}
-//Interact *LogisticsGame::getInteractions()
-//{
-//	return &Interactions;
-//}
-//World *LogisticsGame::getMap()
-//{
-//	return &Map;
-//}
-//Artist *LogisticsGame::getArt()
-//{
-//	return &Art;
-//}
-//Items *LogisticsGame::getItems()
-//{
-//	return &Items;
-//}
-//Tiles *LogisticsGame::getTile()
-//{
-//	return &Tile;
-//}
-
-
-
-
+MachineLayer machineLayer;
+ItemLayer itemLayer;
+OreLayer oreLayer;
+//#######################################################################################################
+//#######################################################################################################
+//	Variables
+//#######################################################################################################
+bool GAMERUN = true;
+//#######################################################################################################
 
 
 void StateManager::run()
@@ -77,14 +64,8 @@ void StateManager::run()
 									 // Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
+	Map.InitalizeClass();
 
-	//#######################################################################################################
-	//	Initalize the main Highest level root objects
-	//#######################################################################################################
-	Interact Interactions;
-	World Map;
-	Artist Art;
-	//#######################################################################################################
 	// Creates Buffer and Generates the Map
 	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
@@ -99,51 +80,118 @@ void StateManager::run()
 	al_register_event_source(queue, al_get_display_event_source(display));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
 
-	
+
 
 	// Starts the Timer
 	al_start_timer(timer);
 
 	// Begins Loop for Game
 
-	MainLoop(Map, Art, display, font);
-	//interactions.beginInteractions(Map, Art, display, font);
+	MainLoop(); //Map, Art, display, font
 }
 
-void StateManager::MainLoop(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font)
+void StateManager::MainLoop()
 {
-	Interact interactions;
-	while (true) {
 
-		
-		if (interactions.beginInteractions(Map, Art, display, font, queue) == 0)
-		{
-			break;
-		}
-
-		if (interactions.redraw && al_is_event_queue_empty(queue)) {
-			interactions.redraw = false;
-			double t = al_get_time();
-			Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
-			//tile_map_draw(); //draw
-			if (font) {
-				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
-					8, 8, al_map_rgba(0, 0, 0, 200));
-				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
-			}
-			al_flip_display();
-			interactions.fps_accum++;
-			if (t - interactions.fps_time >= 1) {
-				interactions.fps = interactions.fps_accum;
-				interactions.fps_accum = 0;
-				interactions.fps_time = t;
-			}
-		}
-		//Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
-		//al_flip_display();
-
-		//interactions.Redraw();
-		
+	while (GAMERUN) 
+	{
+		Interacting();
+		Drawing();
+		Computing();
 	}
+	Exiting();
+}
+
+
+
+void StateManager::Interacting()
+{
+	//#####################################################################
+	/*
+	#
+	#		Main Interacting
+	#
+	*/
+	//#####################################################################
+
+	//Returns false if the game exit button is pressed	
+	GAMERUN = interactions.beginInteractions(Map, Art, display, font, queue, itemLayer, oreLayer, machineLayer);
+
+	//#####################################################################
+	/*
+	#
+	#		Main Interacting
+	#
+	*/
+	//#####################################################################
+}
+
+void StateManager::Drawing()
+{
+	//#####################################################################
+	/*
+	#
+	#		Main Drawing
+	#
+	*/
+	//#####################################################################
+
+	if (interactions.redraw && al_is_event_queue_empty(queue)) {
+		interactions.redraw = false;
+		double t = al_get_time();
+		Art.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
+
+		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, interactions.character, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+
+		mainDraw.Draw(machineLayer); //Main Draw for Layers
+
+		if (font) {
+			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
+				8, 8, al_map_rgba(0, 0, 0, 200));
+			al_draw_textf(font, al_map_rgb(255, 255, 255),
+				54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
+		}
+		al_flip_display();
+		interactions.fps_accum++;
+		if (t - interactions.fps_time >= 1) {
+			interactions.fps = interactions.fps_accum;
+			interactions.fps_accum = 0;
+			interactions.fps_time = t;
+		}
+	}
+
+	//#####################################################################
+	/*
+	#
+	#		Main Drawing
+	#
+	*/
+	//#####################################################################
+}
+
+void StateManager::Computing()
+{
+	//#####################################################################
+	/*
+	#
+	#		Main Computing
+	#
+	*/
+	//#####################################################################
+
+	mainCompute.Compute(machineLayer);
+
+	//#####################################################################
+	/*
+	#
+	#		Main Computing
+	#
+	*/
+	//#####################################################################
+}
+
+void StateManager::Exiting()
+{
+	//Keep up stuff here!
+	std::cout << "CLEAN UP STUFF!!!!!!";
 }
