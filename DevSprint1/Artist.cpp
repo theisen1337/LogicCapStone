@@ -65,7 +65,9 @@ void Artist::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, flo
 	al_use_transform(&transform);
 }
 
-void Artist::drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world, ALLEGRO_BITMAP *character, int xPosition, int yPosition) //DF
+void Artist::drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, 
+							float zoom, float rotate, World world,
+							CharacterPlayer &c, int xPosition, int yPosition) //DF
 {
 	ALLEGRO_TRANSFORM transform;
 	float w, h;
@@ -86,7 +88,9 @@ void Artist::drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y,
 
 	al_hold_bitmap_drawing(1);
 
-	al_draw_scaled_bitmap(character, 0, 0, al_get_bitmap_width(character), al_get_bitmap_height(character), xPosition, yPosition, al_get_bitmap_width(character), al_get_bitmap_height(character), 0);
+	//DF FIX THIS
+
+	//al_draw_scaled_bitmap(c.getPic(), 0, 0, al_get_bitmap_width(c.getPic()), al_get_bitmap_height(c.getPic()), xPosition, yPosition, al_get_bitmap_width(c.getPic()), al_get_bitmap_height(c.getPic()), 0);
 	
 	al_hold_bitmap_drawing(0);
 

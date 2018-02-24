@@ -28,7 +28,7 @@ public:
 	//Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	~Interact();
 
-	void interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
 	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 

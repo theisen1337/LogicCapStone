@@ -6,16 +6,14 @@
 #include "World.h"
 #include "Chunk.h"
 #include "Tile.h"
-
-#include "CharacterPlayer.h"
 #pragma once
-class Artist
+class Draw
 {
 private:
 		//Tile dimensions
 	int tileDim = 64;
 		//Chunk dimensions
-	int chunkDim = 48;
+	int chunkDim = 32;
 		//World dimensions
 	int worldDim = 3;
 		//Bitmap to hold all the tiles drawn to it.
@@ -29,13 +27,11 @@ private:
 	int worldSize = 0;
 public:
 		//Constructor
-	Artist();
+	Draw();
 		//Create the tile buffer bitmap
 	void tileBuffer(ALLEGRO_DISPLAY &dis, World &world);
 		//Draw the tile buffer bitmap to the display
 	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world);
-
-	void drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world, CharacterPlayer &c, int xPosition, int yPosition);
 };
 
 

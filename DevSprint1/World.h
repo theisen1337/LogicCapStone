@@ -14,7 +14,6 @@ public:
 	std::vector<std::vector<Chunk>> world;
 		//Constructor
 	World();
-		//Thomas T. just doing this so world can be a class variable in StateManager
 	void InitalizeClass();
 		//First generation of world
 	void initialGeneration();

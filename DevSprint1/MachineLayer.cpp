@@ -16,19 +16,19 @@ MachineLayer::MachineLayer()
 
 void MachineLayer::Compute()
 {
-	if (!Layer.empty())
+	if (!arrMachines.empty())
 	{
-		for (int i = 0; i < Layer.size(); i++)
-			Layer.at(i).Compute();
+		for (int i = 0; i < arrMachines.size(); i++)
+			arrMachines.at(i).Compute();
 	}
 }
 
 void MachineLayer::Draw()
 {
-	if (!Layer.empty())
+	if (!arrMachines.empty())
 	{
-		for (int i = 0; i < Layer.size(); i++)
-			Layer.at(i).Draw();
+		for (int i = 0; i < arrMachines.size(); i++)
+			arrMachines.at(i).Draw();
 	}
 }
 

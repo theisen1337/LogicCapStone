@@ -9,6 +9,7 @@
 #include <cstdio>
 
 #include "StateManager.h"
+#include "allegro5/allegro_image.h"
 
 
 class FileIO
@@ -23,5 +24,7 @@ public:
 	bool DirectoryExist(const std::string& dirName);
 	void CreateDir(std::string folder);
 	std::vector<std::string> readFile(std::string path);
+
+	ALLEGRO_BITMAP * openPicture(std::string path);
 };
 

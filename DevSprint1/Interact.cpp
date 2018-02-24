@@ -2,7 +2,7 @@
 
 //World Map = *(LogisticsGame::getMap());
 
-Interact::Interact() {}
+Interact::Interact() { }
 
 ALLEGRO_EVENT event;
 
@@ -33,7 +33,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 	prev_distance = sqrt(pow((mouse_x - object_x), 2) + pow((mouse_y - object_y), 2));
 
 	// Loops through and finds closest item to the mouse release
-	for (int i; i < itemLayer.arrItems.size(); i++)
+	for (int i = 0; i < itemLayer.arrItems.size(); i++)
 	{
 		new_distance = sqrt(pow((mouse_x - itemLayer.arrItems[i].getCoordinateX()), 2) + pow((mouse_y - itemLayer.arrItems[i].getCoordinateY()), 2));
 
@@ -65,7 +65,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 		}
 	}
 
-	for (int j; j < machineLayer.arrMachines.size(); j++)
+	for (int j = 0; j < machineLayer.arrMachines.size(); j++)
 	{
 		new_distance = sqrt(pow((mouse_x - machineLayer.arrMachines[j].getPlacementX()), 2) + pow((mouse_y - machineLayer.arrMachines[j].getPlacementY()), 2));
 
@@ -96,7 +96,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 		}
 	}
 
-	for (int k; k < oreLayer.arrOres.size(); k++)
+	for (int k = 0; k < oreLayer.arrOres.size(); k++)
 	{
 		new_distance = sqrt(pow((mouse_x - oreLayer.arrOres[k].getXCoordinate()), 2) + pow((mouse_y - oreLayer.arrOres[k].getYCoordinate()), 2));
 
@@ -212,7 +212,6 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 	if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
 		/* Left button scrolls. */
 		if (mouse == 1) {
-			//leftClick();
 			float x = event.mouse.dx / zoom;
 			float y = event.mouse.dy / zoom;
 			scroll_x -= x * cos(rotate) + y * sin(rotate);
