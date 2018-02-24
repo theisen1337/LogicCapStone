@@ -12,6 +12,7 @@ struct Stack
 {
 	Items i;
 	int n;
+	int max;
 };
 
 class MachineBase
@@ -46,12 +47,22 @@ public:
 	int getTileX();
 	int getTileY();
 
+	void setAnimateSheet_OFF(std::string path);
+	void setAnimateSheet_ON(std::string path);
+	void setAnimateSheet_IDLE(std::string path);
+
 private:
+
+	void doWork();
+
+
 	// MAS = MachineAnimateSheet
 	ALLEGRO_BITMAP * MAS_OFF_Image;
 	ALLEGRO_BITMAP * MAS_ON_Image;
 	ALLEGRO_BITMAP * MAS_IDLE_Image;
-	
+
+
+
 	// AS = AnimateSheet
 	int AS_X, AS_Y;				//TODO
 	int AS_Hieght, AS_Width;	//TODO

@@ -28,6 +28,7 @@ bool FileIO::FileExist(std::string path)
 		file.clear();
 		return false;
 	}
+	file.close();
 	return true;
 }
 void FileIO::createFile(std::string path)
@@ -92,4 +93,25 @@ std::vector<std::string> FileIO::readFile(std::string path)
 	
 	inData.close();
 	return filedata;
+}
+
+ALLEGRO_BITMAP * FileIO::openPicture(std::string path)
+{
+	std::fstream file;
+	file.open(path.c_str()); // Try to open for I/O
+	if (!file)
+	{
+		file.clear();
+		path = "Terrain//Dev//test.png";
+		
+		file.open(path.c_str()); // Try to open for I/O
+		if (!file)
+		{
+			file.clear();
+			return nullptr;
+		}
+		return al_load_bitmap("Terrain//Dev//test.png");
+	}
+	
+	return al_load_bitmap(path.c_str());
 }
