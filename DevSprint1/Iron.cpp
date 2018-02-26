@@ -1,5 +1,6 @@
 #include "Iron.h"
 
+//left & right click interacts cause a pop up to appear with a message
 void Iron::LeftClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
