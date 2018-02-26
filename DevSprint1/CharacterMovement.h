@@ -6,7 +6,7 @@ class CharacterMovement
 public:
 	CharacterMovement();//DF
 	CharacterMovement(int xPosition, int yPosition);
-	int moveCharacterLeft(int distance = 5);
+	int moveCharacterLeft(int distance = 5);//default movement "speed" is 5
 	int moveCharacterRight(int distance = 5);
 	int moveCharacterUp(int distance = 5);
 	int moveCharacterDown(int distance = 5);
