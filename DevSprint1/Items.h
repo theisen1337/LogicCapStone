@@ -10,14 +10,12 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-//#include "main.h"
-
 
 class Items
 {
 public:
 	Items();
-	Items(std::string name, std::string category, float value, int width, int height, int stackSize);
+	Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
 	~Items();
 
 	std::string getName();
@@ -26,6 +24,9 @@ public:
 	int getWidth();
 	int getHeight();
 	int getStackSize();
+
+	int getCoordinateX();
+	int getCoordinateY();
 
 	void setDropped(bool boolVar);
 	bool checkDropped();
@@ -40,13 +41,12 @@ public:
 
 	ALLEGRO_BITMAP * getBitMap();
 
-	void Draw();
-
+	void leftClick();
+	void rightClick();
 
 private:
 	ALLEGRO_BITMAP * ItemsImage;
 
-	//std::vector<ALLEGRO_BITMAP*> grassTiles;
 	std::vector<ALLEGRO_BITMAP*> arrItems;
 
 	std::string ItemsName;
@@ -56,4 +56,6 @@ private:
 	bool ItemsDropped;
 	int ItemsWidth;
 	int ItemsHeight;
+	int xCoordinate;
+	int yCoordinate;
 };
