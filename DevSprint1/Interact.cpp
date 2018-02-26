@@ -79,6 +79,8 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 	}
 
 	// Character Movement
+	//when an arrow key is pressed, the character position is checked before it is drawn. If it would be outside of the map boundary
+	//its position is then changed to be within the boundary
 	if (event.type == ALLEGRO_EVENT_KEY_CHAR)
 	{
 		if (event.keyboard.keycode == ALLEGRO_KEY_UP)
