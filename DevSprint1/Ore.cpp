@@ -21,7 +21,7 @@ int Ore::getTravelSpeed()
 	return travelSpeed;
 }
 
-void Ore::leftClick()
+void Ore::leftClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
 		"Character Interaction",
@@ -30,7 +30,7 @@ void Ore::leftClick()
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
-void Ore::rightClick()
+void Ore::rightClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
 		"Character Interaction",

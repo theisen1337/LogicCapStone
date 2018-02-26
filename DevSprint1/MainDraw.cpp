@@ -1,8 +1,16 @@
 #include "MainDraw.h"
-#include "MachineLayer.h"
-	
-	void MainDraw::Draw(MachineLayer & ML)
-	{
-		ML.Draw();
 
-	}
+
+	
+void MainDraw::Init()
+{							//"Terrain//Machine//Miner//Miner_ON.png"
+
+}
+
+	
+void MainDraw::Draw(MachineLayer & ML, TransportLayer &TL)
+{		
+	ML.Draw();
+
+	TL.Compute();
+}

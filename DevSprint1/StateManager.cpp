@@ -4,7 +4,10 @@
 #include "MainCompute.h"
 
 #include "MachineLayer.h"
+#include "TransportLayer.h"
 #include "CharacterPlayer.h"
+
+#include "transportTemplate.h"
 
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
@@ -28,9 +31,13 @@ MainDraw mainDraw;
 MainCompute mainCompute;
 
 MachineLayer machineLayer;
+TransportLayer transportLayer;
 ItemLayer itemLayer;
 OreLayer oreLayer;
 CharacterPlayer player;
+
+FastTrack fast;
+SlowTrack slow;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -69,9 +76,15 @@ void StateManager::run()
 
 	// Creates Buffer and Generates the Map
 	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
-									//Map.Generate_Terrain();
+					
+									
+	;
+	mainDraw.Init(); // initialize mainDraw
 
-	
+	fast.Init();
+	slow.Init();
+	transportLayer.Init(fast, slow);
+	machineLayer.Init(fast,slow);
 									// Initializes Timer
 									// Built in Game Timer
 	ALLEGRO_TIMER *timer;
@@ -93,6 +106,8 @@ void StateManager::run()
 
 	MainLoop(); //Map, Art, display, font
 }
+
+
 
 void StateManager::MainLoop()
 {
@@ -140,15 +155,40 @@ void StateManager::Drawing()
 	*/
 	//#####################################################################
 
-	if (true) {//	interactions.redraw && al_is_event_queue_empty(queue)
+	if (interactions.redraw && al_is_event_queue_empty(queue)) {//	
 		interactions.redraw = false;
 		double t = al_get_time();
+
+		ALLEGRO_TRANSFORM transform;
+		float w, h;
+		w = al_get_display_width(display);
+		h = al_get_display_height(display);
+
+		/* Initialize transformation. */
+		al_identity_transform(&transform);
+		/* Move to scroll position. */
+		al_translate_transform(&transform, -interactions.scroll_x, -interactions.scroll_y);
+		/* Rotate and scale around the center first. */
+		al_rotate_transform(&transform, interactions.rotate);
+		al_scale_transform(&transform, interactions.zoom, interactions.zoom);
+		/* Move scroll position to screen center. */
+		al_translate_transform(&transform, w * 0.5, h * 0.5);
+		/* All subsequent drawing is transformed. */
+		al_use_transform(&transform);
+
+		al_hold_bitmap_drawing(1);
+
 		draw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
 		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 
-		mainDraw.Draw(machineLayer); //Main Draw for Layers
+		mainDraw.Draw(machineLayer,transportLayer); //Main Draw for Layers
+		
+		al_hold_bitmap_drawing(0);
 
+		al_identity_transform(&transform);
+		al_use_transform(&transform);
+		
 		if (font) {
 			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
 				8, 8, al_map_rgba(0, 0, 0, 200));
@@ -190,7 +230,7 @@ void StateManager::Computing()
 	*/
 	//#####################################################################
 
-	mainCompute.Compute(machineLayer);
+	mainCompute.Compute(machineLayer, transportLayer);
 
 	//#####################################################################
 	/*

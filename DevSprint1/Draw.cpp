@@ -30,27 +30,27 @@ void Draw::tileBuffer(ALLEGRO_DISPLAY &dis, World &world)
 void Draw::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world)
 {
 	int x, y;
-	ALLEGRO_TRANSFORM transform;
-	float w, h;
+	//ALLEGRO_TRANSFORM transform;
+	//float w, h;
 
-	w = al_get_display_width(&dis);
-	h = al_get_display_height(&dis);
+	//w = al_get_display_width(&dis);
+	//h = al_get_display_height(&dis);
 
-	/* Initialize transformation. */
-	al_identity_transform(&transform);
-	/* Move to scroll position. */
-	al_translate_transform(&transform, -scroll_x, -scroll_y);
-	/* Rotate and scale around the center first. */
-	al_rotate_transform(&transform, rotate);
-	al_scale_transform(&transform, zoom, zoom);
-	/* Move scroll position to screen center. */
-	al_translate_transform(&transform, w * 0.5, h * 0.5);
-	/* All subsequent drawing is transformed. */
-	al_use_transform(&transform);
+	///* Initialize transformation. */
+	//al_identity_transform(&transform);
+	///* Move to scroll position. */
+	//al_translate_transform(&transform, -scroll_x, -scroll_y);
+	///* Rotate and scale around the center first. */
+	//al_rotate_transform(&transform, rotate);
+	//al_scale_transform(&transform, zoom, zoom);
+	///* Move scroll position to screen center. */
+	//al_translate_transform(&transform, w * 0.5, h * 0.5);
+	///* All subsequent drawing is transformed. */
+	//al_use_transform(&transform);
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
-	al_hold_bitmap_drawing(1);
+	//al_hold_bitmap_drawing(1);
 	for (int j = 0; j < worldDim; j++)
 	{
 		for (int k = 0; k < worldDim; k++)
@@ -71,10 +71,10 @@ void Draw::drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float
 		}
 	}
 	*/
-	al_hold_bitmap_drawing(0);
+	//al_hold_bitmap_drawing(0);
 	
-	al_identity_transform(&transform);
-	al_use_transform(&transform);
+	/*al_identity_transform(&transform);
+	al_use_transform(&transform);*/
 }
 
 
