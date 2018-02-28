@@ -3,6 +3,9 @@ Implementation Design:
 
 ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/CapstoneDesign.png)
 
+
+![alt text](https://docs.google.com/document/d/1xvlc74hTfMPqlZOmGtpDKRI4gGFwifOWOZ6zyVGQBeM/edit?usp=sharing)
+
 Tutorial:
 
 1. Make new Local Project
