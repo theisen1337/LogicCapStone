@@ -5,7 +5,7 @@ Implementation Design:
 
 
 ![alt text](https://docs.google.com/document/d/1xvlc74hTfMPqlZOmGtpDKRI4gGFwifOWOZ6zyVGQBeM/edit?usp=sharing)
-
+{google_docs}https://docs.google.com/document/d/1xvlc74hTfMPqlZOmGtpDKRI4gGFwifOWOZ6zyVGQBeM/edit?usp=sharing{/google_docs}
 Tutorial:
 
 1. Make new Local Project
