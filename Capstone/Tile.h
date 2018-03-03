@@ -7,46 +7,75 @@
 class Tile
 {
 public:
-		//Enum for the types of Tiles
+	//! Types Enum
+	/*!
+		The different Types of tiles possible.
+	*/
 	enum Types
 	{
-		GRASS,
-		WATER,
-		DIRT,
-		COAL,
-		IRON,
-		TEMP_COAL,
-		TEMP_IRON,
-		TEMP_WATER,
-		EMPTY
+		GRASS, /*! Grass tile*/
+		WATER,/*! Water tile*/
+		DIRT,/*! Dirt tile*/
+		COAL,/*! Coal ore tile*/
+		IRON,/*! Iron ore tile*/ 
+		TEMP_COAL,/*! Temp coal, Used in Generation*/
+		TEMP_IRON,/*! Temp iron, Used in Generation*/
+		TEMP_WATER,/*! Temp water, Used in Generation*/
+		EMPTY/*! Empty tile*/
 	};
-		//Check if tile is loaded
+	//! Loaded Tile Boolean
+	/*!
+		Allows to check if a tile is currently loaded.
+	*/
 	bool loaded;
-		//Image of the tile
+
+	//! Image of the tile
 	ALLEGRO_BITMAP *pic;
-		//Type of the tile
+
+
+	//! Type of the tile
 	Types type;
-		//Constructor
+
+	//! Constructor for Tile
 	Tile(Tile::Types tileType);
-		//Return Type of tile
+
+	//! Getter for tile type
 	Tile::Types getType() { return type; };
-		//Set the type of the Tile
+	
+	//! Setter for tile type
 	void setType(Tile::Types tileType);
-		//Generate picture depending on type of the tile
+
+	//! Generate tile picture
+	/*!
+		Generates the random tile image depending on the type
+	*/
 	void genPicture();
-		//Get the tile pic
+		
+	//! Getter for the tile image
 	ALLEGRO_BITMAP * getTilePic() { return pic; };
-		//Get loaded
+		
+	//! Getter to check if tile is Loaded
 	bool getLoaded() { return loaded; };
-		//Random variable
+		
+	//! Random Variable
 	int r;
-		//Chunk Positions
+
+	//! Chunk X Location
 	int chunkX;
+
+	//! Chunk Y Location
 	int chunkY;
-		//Setters and Getters for Chunk Positions
+
+	//! Get Chunk X Location
 	int getChunkX() { return chunkX; };
+
+	//! Get Chunk Y Location
 	int getChunkY() { return chunkY; };
+
+	//! Set Chunk X Location
 	void setChunkX(int x) { chunkX = x; };
+
+	//! Set Chunk Y Location
 	void setChunkY(int y) { chunkY = y; };
  };
 

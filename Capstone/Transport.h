@@ -2,6 +2,8 @@
 
 #include <deque>
 #include "Items.h"
+#include "MachineTemplate.h"
+#include "allegro5/allegro_primitives.h"
 
 struct XYPoint
 {
@@ -9,27 +11,45 @@ struct XYPoint
 	float y;
 };
 
+
 class Transport
 {
 public:
 	Transport();
 	~Transport();
+	Transport(float speed, ALLEGRO_COLOR color);
 
 	void addItems(Items Items);
-	void removeItems(Items Items);
+	void removeItems();
 
-	void layTrack();
+	void startingNode(MachineBase &start);
+	void enddingNode(MachineBase &end);
+
+
+	void Compute();
+	void Draw();
+
+	void layTrack(float sx, float sy, float ex, float ey);
 	void removeTrack();
 
 
 private:
-	
-	
+
+	ALLEGRO_COLOR trackColor;
+	MachineBase startMachine;
+	MachineBase endMachine;
+
+	void TransportItems();
 
 	//
-	int tracklength;
+	float trackDistance;
+	float trackLength;
+	float trackHeight;
+
+	int trackSegments;
+
 	float trackspeed;
-	float anchorPointX, anchorPointY;
+	float start_x, start_y, end_x, end_y;
 
 
 	//path for Items to travel in float x and y
@@ -38,7 +58,8 @@ private:
 	//hold Items contents, REPLACE string with Items object
 	std::deque<Items> ItemsOntrack;
 
-	
+
 
 };
+
 

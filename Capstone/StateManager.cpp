@@ -4,7 +4,10 @@
 #include "MainCompute.h"
 
 #include "MachineLayer.h"
+#include "TransportLayer.h"
 #include "CharacterPlayer.h"
+
+#include "transportTemplate.h"
 
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
@@ -27,8 +30,12 @@ MainCompute mainCompute;
 
 MachineLayer machineLayer;
 ItemLayer itemLayer;
+TransportLayer transportLayer;
 OreLayer oreLayer;
 CharacterPlayer player;
+
+FastTrack fast;
+SlowTrack slow;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -67,10 +74,15 @@ void StateManager::run()
 	Map.InitalizeClass();
 	player.InitializeClass();
 
+	mainDraw.Init();
 	// Creates Buffer and Generates the Map
 	mainDraw.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
 
+	fast.Init();
+	slow.Init();
+	transportLayer.Init(fast, slow);
+	machineLayer.Init(fast, slow);
 	
 									// Initializes Timer
 									// Built in Game Timer
@@ -143,11 +155,39 @@ void StateManager::Drawing()
 	if (interactions.redraw && al_is_event_queue_empty(queue)) {//	interactions.redraw && al_is_event_queue_empty(queue)
 		interactions.redraw = false;
 		double t = al_get_time();
+
+		ALLEGRO_TRANSFORM transform;
+		float w, h;
+		w = al_get_display_width(display);
+		h = al_get_display_height(display);
+
+		/* Initialize transformation. */
+		al_identity_transform(&transform);
+		/* Move to scroll position. */
+		al_translate_transform(&transform, -interactions.scroll_x, -interactions.scroll_y);
+		/* Rotate and scale around the center first. */
+		al_rotate_transform(&transform, interactions.rotate);
+		al_scale_transform(&transform, interactions.zoom, interactions.zoom);
+		/* Move scroll position to screen center. */
+		al_translate_transform(&transform, w * 0.5, h * 0.5);
+		/* All subsequent drawing is transformed. */
+		al_use_transform(&transform);
+
+		al_hold_bitmap_drawing(1);
+
+
 		mainDraw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
 		mainDraw.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 
-		mainDraw.Draw(machineLayer); //Main Draw for Layers
+		mainDraw.Draw(machineLayer, transportLayer); //Main Draw for Layers
+
+
+		al_hold_bitmap_drawing(0);
+
+		al_identity_transform(&transform);
+		al_use_transform(&transform);
+
 
 		if (font) {
 			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
@@ -190,7 +230,7 @@ void StateManager::Computing()
 	*/
 	//#####################################################################
 
-	mainCompute.Compute(machineLayer);
+	mainCompute.Compute(machineLayer, transportLayer);
 
 	//#####################################################################
 	/*

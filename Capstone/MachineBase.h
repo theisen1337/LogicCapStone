@@ -38,8 +38,8 @@ public:
 	void Compute();
 	void Draw();
 
-	void setPLacement(float x, float y);
-	
+	void setPlacement(float x, float y);
+
 	float getPlacementX();
 	float getPlacementY();
 
@@ -50,6 +50,15 @@ public:
 	void setAnimateSheet_OFF(std::string path);
 	void setAnimateSheet_ON(std::string path);
 	void setAnimateSheet_IDLE(std::string path);
+
+	void setOutBuffer(Stack output, int multiplier = 1);
+
+	void leftClick();
+	void rightClick();
+
+	std::vector<Stack> CraftRecipe;
+	std::vector<Stack> InputBuffer;
+	Stack OutBuffer;
 
 private:
 
@@ -68,21 +77,17 @@ private:
 	int AS_Hieght, AS_Width;	//TODO
 	int AS_rows, AS_Columns;	//TODO
 
-	//Machine location Varriables
+								//Machine location Varriables
 	float PlacementX, placementY;
 	int TileX, TileY;
 
 	//Machine Work
-	float totalWork, WorkPerSecond;
+	float totalWork, WorkPerSecond, jobWork;
 	float time; // may be depericated
 	bool Busy;
-	
-	//setup vectors for Items, such that vector<Items> = {{f},{},{}
-	//string = Items object temp value
-	std::vector<Stack> CraftRecipe;
-	std::vector<Stack> InputBuffer;
 
-	std::vector<Stack> OutBuffer;
+	//outbuffer variables
+	int OutBufferMultiplier = 1;
 
 };
 

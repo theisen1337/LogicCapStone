@@ -52,8 +52,8 @@ public:
 	int charYPosition = 0;
 	//ALLEGRO_BITMAP *character;
 	CharacterMovement movement;
-	int mapXBoundary = 4067;
-	int mapYBoundary = 4067;
+	int mapXBoundary = 4048;
+	int mapYBoundary = 4048;
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;

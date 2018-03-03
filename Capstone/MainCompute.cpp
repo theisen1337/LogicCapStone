@@ -3,9 +3,10 @@
 #include "MachineLayer.h"
 
 
-void MainCompute::Compute(MachineLayer &ML)
+void MainCompute::Compute(MachineLayer &ML, TransportLayer &TL)
 {
 	ML.Compute();
+	TL.Compute();
 	ComputeTPS();
 }
 
