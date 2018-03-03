@@ -15,8 +15,8 @@ class Items
 {
 public:
 	Items();
-	Items(std::string path,std::string name);
-	Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
+	Items(std::string path, std::string name);
+	Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
 	~Items();
 
 	std::string getName();
@@ -47,7 +47,7 @@ public:
 
 	void Draw();
 
-	void setXY(float x, float y); 
+	void setXY(float x, float y);
 
 private:
 	ALLEGRO_BITMAP * ItemsImage;

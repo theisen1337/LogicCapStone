@@ -7,7 +7,7 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "Artist.h"
+#include "MainDraw.h"
 #include "World.h"
 #include "Items.h"
 
@@ -28,7 +28,7 @@ public:
 
 	void interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
-	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
 
 
@@ -52,8 +52,8 @@ public:
 	int charYPosition = 0;
 	//ALLEGRO_BITMAP *character;
 	CharacterMovement movement;
-	int mapXBoundary = 6100;
-	int mapYBoundary = 6100;
+	int mapXBoundary = 4048;
+	int mapYBoundary = 4048;
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;

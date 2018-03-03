@@ -10,7 +10,7 @@ Chunk::Chunk()
 
 void Chunk::genChunkMap()
 {
-	
+	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 	al_set_target_bitmap(map);
 	ALLEGRO_BITMAP *pic;
 	//These two loops are for looping through map vectors
@@ -42,7 +42,7 @@ void Chunk::initalGen()
 {
 	terrainLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::GRASS)));
 	oreLayer.resize(chunkDim, std::vector<Tile>(chunkDim, Tile(Tile::EMPTY)));
-	map = al_create_bitmap(1024, 1024);
+	map = al_create_bitmap(2048, 2048);
 	/*
 	for (int i = 0; i < chunkDim; i++)
 	{
@@ -59,11 +59,11 @@ void Chunk::initalGen()
 void Chunk::genChunk() //Might be worthless
 {
 	
-	terrainLayer = gen.setTileGrid(terrainLayer);
-	terrainLayer = gen.lakeAlGore(terrainLayer);
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
-	oreLayer = gen.oreAlGore(oreLayer, terrainLayer);
-	oreLayer = gen.revampOre(oreLayer);
+	oreLayer = gen.newOreAlGore(oreLayer, terrainLayer);
+	terrainLayer = gen.setTileGrid(terrainLayer);
+	terrainLayer = gen.newLakeAlGore(oreLayer,terrainLayer);
+	terrainLayer = gen.revampWater(terrainLayer);
 	genChunkMap();
 }
 

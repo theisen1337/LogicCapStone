@@ -2,7 +2,7 @@
 #include "Items.h"
 #include "math.h"
 
-Transport::Transport(float speed,ALLEGRO_COLOR color)
+Transport::Transport(float speed, ALLEGRO_COLOR color)
 {
 	trackspeed = speed;
 	trackColor = color;
@@ -53,16 +53,16 @@ void Transport::Compute()
 
 void Transport::Draw()
 {
-	al_draw_line(start_x,start_y,end_x,end_y,trackColor,5);
+	al_draw_line(start_x, start_y, end_x, end_y, trackColor, 5);
 
 	if (!ItemsOntrack.empty())
 	{
-		
+
 		for (int y = 0; y < ItemsOntrack.size(); y++)
 		{
 			ItemsOntrack[y].Draw();
 		}
-		
+
 	}
 }
 
@@ -106,24 +106,22 @@ void Transport::TransportItems()
 			}
 		}
 
-		for (int n=0; n < ItemsOntrack.size(); n++)
+		for (int n = 0; n < ItemsOntrack.size(); n++)
 		{
 			int CPS = 60; //TODO change this to global CPS
-			/*
-			track speed is the amount of seconds it takes to travel one segment..
-			
-			     (tracklength 300px  / 6 track segments)   /	(trackspeed  1  *  60ticks this second)
+						  /*
+						  track speed is the amount of seconds it takes to travel one segment..
+
+						  (tracklength 300px  / 6 track segments)   /	(trackspeed  1  *  60ticks this second)
 
 
-			*/
+						  */
 			float x = ItemsOntrack[n].getCoordinateX() + ((trackLength / trackSegments) / (trackspeed *(1.0f*CPS)));
 			float y = ItemsOntrack[n].getCoordinateY() + ((trackHeight / trackSegments) / (trackspeed *(1.0f*CPS)));
-			ItemsOntrack[n].setXY(x,y);
+			ItemsOntrack[n].setXY(x, y);
 		}
 
-		
+
 	}
 }
-
-
 

@@ -17,8 +17,6 @@
 //#include "ItemsLayer.h"
 //#include "Ore.h"
 //#include "Tile.h"
-#include "Artist.h"
-#include "Draw.h"
 
 using namespace std;
 

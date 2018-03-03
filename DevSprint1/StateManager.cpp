@@ -24,15 +24,13 @@ ALLEGRO_EVENT_QUEUE *queue;
 //#######################################################################################################
 Interact Interactions;
 World Map;
-Artist Art;
-Draw draw;
 Interact interactions;
 MainDraw mainDraw;
 MainCompute mainCompute;
 
 MachineLayer machineLayer;
-TransportLayer transportLayer;
 ItemLayer itemLayer;
+TransportLayer transportLayer;
 OreLayer oreLayer;
 CharacterPlayer player;
 
@@ -71,20 +69,21 @@ void StateManager::run()
 
 									 // Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 	Map.InitalizeClass();
+	player.InitializeClass();
 
+	mainDraw.Init();
 	// Creates Buffer and Generates the Map
-	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
-					
-									
-	;
-	mainDraw.Init(); // initialize mainDraw
+	mainDraw.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
+									//Map.Generate_Terrain();
 
 	fast.Init();
 	slow.Init();
 	transportLayer.Init(fast, slow);
-	machineLayer.Init(fast,slow);
+	machineLayer.Init(fast, slow);
+	
 									// Initializes Timer
 									// Built in Game Timer
 	ALLEGRO_TIMER *timer;
@@ -106,8 +105,6 @@ void StateManager::run()
 
 	MainLoop(); //Map, Art, display, font
 }
-
-
 
 void StateManager::MainLoop()
 {
@@ -134,7 +131,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, Art, display, font, queue, itemLayer, oreLayer, machineLayer);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, itemLayer, oreLayer, machineLayer);
 
 	//#####################################################################
 	/*
@@ -155,7 +152,7 @@ void StateManager::Drawing()
 	*/
 	//#####################################################################
 
-	if (interactions.redraw && al_is_event_queue_empty(queue)) {//	
+	if (interactions.redraw && al_is_event_queue_empty(queue)) {//	interactions.redraw && al_is_event_queue_empty(queue)
 		interactions.redraw = false;
 		double t = al_get_time();
 
@@ -178,17 +175,20 @@ void StateManager::Drawing()
 
 		al_hold_bitmap_drawing(1);
 
-		draw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
-		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		mainDraw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
-		mainDraw.Draw(machineLayer,transportLayer); //Main Draw for Layers
-		
+		mainDraw.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+
+		mainDraw.Draw(machineLayer, transportLayer); //Main Draw for Layers
+
+
 		al_hold_bitmap_drawing(0);
 
 		al_identity_transform(&transform);
 		al_use_transform(&transform);
-		
+
+
 		if (font) {
 			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
 				8, 8, al_map_rgba(0, 0, 0, 200));

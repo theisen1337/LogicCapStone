@@ -3,7 +3,7 @@
 void Coal::Interact()
 {
 }
-//left & right click interacts currently make a popup display the message
+
 void Coal::leftClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),

@@ -11,8 +11,6 @@ MachineBase::MachineBase()
 }
 
 
-
-
 MachineBase::~MachineBase()
 {
 }
@@ -30,7 +28,7 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 			recipe[i].n = 0;
 		}
 	}
-		
+
 	InputBuffer = recipe;
 }
 
@@ -39,12 +37,12 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 	CraftRecipe = recipe;
 	if (!recipe.empty())
 	{
-		for (int i = 0; i < recipe.size(); i++) 
+		for (int i = 0; i < recipe.size(); i++)
 		{
 			recipe[i].max = recipe[i].n * multiplier;
 			recipe[i].n = 0; //so input does not start with items
-			
-		}		
+
+		}
 	}
 	InputBuffer = recipe;
 }
@@ -138,12 +136,12 @@ void MachineBase::Compute()
 
 void MachineBase::Draw()
 {
-	if(Busy)
-		al_draw_scaled_bitmap(MAS_ON_Image,0,0,48,48,
-			PlacementX, placementY,66,66, 0);
+	if (Busy)
+		al_draw_scaled_bitmap(MAS_ON_Image, 0, 0, 48, 48,
+			PlacementX, placementY, 66, 66, 0);
 	else
 		al_draw_scaled_bitmap(MAS_OFF_Image, 0, 0, 48, 48,
-			PlacementX, placementY, 64*2, 64*2, 0);
+			PlacementX, placementY, 64 * 2, 64 * 2, 0);
 }
 
 //Placement methods
@@ -184,6 +182,7 @@ void MachineBase::setAnimateSheet_OFF(std::string path)
 {
 	FileIO file;
 	MAS_OFF_Image = al_load_bitmap(file.openPicture(path).c_str());
+	//MAS_OFF_Image = al_load_bitmap(path.c_str());
 	//MAS_OFF_Image =  &pic; //better idlea pass in string and do file load here.
 }
 
@@ -191,6 +190,7 @@ void MachineBase::setAnimateSheet_ON(std::string path)
 {
 	FileIO file;
 	MAS_ON_Image = al_load_bitmap(file.openPicture(path).c_str());
+	//MAS_ON_Image = al_load_bitmap(path.c_str());
 }
 
 void MachineBase::setAnimateSheet_IDLE(std::string path)
@@ -198,6 +198,7 @@ void MachineBase::setAnimateSheet_IDLE(std::string path)
 	FileIO file;
 	MAS_IDLE_Image = al_load_bitmap(file.openPicture(path).c_str());
 	//MAS_IDLE_Image = &pic;
+	//MAS_IDLE_Image = al_load_bitmap(path.c_str());
 }
 
 void MachineBase::setOutBuffer(Stack output, int multiplier)
@@ -213,5 +214,3 @@ void MachineBase::leftClick()
 void MachineBase::rightClick()
 {
 }
-
-

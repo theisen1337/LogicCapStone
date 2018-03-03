@@ -2,7 +2,6 @@
 
 #include <deque>
 #include "Items.h"
-#include "Artist.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
 
@@ -50,7 +49,7 @@ private:
 	int trackSegments;
 
 	float trackspeed;
-	float start_x, start_y , end_x, end_y;
+	float start_x, start_y, end_x, end_y;
 
 
 	//path for Items to travel in float x and y
@@ -59,7 +58,8 @@ private:
 	//hold Items contents, REPLACE string with Items object
 	std::deque<Items> ItemsOntrack;
 
-	
+
 
 };
+
 

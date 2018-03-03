@@ -2,7 +2,7 @@
 
 CoalOreItem::CoalOreItem()
 {
-	Items("Items//Ores//ITEM_COAL.png","Coal-Ore");
+	Items("Items//Ores//ITEM_COAL.png", "Coal-Ore");
 }
 
 IronOreItem::IronOreItem()

@@ -1,13 +1,10 @@
 #include "MainCompute.h"
 
 #include "MachineLayer.h"
-#include "TransportLayer.h"
-
 
 
 void MainCompute::Compute(MachineLayer &ML, TransportLayer &TL)
 {
-	
 	ML.Compute();
 	TL.Compute();
 	ComputeTPS();

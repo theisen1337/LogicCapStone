@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "MachineTemplate.h"
 #include "transportTemplate.h"
 #include <vector>
@@ -15,6 +13,5 @@ public:
 	void Draw();
 	MachineLayer();
 	~MachineLayer();
-private:
 };
 
