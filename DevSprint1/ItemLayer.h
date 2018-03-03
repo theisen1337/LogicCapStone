@@ -4,10 +4,6 @@
 #include <stdio.h>
 #include <iostream>
 
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_primitives.h"
-#include "allegro5/allegro_font.h"
 
 #include "Items.h"
 
@@ -22,6 +18,7 @@ public:
 	~ItemLayer();
 
 	void Draw();
+	void Init();
 
 	ALLEGRO_BITMAP * getItems(unsigned int index);
 

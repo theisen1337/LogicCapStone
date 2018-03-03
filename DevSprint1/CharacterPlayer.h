@@ -14,12 +14,11 @@ public:
 
 	CharacterPlayer();
 	~CharacterPlayer();
-	void InitializeClass();
-	ALLEGRO_BITMAP *characterPIC;
+
 	ALLEGRO_BITMAP * getPic() { return characterPIC; };
 
 private:
-	//ALLEGRO_BITMAP *characterPIC = al_load_bitmap("Character//Character.png");
+	ALLEGRO_BITMAP *characterPIC;
 
 };
 

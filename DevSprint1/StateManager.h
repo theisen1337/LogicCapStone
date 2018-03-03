@@ -17,6 +17,8 @@
 //#include "ItemsLayer.h"
 //#include "Ore.h"
 //#include "Tile.h"
+#include "Artist.h"
+#include "Draw.h"
 
 using namespace std;
 
@@ -24,15 +26,6 @@ using namespace std;
 class StateManager
 {
 	public:
-		//static StateManger getInstance();
-
-		// Return Objects for Extraneous Class Use
-		/*FileIO* getIO();
-		Interact* getInteractions();
-		World* getMap();
-		Artist* getArt();*/
-		//static Items* getItems();
-		//static Tile* getTile();
 
 		void run();
 		

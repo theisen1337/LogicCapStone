@@ -24,7 +24,7 @@ public:
 	bool DirectoryExist(const std::string& dirName);
 	void CreateDir(std::string folder);
 	std::vector<std::string> readFile(std::string path);
+
 	string openPicture(std::string path);
-	//ALLEGRO_BITMAP * openPicture(std::string path);
 };
 
