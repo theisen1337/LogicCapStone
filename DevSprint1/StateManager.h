@@ -17,8 +17,10 @@
 //#include "ItemsLayer.h"
 //#include "Ore.h"
 //#include "Tile.h"
-#include "Artist.h"
-#include "Draw.h"
+//#include "Artist.h"
+#include "MainDraw.h"
+#include "ObjectManager.h"
+#include "GlobalStatics.h"
 
 using namespace std;
 

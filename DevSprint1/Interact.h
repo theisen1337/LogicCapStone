@@ -7,7 +7,7 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "Artist.h"
+#include "MainDraw.h"
 #include "World.h"
 #include "Items.h"
 
@@ -20,6 +20,7 @@
 #include <array>
 
 #include "CharacterMovement.h"
+#include "ObjectManager.h"
 
 class Interact
 {
@@ -28,9 +29,9 @@ public:
 	//Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	~Interact();
 
-	void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM);
 
-	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM);
 
 
 

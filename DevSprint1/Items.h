@@ -16,7 +16,7 @@ class Items
 public:
 	Items();
 	Items(std::string name);
-	Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
+	Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
 	~Items();
 
 	void setPic(std::string path);

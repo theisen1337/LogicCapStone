@@ -11,7 +11,7 @@ Interact::~Interact() {}
 
 
 // This calls the appropriate interaction functions in whatever object got clicked
-void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer)
+void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM)
 {
 	// NOTES:
 	// Nested For Loop to Check Every Item in Chunk
@@ -33,15 +33,15 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 	prev_distance = sqrt(pow((mouse_x - object_x), 2) + pow((mouse_y - object_y), 2));
 
 	// Loops through and finds closest item to the mouse release
-	for (int i = 0; i < itemLayer.arrItems.size(); i++)
+	for (int i = 0; i < OM.getIL().arrItems.size(); i++)
 	{
-		new_distance = sqrt(pow((mouse_x - itemLayer.arrItems[i].getCoordinateX()), 2) + pow((mouse_y - itemLayer.arrItems[i].getCoordinateY()), 2));
+		new_distance = sqrt(pow((mouse_x - OM.getIL().arrItems[i].getCoordinateX()), 2) + pow((mouse_y - OM.getIL().arrItems[i].getCoordinateY()), 2));
 
 		if (new_distance < prev_distance)
 		{
 			prev_distance = new_distance;
-			object_x = itemLayer.arrItems[i].getCoordinateX();
-			object_y = itemLayer.arrItems[i].getCoordinateY();
+			object_x = OM.getIL().arrItems[i].getCoordinateX();
+			object_y = OM.getIL().arrItems[i].getCoordinateY();
 			object_index = i;
 		}
 	}
@@ -51,12 +51,12 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 	{
 		if (mouse == 1)
 		{
-			itemLayer.arrItems[object_index].leftClick();
+			OM.getIL().arrItems[object_index].leftClick();
 			return;
 		}
 		else if (mouse == 2)
 		{
-			itemLayer.arrItems[object_index].rightClick();
+			OM.getIL().arrItems[object_index].rightClick();
 			return;
 		}
 		else
@@ -65,15 +65,15 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 		}
 	}
 
-	for (int j = 0; j < machineLayer.arrMachines.size(); j++)
+	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
 	{
-		new_distance = sqrt(pow((mouse_x - machineLayer.arrMachines[j].getPlacementX()), 2) + pow((mouse_y - machineLayer.arrMachines[j].getPlacementY()), 2));
+		new_distance = sqrt(pow((mouse_x - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouse_y - OM.getML().arrMachines[j].getPlacementY()), 2));
 
 		if (new_distance < prev_distance)
 		{
 			prev_distance = new_distance;
-			object_x = machineLayer.arrMachines[j].getPlacementX();
-			object_y = machineLayer.arrMachines[j].getPlacementY();
+			object_x = OM.getML().arrMachines[j].getPlacementX();
+			object_y = OM.getML().arrMachines[j].getPlacementY();
 			object_index = j;
 		}
 	}
@@ -82,12 +82,12 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 	{
 		if (mouse == 1)
 		{
-			machineLayer.arrMachines[object_index].leftClick();
+			OM.getML().arrMachines[object_index].leftClick();
 			return;
 		}
 		else if (mouse == 2)
 		{
-			machineLayer.arrMachines[object_index].rightClick();
+			OM.getML().arrMachines[object_index].rightClick();
 			return;
 		}
 		else
@@ -95,7 +95,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 			return;
 		}
 	}
-
+	/*
 	for (int k = 0; k < oreLayer.arrOres.size(); k++)
 	{
 		new_distance = sqrt(pow((mouse_x - oreLayer.arrOres[k].getXCoordinate()), 2) + pow((mouse_y - oreLayer.arrOres[k].getYCoordinate()), 2));
@@ -108,7 +108,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 			object_index = k;
 		}
 	}
-
+	
 	if (prev_distance < 10)
 	{
 		if (mouse == 1)
@@ -125,10 +125,10 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer ite
 		{
 			return;
 		}
-	}
+	}*/
 }
 
-bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM)
 {
 	al_wait_for_event(queue, &event);
 
@@ -202,7 +202,7 @@ bool Interact::beginInteractions(World &Map, Artist &Art, ALLEGRO_DISPLAY * disp
 
 		if (distance < 2)
 		{
-			interactions(end_x, end_y, mouse, itemLayer, oreLayer, machineLayer);
+			interactions(end_x, end_y, mouse, OM);
 		}
 
 		mouse = 0;

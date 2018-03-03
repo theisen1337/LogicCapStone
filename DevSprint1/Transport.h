@@ -2,7 +2,6 @@
 
 #include <deque>
 #include "Items.h"
-#include "Artist.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
 
