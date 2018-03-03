@@ -22,20 +22,23 @@ ALLEGRO_EVENT_QUEUE *queue;
 //#######################################################################################################
 //	Initalize the main Highest level root objects
 //#######################################################################################################
+ObjectManager ObjMang;
+GlobalStatics GlobStat;
+
 Interact Interactions;
 World Map;
 Interact interactions;
 MainDraw mainDraw;
 MainCompute mainCompute;
 
-MachineLayer machineLayer;
-ItemLayer itemLayer;
-TransportLayer transportLayer;
-OreLayer oreLayer;
+//MachineLayer machineLayer;
+//ItemLayer itemLayer;
+//TransportLayer transportLayer;
+//OreLayer oreLayer;
 CharacterPlayer player;
 
-FastTrack fast;
-SlowTrack slow;
+//FastTrack fast;
+//SlowTrack slow;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -79,10 +82,9 @@ void StateManager::run()
 	mainDraw.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
 
-	fast.Init();
-	slow.Init();
-	transportLayer.Init(fast, slow);
-	machineLayer.Init(fast, slow);
+	//fast.Init();
+	//slow.Init();
+	
 	
 									// Initializes Timer
 									// Built in Game Timer
@@ -131,7 +133,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, itemLayer, oreLayer, machineLayer);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang);
 
 	//#####################################################################
 	/*
@@ -176,11 +178,11 @@ void StateManager::Drawing()
 		al_hold_bitmap_drawing(1);
 
 
-		mainDraw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
+		mainDraw.drawWorld(Map);
 
-		mainDraw.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		mainDraw.drawCharacter(player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 
-		mainDraw.Draw(machineLayer, transportLayer); //Main Draw for Layers
+		mainDraw.Draw(ObjMang); //Main Draw for Layers
 
 
 		al_hold_bitmap_drawing(0);
@@ -198,7 +200,7 @@ void StateManager::Drawing()
 			al_draw_filled_rounded_rectangle(4, 44, 100, 74,
 				8, 8, al_map_rgba(0, 0, 0, 200));
 			al_draw_textf(font, al_map_rgb(255, 255, 255),
-				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", mainCompute.getCPS());
+				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", GlobStat.getCPS());
 		}
 
 		
@@ -230,7 +232,7 @@ void StateManager::Computing()
 	*/
 	//#####################################################################
 
-	mainCompute.Compute(machineLayer, transportLayer);
+	mainCompute.Compute(ObjMang);
 
 	//#####################################################################
 	/*

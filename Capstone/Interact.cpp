@@ -11,7 +11,7 @@ Interact::~Interact() {}
 
 
 // This calls the appropriate interaction functions in whatever object got clicked
-void Interact::interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer)
+void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM)
 {
 	// NOTES:
 	// Nested For Loop to Check Every Item in Chunk
@@ -23,43 +23,112 @@ void Interact::interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLay
 	// ***What to do with items??***
 	// ***X, and Y of object indpenedent or dependent on chunks??***
 
+	int prev_distance = 0;
+	int new_distance = 0;
+	int object_x = 1000000;
+	int object_y = 1000000;
+	int object_index = 0;
 
+	// Sets Original Distance (Very High as We Want the First Object Right Away)
+	prev_distance = sqrt(pow((mouse_x - object_x), 2) + pow((mouse_y - object_y), 2));
+
+	// Loops through and finds closest item to the mouse release
+	for (int i = 0; i < OM.getIL().arrItems.size(); i++)
+	{
+		new_distance = sqrt(pow((mouse_x - OM.getIL().arrItems[i].getCoordinateX()), 2) + pow((mouse_y - OM.getIL().arrItems[i].getCoordinateY()), 2));
+
+		if (new_distance < prev_distance)
+		{
+			prev_distance = new_distance;
+			object_x = OM.getIL().arrItems[i].getCoordinateX();
+			object_y = OM.getIL().arrItems[i].getCoordinateY();
+			object_index = i;
+		}
+	}
+
+	// Checks if closest item is within 10 pixels of the mouse, if so, call object leftClick and rightClick function
+	if (prev_distance < 10)
+	{
+		if (mouse == 1)
+		{
+			OM.getIL().arrItems[object_index].leftClick();
+			return;
+		}
+		else if (mouse == 2)
+		{
+			OM.getIL().arrItems[object_index].rightClick();
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
+	{
+		new_distance = sqrt(pow((mouse_x - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouse_y - OM.getML().arrMachines[j].getPlacementY()), 2));
+
+		if (new_distance < prev_distance)
+		{
+			prev_distance = new_distance;
+			object_x = OM.getML().arrMachines[j].getPlacementX();
+			object_y = OM.getML().arrMachines[j].getPlacementY();
+			object_index = j;
+		}
+	}
+
+	if (prev_distance < 10)
+	{
+		if (mouse == 1)
+		{
+			OM.getML().arrMachines[object_index].leftClick();
+			return;
+		}
+		else if (mouse == 2)
+		{
+			OM.getML().arrMachines[object_index].rightClick();
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+	/*
+	for (int k = 0; k < oreLayer.arrOres.size(); k++)
+	{
+		new_distance = sqrt(pow((mouse_x - oreLayer.arrOres[k].getXCoordinate()), 2) + pow((mouse_y - oreLayer.arrOres[k].getYCoordinate()), 2));
+
+		if (new_distance < prev_distance)
+		{
+			prev_distance = new_distance;
+			object_x = oreLayer.arrOres[k].getXCoordinate();
+			object_y = oreLayer.arrOres[k].getYCoordinate();
+			object_index = k;
+		}
+	}
 	
-	// Grab Item Array (or publically access)
-	// Grab Structure Array (or publically access)
-	// Grab Ore Array (or publically access)
-
-	// set X and Y to very large number
-
-	// for (item array) ...
-	//      compare distances between Mouse X,Y and Current Object X,Y & Mouse X,Y and New Object X,Y
-	//      if distance smaller or equal to, then switch X and Y
-	//      also record which array (arrType), and what index object was found (arrIndex)
-	//      otherwise, do nothing
-	// Check if clickable, if not then...
-	// for (structure array) ...
-	// Check if clickable, if not then...
-	// for (ore array) ...
-
-
-
-	// IN CASE NO OBJECT NEAR MOUSE
-	// if (no object by mouse)
-	//     return;
-
-	if (mouse == 1)
+	if (prev_distance < 10)
 	{
-		//leftClick(arrIndex, arrType);
-		// No longer separate function, simply call array object function from here
-	}
-	else if (mouse == 2)
-	{
-		//rightClick(arrIndex, arrType);
-		// No longer separate function, simply call array object function from here
-	}
+		if (mouse == 1)
+		{
+			oreLayer.arrOres[object_index].leftClick();
+			return;
+		}
+		else if (mouse == 2)
+		{
+			oreLayer.arrOres[object_index].rightClick();
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}*/
 }
 
-bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM)
 {
 	al_wait_for_event(queue, &event);
 
@@ -133,7 +202,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 
 		if (distance < 2)
 		{
-			interactions(end_x, end_y, mouse, itemLayer, oreLayer, machineLayer);
+			interactions(end_x, end_y, mouse, OM);
 		}
 
 		mouse = 0;
@@ -143,7 +212,6 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
 		/* Left button scrolls. */
 		if (mouse == 1) {
-			//leftClick();
 			float x = event.mouse.dx / zoom;
 			float y = event.mouse.dy / zoom;
 			scroll_x -= x * cos(rotate) + y * sin(rotate);

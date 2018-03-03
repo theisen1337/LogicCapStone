@@ -39,20 +39,18 @@ public:
 	void Draw();
 
 	void setPlacement(float x, float y);
-
+	
 	float getPlacementX();
 	float getPlacementY();
 
 	void setTile(int x, int y);
 	int getTileX();
 	int getTileY();
-
-	void setAnimateSheet_OFF(std::string path);
-	void setAnimateSheet_ON(std::string path);
-	void setAnimateSheet_IDLE(std::string path);
+	
+	void setInBuffer(std::vector<Stack> input);
 
 	void setOutBuffer(Stack output, int multiplier = 1);
-
+	
 	void leftClick();
 	void rightClick();
 
@@ -77,7 +75,7 @@ private:
 	int AS_Hieght, AS_Width;	//TODO
 	int AS_rows, AS_Columns;	//TODO
 
-								//Machine location Varriables
+	//Machine location Varriables
 	float PlacementX, placementY;
 	int TileX, TileY;
 
@@ -85,9 +83,15 @@ private:
 	float totalWork, WorkPerSecond, jobWork;
 	float time; // may be depericated
 	bool Busy;
-
+	
 	//outbuffer variables
 	int OutBufferMultiplier = 1;
+	
+protected:
+
+	void setAnimateSheet_OFF(std::string path);
+	void setAnimateSheet_ON(std::string path);
+	void setAnimateSheet_IDLE(std::string path);
 
 };
 

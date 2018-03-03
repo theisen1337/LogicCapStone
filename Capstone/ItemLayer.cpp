@@ -13,8 +13,25 @@ ItemLayer::ItemLayer()
 
 ItemLayer::~ItemLayer() {}
 
+void ItemLayer::Init()
+{
+	/*IronOreItem iron = IronOreItem();
+	iron.setXY(128 * 6, 128 * 6);
+	iron.setPic("Items//Ore//ITEM_IRON2.png");
+	CoalOreItem coal = CoalOreItem();
+	coal.setXY(128 * 7, 128 * 6);
+	coal.setPic("Items//Ore//ITEM_COAL2.png");
+	arrItems.push_back(iron);
+	arrItems.push_back(coal);*/
+}
+
 void ItemLayer::Draw()
 {
+	if (!arrItems.empty())
+	{
+		for (int i = 0; i < arrItems.size(); i++)
+			arrItems[i].Draw();
+	}
 	//for (int i = 0; i < arrItems.size(); i++)
 	//	arrItems.at(i).Draw();
 }

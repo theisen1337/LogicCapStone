@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "CharacterPlayer.h"
 #include "TransportLayer.h"
+#include "ObjectManager.h"
 
 class MainDraw
 {
@@ -21,8 +22,8 @@ private:
 	ALLEGRO_BITMAP *pic = NULL;
 public:
 	void Init();
-	void Draw(MachineLayer & ML, TransportLayer &TL);
+	void Draw(ObjectManager &OM);
 	void tileBuffer(ALLEGRO_DISPLAY &dis, World &world);
-	void drawWorld(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world);
-	void drawCharacter(ALLEGRO_DISPLAY &dis, float scroll_x, float scroll_y, float zoom, float rotate, World world, CharacterPlayer &c, int xPosition, int yPosition);
+	void drawWorld(World world);
+	void drawCharacter(CharacterPlayer &c, int xPosition, int yPosition);
 };

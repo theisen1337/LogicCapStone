@@ -3,16 +3,21 @@
 FileIO IO;
 
 // Constructor
-Items::Items()
+Items::Items() 
 {
 	//loadItems(); No! bad taylor
 }
 
-Items::Items(std::string path, std::string name)
+Items::Items(std::string name)
+{
+	
+	ItemsName = name;
+}
+
+void Items::setPic(std::string path)
 {
 	FileIO file;
 	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
-	ItemsName = name;
 }
 
 // Overloaded Constructor
@@ -31,6 +36,7 @@ Items::Items(std::string name, std::string category, float value, int width, int
 
 // Deconstructor
 Items::~Items() {}
+
 float Items::getCoordinateX()
 {
 	return xCoordinate;
@@ -147,6 +153,6 @@ ALLEGRO_BITMAP * Items::getBitMap()
 
 void Items::Draw()
 {
-	al_draw_scaled_bitmap(ItemsImage, 0, 0, 16, 16,
-		xCoordinate, yCoordinate, 32, 32, 0);
+		al_draw_scaled_bitmap(ItemsImage, 0, 0, 16, 16,
+			xCoordinate, yCoordinate, 32, 32, 0);
 }

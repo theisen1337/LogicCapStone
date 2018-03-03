@@ -11,12 +11,6 @@ TransportLayer::~TransportLayer()
 {
 }
 
-void TransportLayer::Init(FastTrack & fast, SlowTrack & slow)
-{
-	
-	arrTracks.push_back(fast);
-	arrTracks.push_back(slow);
-}
 
 void TransportLayer::Draw()
 {

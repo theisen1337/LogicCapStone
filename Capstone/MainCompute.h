@@ -1,18 +1,18 @@
 #pragma once
 
-#include "MachineLayer.h"
-#include "TransportLayer.h"
+#include "ObjectManager.h"
+#include "GlobalStatics.h"
 
 class MainCompute
 {
 public:
-	void Compute(MachineLayer &ML, TransportLayer &TL);
+	void Compute(ObjectManager OM);
 	void ComputeTPS();
 
-	int getCPS() { return CPS; };
 
 private:
-	int CPS = 0, CPSaccum =0;
+	GlobalStatics GS;
+	int CPSaccum =0;
 	double waitticks = 0;
 
 };

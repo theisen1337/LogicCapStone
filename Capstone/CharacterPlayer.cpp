@@ -5,8 +5,8 @@
 
 CharacterPlayer::CharacterPlayer()
 {
-	//FileIO file;
-	//characterPIC = al_load_bitmap("Character//Character.png");
+	FileIO file;
+	//characterPIC = al_load_bitmap(file.openPicture("Character//Character.png").c_str());
 }
 
 
