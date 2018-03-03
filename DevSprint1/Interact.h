@@ -7,7 +7,7 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 
-#include "MainDraw.h"
+#include "Artist.h"
 #include "World.h"
 #include "Items.h"
 
@@ -16,6 +16,8 @@
 #include "OreLayer.h"
 
 #include <math.h>
+#include <vector>
+#include <array>
 
 #include "CharacterMovement.h"
 
@@ -26,9 +28,9 @@ public:
 	//Interact(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	~Interact();
 
-	void interactions(int x, int y, int mouse, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
-	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
+	bool beginInteractions(World &Map,Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ItemLayer itemLayer, OreLayer oreLayer, MachineLayer machineLayer);
 
 
 
@@ -50,10 +52,10 @@ public:
 	/* Character Position and Image DF*/
 	int charXPosition = 0;
 	int charYPosition = 0;
-	//ALLEGRO_BITMAP *character;
+	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
 	CharacterMovement movement;
-	int mapXBoundary = 4048;
-	int mapYBoundary = 4048;
+	int mapXBoundary = 6100;
+	int mapYBoundary = 6100;
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;
