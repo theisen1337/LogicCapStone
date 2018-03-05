@@ -1,11 +1,18 @@
+#change Log
+https://docs.google.com/spreadsheets/d/1ky_VFgmI_vEGAvMKDzFaG4Vzs-ccq7mGkNne6AVlKr4/edit#gid=0
+
+#Development Cycle 2
+
+#Development Cycle 1
+
+![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/Dev1.PNG?raw=true)
 
 Implementation Design:
 
-![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/CapstoneDesign.png)
+![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/CapstoneDesign.png?raw=true)
 
 
-![alt text](https://docs.google.com/document/d/1xvlc74hTfMPqlZOmGtpDKRI4gGFwifOWOZ6zyVGQBeM/edit?usp=sharing)
-{google_docs}https://docs.google.com/document/d/1xvlc74hTfMPqlZOmGtpDKRI4gGFwifOWOZ6zyVGQBeM/edit?usp=sharing{/google_docs}
+
 Tutorial:
 
 1. Make new Local Project
@@ -29,9 +36,3 @@ Libraries to make life east-peasy:
    
 Quality of Art, and design concepts:
 knowing none of us are artest, and that is not the main focus of our game (mostly logic and ways to challenge or programming capabilities).
-   Here are two examples of design. of course once we implement everything else we can go back and draw some art for the game.
-   ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Template%20full.png?raw=true)
-   
-   Zoom 150%
- 
- ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/smallzoom.png?raw=true)
