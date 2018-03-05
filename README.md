@@ -1,13 +1,19 @@
-#change Log
+Change Log
+==========
 https://docs.google.com/spreadsheets/d/1ky_VFgmI_vEGAvMKDzFaG4Vzs-ccq7mGkNne6AVlKr4/edit#gid=0
 
-#Development Cycle 2
+#Development Cycle II
+---------------------
 
-#Development Cycle 1
+
+
+Development Cycle I
+-------------------
 
 ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/Dev1.PNG?raw=true)
 
-Implementation Design:
+Implementation Design
+---------------------
 
 ![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/CapstoneDesign.png?raw=true)
 
