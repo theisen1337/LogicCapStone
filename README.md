@@ -1,8 +1,7 @@
 Change Log
 ==========
 
-[![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/ChangeLog.PNG?raw=true)](https://docs.google.com/spreadsheets/d/1ky_VFgmI_vEGAvMKDzFaG4Vzs-ccq7mGkNne6AVlKr4/edit#gid=0)
-
+[![alt text](https://github.com/theisen1337/LogicCapStone/blob/master/Resources/ChangeLog.png?raw=true)](https://docs.google.com/spreadsheets/d/1ky_VFgmI_vEGAvMKDzFaG4Vzs-ccq7mGkNne6AVlKr4/edit#gid=0)
 Administration
 --------------
 Push day Icons
@@ -13,7 +12,7 @@ Push day Icons
 - :zap: Thursday
 - :fire: Friday
 - :star2: Saturday 
-- :Cyclone: Sunday
+- :cyclone: Sunday
 
 #Development Cycle II
 ---------------------
