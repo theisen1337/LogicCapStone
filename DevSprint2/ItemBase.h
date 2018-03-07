@@ -11,13 +11,13 @@
 #include "allegro5/allegro_font.h"
 
 
-class Items
+class ItemBase
 {
 public:
-	Items();
-	Items(std::string name);
-	Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
-	~Items();
+	ItemBase();
+	ItemBase(std::string name);
+	ItemBase(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y);
+	~ItemBase();
 
 	void setPic(std::string path);
 	std::string getName();

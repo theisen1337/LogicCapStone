@@ -2,7 +2,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 
-#include "Items.h"
+#include "ItemBase.h"
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 
 struct Stack 
 {
-	Items i;
+	ItemBase i;
 	int n;
 	int max;
 };

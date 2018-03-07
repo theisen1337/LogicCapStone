@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-#include "Items.h"
+#include "ItemBase.h"
 
 #include <vector>
 #include <array>
@@ -22,7 +22,7 @@ public:
 
 	ALLEGRO_BITMAP * getItems(unsigned int index);
 
-	std::vector<Items> arrItems;
+	std::vector<ItemBase> arrItems;
 
 private:
 	int SIZE_X = 100;

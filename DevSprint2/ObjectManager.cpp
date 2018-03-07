@@ -60,7 +60,7 @@ void ObjectManager::addItem(float X, float Y)
 {
 }
 
-void ObjectManager::addItem(float X, float Y, Items item)
+void ObjectManager::addItem(float X, float Y, ItemBase item)
 {
 }
 #pragma endregion

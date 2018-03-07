@@ -30,7 +30,7 @@ public:
 	void addTransportSlow(float sX, float sY, float eX, float eY, MachineBase Start, MachineBase Finish);
 
 	void addItem(float X, float Y);
-	void addItem(float X, float Y, Items item);
+	void addItem(float X, float Y, ItemBase item);
 
 	
 	

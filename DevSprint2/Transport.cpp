@@ -1,6 +1,5 @@
 #include "Transport.h"
-#include "Items.h"
-#include "math.h"
+
 
 Transport::Transport(float speed,ALLEGRO_COLOR color)
 {
@@ -19,7 +18,7 @@ Transport::~Transport()
 }
 
 
-void Transport::addItems(Items Items)
+void Transport::addItems(ItemBase Items)
 {
 	ItemsOntrack.push_back(Items);
 }
@@ -45,7 +44,7 @@ void Transport::Compute()
 	{
 		//TODO: check someone to make sure track is not full
 		startMachine.OutBuffer.n--;
-		Items temp = startMachine.OutBuffer.i;
+		ItemBase temp = startMachine.OutBuffer.i;
 		temp.setXY(start_x, start_y);
 		addItems(temp);
 	}

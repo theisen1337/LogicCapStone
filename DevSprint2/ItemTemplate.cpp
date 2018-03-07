@@ -2,10 +2,10 @@
 
 CoalOreItem::CoalOreItem()
 {
-	Items("Coal-Ore");
+	ItemBase("Coal-Ore");
 }
 
 IronOreItem::IronOreItem()
 {
-	Items("Iron-Ore");
+	ItemBase("Iron-Ore");
 }

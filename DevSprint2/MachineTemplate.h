@@ -1,6 +1,8 @@
 #pragma once
 #include "MachineBase.h"
 #include "Ore.h"
+#include "ItemTemplate.h"
+
 class Miner: public MachineBase
 {
 public:

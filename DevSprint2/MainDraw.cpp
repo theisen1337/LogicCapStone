@@ -1,5 +1,4 @@
 #include "MainDraw.h"
-#include "MachineLayer.h"
 	
 
 void MainDraw::Init()

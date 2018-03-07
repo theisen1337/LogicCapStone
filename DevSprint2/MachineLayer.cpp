@@ -1,6 +1,5 @@
 #include "MachineLayer.h"
-#include "vector"
-#include "ItemTemplate.h"
+
 
 
 //struct Stack
@@ -17,7 +16,6 @@
 //	float rotate;
 //
 //};
-#include "transportTemplate.h"
 
 MachineLayer::MachineLayer()
 {

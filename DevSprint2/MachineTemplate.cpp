@@ -1,5 +1,4 @@
 #include "MachineTemplate.h"
-#include "ItemTemplate.h"
 
 Miner::Miner()
 {

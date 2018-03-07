@@ -1,9 +1,10 @@
 #pragma once
 
 #include <deque>
-#include "Items.h"
+#include "ItemBase.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
+#include "math.h"
 
 struct XYPoint
 {
@@ -19,7 +20,7 @@ public:
 	~Transport();
 	Transport(float speed, ALLEGRO_COLOR color);
 
-	void addItems(Items Items);
+	void addItems(ItemBase Items);
 	void removeItems();
 
 	void startingNode(MachineBase &start);
@@ -56,7 +57,7 @@ private:
 	std::deque<XYPoint> trackpath;
 
 	//hold Items contents, REPLACE string with Items object
-	std::deque<Items> ItemsOntrack;
+	std::deque<ItemBase> ItemsOntrack;
 
 	
 
