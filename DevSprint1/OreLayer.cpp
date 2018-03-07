@@ -6,9 +6,9 @@ void OreLayer::Compute()
 
 void OreLayer::Draw()
 {
-	for (int i = 0; i < arrOres.size(); i++)
+	for (int i = 0; i < layer.size(); i++)
 	{
-		arrOres.at(i).draw();
+		layer.at(i).draw();
 	}
 }
 
@@ -22,5 +22,5 @@ OreLayer::~OreLayer()
 
 void OreLayer::addToLayer(Ore newOre)
 {
-	arrOres.push_back(newOre);
+	layer.push_back(newOre);
 }

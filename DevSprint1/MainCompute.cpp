@@ -1,11 +1,9 @@
 #include "MainCompute.h"
 
-#include "MachineLayer.h"
 
-
-void MainCompute::Compute(MachineLayer &ML)
+void MainCompute::Compute(ObjectManager OM)
 {
-	ML.Compute();
+	OM.Compute();
 	ComputeTPS();
 }
 
@@ -14,7 +12,7 @@ void MainCompute::ComputeTPS()
 	double t = al_get_time();
 	CPSaccum++;
 	if (t - waitticks >= 1) {
-		CPS = CPSaccum;
+		GS.getCPS() = CPSaccum;
 		CPSaccum = 0;
 		waitticks = t;
 	}

@@ -1,6 +1,8 @@
 #include "MachineBase.h"
+#include "FileIO.h"
 
-
+#include "allegro5/allegro_image.h"
+#include "allegro5/allegro.h"
 
 
 MachineBase::MachineBase()
@@ -15,23 +17,20 @@ MachineBase::~MachineBase()
 {
 }
 
-void MachineBase::leftClick()
-{
-
-}
-void MachineBase::rightClick()
-{
-
-}
-
 //Recipe information
 
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 {
 	CraftRecipe = recipe;
-	for(int i = 0; i < recipe.size();i++)
-		recipe[i].n *= 3;
-
+	if (!recipe.empty())
+	{
+		for (int i = 0; i < recipe.size(); i++)
+		{
+			recipe[i].max = recipe[i].n * 3;
+			recipe[i].n = 0;
+		}
+	}
+		
 	InputBuffer = recipe;
 }
 
@@ -40,19 +39,27 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 	CraftRecipe = recipe;
 	if (!recipe.empty())
 	{
-		for (int i = 0; i < recipe.size(); i++)
-			InputBuffer[i].max = recipe[i].n * multiplier;
+		for (int i = 0; i < recipe.size(); i++) 
+		{
+			recipe[i].max = recipe[i].n * multiplier;
+			recipe[i].n = 0; //so input does not start with items
+			
+		}		
 	}
-
 	InputBuffer = recipe;
 }
 
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe, int *multiplier)
 {
 	CraftRecipe = recipe;
-	for (int i = 0; i < recipe.size(); i++)
-		recipe[i].n = multiplier[i];
-
+	if (!recipe.empty())
+	{
+		for (int i = 0; i < recipe.size(); i++)
+		{
+			recipe[i].max = multiplier[i];
+			recipe[i].n = 0;
+		}
+	}
 	InputBuffer = recipe;
 }
 
@@ -65,7 +72,8 @@ std::vector<Stack> MachineBase::getCraftRecipe()
 
 void MachineBase::setTotalWork(float totalWork)
 {
-	MachineBase::totalWork = totalWork;
+	totalWork = totalWork;
+	jobWork = totalWork;
 }
 
 float MachineBase::getTotalWork()
@@ -92,8 +100,17 @@ bool MachineBase::isWorking()
 
 void MachineBase::doWork()
 {
-	int AmountofTicksPerSecond = 50; // set to the number of tickets
-	totalWork -= (WorkPerSecond / (1.0f*AmountofTicksPerSecond));
+	if (OutBuffer.n < OutBuffer.max)
+	{
+		int AmountofTicksPerSecond = 50; // set to the number of tickets replace with CPS later, should be static
+		jobWork -= (WorkPerSecond / (1.0f*AmountofTicksPerSecond));
+		if (jobWork <= 0)
+		{
+			Busy = false;
+			jobWork = totalWork;
+			OutBuffer.n += 1*OutBufferMultiplier;
+		}
+	}
 }
 
 //Main Meat and potatos
@@ -121,12 +138,17 @@ void MachineBase::Compute()
 
 void MachineBase::Draw()
 {
-	
+	if(Busy)
+		al_draw_scaled_bitmap(MAS_ON_Image,0,0,48,48,
+			PlacementX, placementY,66,66, 0);
+	else
+		al_draw_scaled_bitmap(MAS_OFF_Image, 0, 0, 48, 48,
+			PlacementX, placementY, 64*2, 64*2, 0);
 }
 
 //Placement methods
 
-void MachineBase::setPLacement(float x, float y)
+void MachineBase::setPlacement(float x, float y)
 {
 	PlacementX = x;
 	placementY = y;
@@ -158,24 +180,43 @@ int MachineBase::getTileY()
 	return TileY;
 }
 
+void MachineBase::setInBuffer(std::vector<Stack> input)
+{
+	InputBuffer = input;
+}
+
 void MachineBase::setAnimateSheet_OFF(std::string path)
 {
 	FileIO file;
-	MAS_OFF_Image = file.openPicture(path);
+	MAS_OFF_Image = al_load_bitmap(file.openPicture(path).c_str());
 	//MAS_OFF_Image =  &pic; //better idlea pass in string and do file load here.
 }
 
 void MachineBase::setAnimateSheet_ON(std::string path)
 {
 	FileIO file;
-	MAS_ON_Image = file.openPicture(path);
+	MAS_ON_Image = al_load_bitmap(file.openPicture(path).c_str());
 }
 
 void MachineBase::setAnimateSheet_IDLE(std::string path)
 {
 	FileIO file;
-	MAS_IDLE_Image = file.openPicture(path);
+	MAS_IDLE_Image = al_load_bitmap(file.openPicture(path).c_str());
 	//MAS_IDLE_Image = &pic;
+}
+
+void MachineBase::setOutBuffer(Stack output, int multiplier)
+{
+	OutBuffer = output;
+	OutBufferMultiplier = multiplier;
+}
+
+void MachineBase::leftClick()
+{
+}
+
+void MachineBase::rightClick()
+{
 }
 
 

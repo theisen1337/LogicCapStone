@@ -4,7 +4,10 @@
 #include "MainCompute.h"
 
 #include "MachineLayer.h"
+#include "TransportLayer.h"
 #include "CharacterPlayer.h"
+
+#include "transportTemplate.h"
 
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
@@ -19,18 +22,23 @@ ALLEGRO_EVENT_QUEUE *queue;
 //#######################################################################################################
 //	Initalize the main Highest level root objects
 //#######################################################################################################
+ObjectManager ObjMang;
+GlobalStatics GlobStat;
+
 Interact Interactions;
 World Map;
-Artist Art;
-Draw draw;
 Interact interactions;
 MainDraw mainDraw;
 MainCompute mainCompute;
 
-MachineLayer machineLayer;
-ItemLayer itemLayer;
-OreLayer oreLayer;
+//MachineLayer machineLayer;
+//ItemLayer itemLayer;
+//TransportLayer transportLayer;
+//OreLayer oreLayer;
 CharacterPlayer player;
+
+//FastTrack fast;
+//SlowTrack slow;
 //#######################################################################################################
 //#######################################################################################################
 //	Variables
@@ -64,13 +72,19 @@ void StateManager::run()
 
 									 // Sets bitmap flags
 	al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 	Map.InitalizeClass();
+	player.InitializeClass();
 
+	mainDraw.Init();
 	// Creates Buffer and Generates the Map
-	Art.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
+	mainDraw.tileBuffer(*display, Map);	// >>> Map.CreateTileBuffer(*display);
 									//Map.Generate_Terrain();
 
+	//fast.Init();
+	//slow.Init();
+	
 	
 									// Initializes Timer
 									// Built in Game Timer
@@ -119,7 +133,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, Art, display, font, queue, itemLayer, oreLayer, machineLayer);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang);
 
 	//#####################################################################
 	/*
@@ -140,14 +154,42 @@ void StateManager::Drawing()
 	*/
 	//#####################################################################
 
-	if (true) {//	interactions.redraw && al_is_event_queue_empty(queue)
+	if (interactions.redraw && al_is_event_queue_empty(queue)) {//	interactions.redraw && al_is_event_queue_empty(queue)
 		interactions.redraw = false;
 		double t = al_get_time();
-		draw.drawWorld(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map);
 
-		Art.drawCharacter(*display, interactions.scroll_x, interactions.scroll_y, interactions.zoom, interactions.rotate, Map, player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		ALLEGRO_TRANSFORM transform;
+		float w, h;
+		w = al_get_display_width(display);
+		h = al_get_display_height(display);
 
-		mainDraw.Draw(machineLayer); //Main Draw for Layers
+		/* Initialize transformation. */
+		al_identity_transform(&transform);
+		/* Move to scroll position. */
+		al_translate_transform(&transform, -interactions.scroll_x, -interactions.scroll_y);
+		/* Rotate and scale around the center first. */
+		al_rotate_transform(&transform, interactions.rotate);
+		al_scale_transform(&transform, interactions.zoom, interactions.zoom);
+		/* Move scroll position to screen center. */
+		al_translate_transform(&transform, w * 0.5, h * 0.5);
+		/* All subsequent drawing is transformed. */
+		al_use_transform(&transform);
+
+		al_hold_bitmap_drawing(1);
+
+
+		mainDraw.drawWorld(Map);
+
+		mainDraw.drawCharacter(player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+
+		mainDraw.Draw(ObjMang); //Main Draw for Layers
+
+
+		al_hold_bitmap_drawing(0);
+
+		al_identity_transform(&transform);
+		al_use_transform(&transform);
+
 
 		if (font) {
 			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
@@ -158,7 +200,7 @@ void StateManager::Drawing()
 			al_draw_filled_rounded_rectangle(4, 44, 100, 74,
 				8, 8, al_map_rgba(0, 0, 0, 200));
 			al_draw_textf(font, al_map_rgb(255, 255, 255),
-				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", mainCompute.getCPS());
+				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", GlobStat.getCPS());
 		}
 
 		
@@ -190,7 +232,7 @@ void StateManager::Computing()
 	*/
 	//#####################################################################
 
-	mainCompute.Compute(machineLayer);
+	mainCompute.Compute(ObjMang);
 
 	//#####################################################################
 	/*

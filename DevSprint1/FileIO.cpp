@@ -95,7 +95,7 @@ std::vector<std::string> FileIO::readFile(std::string path)
 	return filedata;
 }
 
-ALLEGRO_BITMAP * FileIO::openPicture(std::string path)
+std::string FileIO::openPicture(std::string path)
 {
 	std::fstream file;
 	file.open(path.c_str()); // Try to open for I/O
@@ -110,8 +110,9 @@ ALLEGRO_BITMAP * FileIO::openPicture(std::string path)
 			file.clear();
 			return nullptr;
 		}
-		return al_load_bitmap("Terrain//Dev//test.png");
+		file.close();
+		return "Terrain//Dev//test.png";
 	}
-	
-	return al_load_bitmap(path.c_str());
+	file.close();
+	return path;
 }

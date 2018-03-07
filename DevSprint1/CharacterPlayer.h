@@ -16,6 +16,7 @@ public:
 	~CharacterPlayer();
 
 	ALLEGRO_BITMAP * getPic() { return characterPIC; };
+	void InitializeClass();
 
 private:
 	ALLEGRO_BITMAP *characterPIC;

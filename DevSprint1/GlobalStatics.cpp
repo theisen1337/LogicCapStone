@@ -16,13 +16,13 @@
 
 
 */
-#include "InitStatics.h"
-#include "MachineLayer.h" 
+#include "GlobalStatics.h"
 
-static MachineLayer ML;
 
-MachineLayer & InitStatics::getML()
+static int TicksPerSecond;
+
+
+int & GlobalStatics::getCPS()
 {
-	return ML;
+	return TicksPerSecond;
 }
-

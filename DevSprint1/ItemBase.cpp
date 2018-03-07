@@ -1,15 +1,26 @@
-#include "Items.h"
+#include "ItemBase.h"
 #include "FileIO.h"
 FileIO IO;
 
 // Constructor
-Items::Items() 
+ItemBase::ItemBase()
 {
-	loadItems();
+	//loadItems(); No! bad taylor
+}
+
+ItemBase::ItemBase(std::string name)
+{
+	ItemsName = name;
+}
+
+void ItemBase::setPic(std::string path)
+{
+	FileIO file;
+	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
 }
 
 // Overloaded Constructor
-Items::Items(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y)
+ItemBase::ItemBase(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y)
 {
 	ItemsName = name;
 	ItemsCategory = category;
@@ -23,79 +34,84 @@ Items::Items(std::string name, std::string category, float value, int width, int
 }
 
 // Deconstructor
-Items::~Items() {}
+ItemBase::~ItemBase() {}
 
-int Items::getCoordinateX()
+float ItemBase::getCoordinateX()
 {
 	return xCoordinate;
 }
-int Items::getCoordinateY()
+float ItemBase::getCoordinateY()
 {
 	return yCoordinate;
 }
 
-void Items::leftClick()
+void ItemBase::leftClick()
 {
 
 }
-void Items::rightClick()
+void ItemBase::rightClick()
 {
 
+}
+
+void ItemBase::setXY(float x, float y)
+{
+	xCoordinate = x, yCoordinate = y;
 }
 
 // Getters which Get Values of Object
-std::string Items::getName()
+std::string ItemBase::getName()
 {
 	return ItemsName;
 }
-std::string Items::getCategory()
+std::string ItemBase::getCategory()
 {
 	return ItemsCategory;
 }
-float Items::getValue()
+float ItemBase::getValue()
 {
 	return ItemsValue;
 }
-int Items::getWidth()
+int ItemBase::getWidth()
 {
 	return ItemsWidth;
 }
-int Items::getHeight()
+int ItemBase::getHeight()
 {
 	return ItemsHeight;
 }
-int Items::getStackSize()
+int ItemBase::getStackSize()
 {
 	return ItemstackSize;
 }
 
 // Setters to Change Values of Object
-void Items::setDropped(bool boolVar)
+void ItemBase::setDropped(bool boolVar)
 {
 	ItemsDropped = boolVar;
 }
 
 // Checks to see if Items is dropped or not
-bool Items::checkDropped()
+bool ItemBase::checkDropped()
 {
 	return ItemsDropped;
 }
 
 // This is called from Interactions Class when Items is left Clicked
-void Items::pickupItems()
+void ItemBase::pickupItems()
 {
 	// To Do
 }
 
 // This is called from Interactions Class when tile is right clicked with Items
-void Items::placeItems()
+void ItemBase::placeItems()
 {
 	// To Do
 }
 
 
 
-void Items::loadItems()
+void ItemBase::loadItems()
 {
 	checkItemsDirectory();
 	load_Ores();
@@ -103,7 +119,7 @@ void Items::loadItems()
 	//load_Weapons(); ...
 }
 
-void Items::checkItemsDirectory()
+void ItemBase::checkItemsDirectory()
 {
 	if (!IO.DirectoryExist("Items"))
 	{
@@ -111,7 +127,7 @@ void Items::checkItemsDirectory()
 	}
 }
 
-void Items::load_Ores()
+void ItemBase::load_Ores()
 {
 	if (!IO.DirectoryExist("Items\\Ores"))
 	{
@@ -128,13 +144,14 @@ void Items::load_Ores()
 	}
 }
 
-ALLEGRO_BITMAP * Items::getBitMap()
+ALLEGRO_BITMAP * ItemBase::getBitMap()
 {
 
 	return ItemsImage;
 }
 
-void Draw()
+void ItemBase::Draw()
 {
-	//
+		al_draw_scaled_bitmap(ItemsImage, 0, 0, 16, 16,
+			xCoordinate, yCoordinate, 32, 32, 0);
 }
