@@ -1,9 +1,14 @@
 #pragma once
 
+#include <stdio.h>
+#include <math.h>
+#include <ctime>
+#include <cstdlib>
+#include <iostream>
 #include <vector>
 #include "Ore.h"
 #include "Tile.h"
-//
+
 using namespace std;
 
 class Generation

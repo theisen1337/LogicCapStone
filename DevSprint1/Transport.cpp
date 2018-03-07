@@ -1,6 +1,5 @@
 #include "Transport.h"
-#include "ItemBase.h"
-#include "math.h"
+
 
 Transport::Transport(float speed,ALLEGRO_COLOR color)
 {

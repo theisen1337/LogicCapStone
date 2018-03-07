@@ -22,6 +22,14 @@
 #include "ObjectManager.h"
 #include "GlobalStatics.h"
 
+#include "MainCompute.h"
+
+#include "MachineLayer.h"
+#include "TransportLayer.h"
+#include "CharacterPlayer.h"
+
+#include "transportTemplate.h"
+
 using namespace std;
 
 #pragma once

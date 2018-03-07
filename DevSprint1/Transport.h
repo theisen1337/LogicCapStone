@@ -4,6 +4,7 @@
 #include "ItemBase.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
+#include "math.h"
 
 struct XYPoint
 {

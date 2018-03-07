@@ -3,6 +3,7 @@
 
 #include "MachineTemplate.h"
 #include "transportTemplate.h"
+#include "ItemTemplate.h"
 #include <vector>
 
 class MachineLayer

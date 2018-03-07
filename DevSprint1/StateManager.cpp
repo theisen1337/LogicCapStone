@@ -1,13 +1,6 @@
 #include "StateManager.h"
 
-#include "MainDraw.h"
-#include "MainCompute.h"
 
-#include "MachineLayer.h"
-#include "TransportLayer.h"
-#include "CharacterPlayer.h"
-
-#include "transportTemplate.h"
 
 // Window Used for Display
 ALLEGRO_DISPLAY *display;
