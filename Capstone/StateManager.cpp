@@ -15,7 +15,6 @@ void StateManager::run()
 
 void StateManager::MainLoop()
 {
-
 	while (GAMERUN)
 	{
 		Interacting();
