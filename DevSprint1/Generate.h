@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include "Ore.h"
+#include "OreBase.h"
 #include "Tile.h"
 
 using namespace std;

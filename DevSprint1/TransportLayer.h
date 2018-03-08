@@ -1,5 +1,5 @@
 #pragma once
-#include "transportTemplate.h"
+#include "TransportTemplate.h"
 
 #include <vector>
 class TransportLayer
@@ -10,7 +10,7 @@ public:
 
 	void Draw();
 	void Compute();
-	std::vector<Transport> arrTracks;
+	std::vector<TransportBase> arrTracks;
 
 private:
 
