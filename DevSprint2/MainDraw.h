@@ -25,5 +25,5 @@ public:
 	void Draw(ObjectManager &OM);
 	void tileBuffer(ALLEGRO_DISPLAY &dis, World &world);
 	void drawWorld(World world);
-	void drawCharacter(CharacterPlayer &c, int xPosition, int yPosition);
+	void drawCharacter(CharacterPlayer &c, CharacterMovement movement);
 };
