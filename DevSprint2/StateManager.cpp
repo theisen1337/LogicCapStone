@@ -116,7 +116,7 @@ void StateManager::Drawing()
 
 		//DRAW ALL LAYERS
 		mainDraw.drawWorld(Map);
-		mainDraw.drawCharacter(player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		mainDraw.drawCharacter(player, interactions.movement);
 		mainDraw.Draw(ObjMang); 
 
 
