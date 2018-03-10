@@ -137,51 +137,67 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	{
 		return false;
 	}
-	
-	// Checks for Keyboard Presses
-	if (event.type == ALLEGRO_EVENT_KEY_DOWN) 
+	switch (event.type)
 	{
-		if (event.keyboard.keycode == ALLEGRO_KEY_R)
+	case ALLEGRO_EVENT_KEY_DOWN:
+		switch (event.keyboard.keycode)
+		{
+		case ALLEGRO_KEY_UP:
+			movement.vy -= movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_DOWN:
+			movement.vy += movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_LEFT:
+			movement.vx -= movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			movement.vx += movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_R:
 			Map.initialGeneration();
-		if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+		case ALLEGRO_KEY_ESCAPE:
 			return false;
-	}
-
-	// Character Movement
-	if (event.type == ALLEGRO_EVENT_KEY_CHAR)
-	{
-		if (event.keyboard.keycode == ALLEGRO_KEY_UP)
-		{
-			movement.moveCharacterUp();
-			if (movement.getCharacterYPosition() < 0)
-			{
-				movement.setCharacterYPosition(0);
-			}
 		}
-		if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+		break;
+	case ALLEGRO_EVENT_KEY_UP:
+		switch (event.keyboard.keycode)
 		{
-			movement.moveCharacterDown();
-			if (movement.getCharacterYPosition() > mapYBoundary)
-			{
-				movement.setCharacterYPosition(mapYBoundary);
-			}
+		case ALLEGRO_KEY_UP:
+			movement.vy += movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_DOWN:
+			movement.vy -= movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_LEFT:
+			movement.vx += movement.getSpeed();
+			break;
+		case ALLEGRO_KEY_RIGHT:
+			movement.vx -= movement.getSpeed();
+			break;
 		}
-		if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+		break;
+	case ALLEGRO_EVENT_TIMER:
+		movement.moveCharacterX();//DF
+		if (movement.getCharacterXPosition() > mapXBoundary)
 		{
-			movement.moveCharacterLeft();
-			if (movement.getCharacterXPosition() < 0)
-			{
-				movement.setCharacterXPosition(0);
-			}
+			movement.setCharacterXPosition(mapXBoundary);
 		}
-		if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+		else if (movement.getCharacterXPosition() < 0)
 		{
-			movement.moveCharacterRight();
-			if (movement.getCharacterXPosition() > mapXBoundary)
-			{
-				movement.setCharacterXPosition(mapXBoundary);
-			}
+			movement.setCharacterXPosition(0);
 		}
+		movement.moveCharacterY();
+		if (movement.getCharacterYPosition() > mapYBoundary)
+		{
+			movement.setCharacterYPosition(mapYBoundary);
+		}
+		else if (movement.getCharacterYPosition() < 0)
+		{
+			movement.setCharacterYPosition(0);
+		}
+		break;
+		redraw = true;
 	}
 
 	// Checks for Mouse Button Press
