@@ -62,9 +62,9 @@ void MainDraw::drawWorld(World world)
 
 }
 
-void MainDraw::drawCharacter(CharacterPlayer & c, int xPosition, int yPosition)
+void MainDraw::drawCharacter(CharacterPlayer & c, CharacterMovement movement)
 {
 	
-	al_draw_scaled_bitmap(c.getPic(), 0, 0, 48, 48, xPosition, yPosition, 48, 48, 0);
+	al_draw_scaled_bitmap(c.getPic(), 0, 0, 48, 48, movement.getCharacterXPosition(), movement.getCharacterYPosition(), 48, 48, 0);
 
 }
