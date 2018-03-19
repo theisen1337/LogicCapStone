@@ -1,6 +1,6 @@
 #pragma once
 #include "ItemBase.h"
-#include "Ore.h"
+#include "OreBase.h"
 class CoalOreItem : public ItemBase
 {
 public:

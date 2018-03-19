@@ -55,8 +55,8 @@ public:
 	int charYPosition = 0;
 	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
 	CharacterMovement movement;
-	int mapXBoundary = 4048;
-	int mapYBoundary = 4048;
+	int mapXBoundary = 6100;
+	int mapYBoundary = 6100;
 
 private:
 	//ALLEGRO_EVENT_QUEUE *queue;
