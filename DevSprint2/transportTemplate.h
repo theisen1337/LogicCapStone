@@ -5,7 +5,7 @@ class SlowTrack : public Transport
 {
 public:
 	SlowTrack();
-	void Init();
+	//void Init();
 private:
 };
 
@@ -13,6 +13,6 @@ class FastTrack : public Transport
 {
 public:
 	FastTrack();
-	void Init();
+	//void Init();
 private:
 };

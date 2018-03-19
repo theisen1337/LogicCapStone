@@ -20,6 +20,8 @@ public:
 	~Transport();
 	Transport(float speed, ALLEGRO_COLOR color);
 
+	void setConnection(MachineBase &start, MachineBase &end);
+
 	void addItems(ItemBase Items);
 	void removeItems();
 

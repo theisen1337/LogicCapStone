@@ -10,12 +10,16 @@ ObjectManager::ObjectManager()
 void ObjectManager::Init()
 {
 	Smith smith1;
-	smith1.setPlacement(120*15,120*15);
+	smith1.setPlacement(64*15,64*15);
 
 	Miner mine1;
-	mine1.setPlacement(120 * 12, 120 * 12);
+	mine1.setPlacement(64 * 12, 64 * 12);
 	ML.arrMachines.push_back(mine1);
 	ML.arrMachines.push_back(smith1);
+
+	SlowTrack track1;
+	track1.setConnection(mine1, smith1); // null refference.
+	TL.arrTracks.push_back(track1);
 
 }
 

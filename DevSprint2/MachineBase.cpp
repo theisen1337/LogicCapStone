@@ -140,7 +140,7 @@ void MachineBase::Draw()
 			PlacementX, placementY,66,66, 0);
 	else
 		al_draw_scaled_bitmap(MAS_OFF_Image, 0, 0, 48, 48,
-			PlacementX, placementY, 64*2, 64*2, 0);
+			PlacementX, placementY, 64, 64, 0);
 }
 
 //Placement methods

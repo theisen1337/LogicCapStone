@@ -46,6 +46,7 @@ void StateManager::Initialization()
 	Map.InitalizeClass();
 	player.InitializeClass();
 	mainDraw.Init();
+	ObjMang.Init();
 
 	timer = al_create_timer(1.0 / 60);
 
@@ -116,7 +117,7 @@ void StateManager::Drawing()
 
 		//DRAW ALL LAYERS
 		mainDraw.drawWorld(Map);
-		mainDraw.drawCharacter(player, interactions.movement);
+		mainDraw.drawCharacter(player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
 		mainDraw.Draw(ObjMang); 
 
 

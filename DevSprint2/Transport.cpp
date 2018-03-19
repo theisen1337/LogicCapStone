@@ -8,8 +8,7 @@ Transport::Transport(float speed,ALLEGRO_COLOR color)
 }
 
 
-
-Transport::Transport()
+Transport::Transport() 
 {
 }
 
@@ -17,6 +16,14 @@ Transport::~Transport()
 {
 }
 
+
+
+void Transport::setConnection(MachineBase &start, MachineBase &end)
+{
+	startingNode(start);
+	enddingNode(end);
+	layTrack(start.getPlacementX(), start.getPlacementY(), end.getPlacementX(), end.getPlacementY());
+}
 
 void Transport::addItems(ItemBase Items)
 {
@@ -82,6 +89,7 @@ void Transport::layTrack(float sx, float sy, float ex, float ey)
 
 
 }
+
 
 void Transport::removeTrack()
 {
