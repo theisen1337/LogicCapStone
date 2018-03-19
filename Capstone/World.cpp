@@ -9,8 +9,9 @@ World::World()
 
 void World::InitalizeClass()
 {
+	//worldSize = 5;
 	//Sets the vector size
-	world.resize(2, std::vector<Chunk>(2, Chunk()));
+	world.resize(GC::worldDim, std::vector<Chunk>(GC::worldDim, Chunk()));
 	//Runs the initial generation of map
 	initialGeneration();
 }
@@ -18,14 +19,11 @@ void World::InitalizeClass()
 void World::initialGeneration()
 {
 	//Assign world positions to chunks
-	for (int i = 0; i < worldSize; i++)
+	for (int i = 0; i < GC::worldDim; i++)
 	{
-		for (int j = 0; j < worldSize; j++) {
+		for (int j = 0; j < GC::worldDim; j++) {
 			world[i][j].initalGen();
-			//world[i][j].setWorldPosW(i);
-			//world[i][j].setWorldPosH(j);
 			world[i][j].genChunk();
-			//world[i][j].toggleGen();
 		}
 	}
 
@@ -36,7 +34,7 @@ void World::initialGeneration()
 void World::updateWorld(int charWorldW, int charWorldH)
 {
 	/*
-	Get the characters current World Vector position. 
+	Get the characters current World Vector position.
 	If they are not in the center Map of the vector
 		- Unload chunks no longer viewable
 		- Readjust world vector so character current map is center of vector.
@@ -45,5 +43,26 @@ void World::updateWorld(int charWorldW, int charWorldH)
 		- Set character world vector positions back to center
 	*/
 }
+
+void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis)
+{
+
+	for (int i = 0; i < GC::worldDim; i++)
+	{
+		for (int j = 0; j < GC::worldDim; j++)
+		{
+			if (!world[i][j].getGen())
+			{
+				world[i][j].genChunkMap(atl);
+				al_set_target_backbuffer(&dis);
+			}
+
+			al_draw_bitmap(world[i][j].getMap(), (i * (GC::tileDim * GC::chunkDim)), (j * (GC::tileDim * GC::chunkDim)), 0);
+		}
+	}
+
+
+}
+
 
 

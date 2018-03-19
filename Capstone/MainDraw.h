@@ -1,4 +1,13 @@
+//! MainDraw Class
+/*!
+Manages all the drawing to the screen
+*/
+
 #pragma once
+#include <iostream>
+#include <vector>
+#include <string>
+#include <filesystem>
 #include "MachineLayer.h"
 #include "World.h"
 #include "Chunk.h"
@@ -6,24 +15,28 @@
 #include "CharacterPlayer.h"
 #include "TransportLayer.h"
 #include "ObjectManager.h"
+#include "CharacterMovement.h"
+#include "GlobalConstants.h"
+#include "ImageAtlas.h"
 
 class MainDraw
 {
 private:
-	//Tile dimensions
-	int tileDim = 64;
-	//Chunk dimensions
-	int chunkDim = 32;
-	//World dimensions
-	int worldDim = 2;
-	//Bitmap to hold all the tiles drawn to it.
-	ALLEGRO_BITMAP *Bitmap;
-	//Temp bitmap to hold pictures
-	ALLEGRO_BITMAP *pic = NULL;
+	//! Object to handle all the Image Atlasing
+	ImageAtlas ia;
+
+	//! Main atlas for all image atlases
+	ALLEGRO_BITMAP *atlas;
 public:
+	//! Initialization of Drawing
 	void Init();
+
+	//! Draw the Machine and Item Layer
 	void Draw(ObjectManager &OM);
-	void tileBuffer(ALLEGRO_DISPLAY &dis, World &world);
-	void drawWorld(World world);
-	void drawCharacter(CharacterPlayer &c, int xPosition, int yPosition);
+
+	//! Draw the World and Ore Layers
+	void drawWorld(World &world, ALLEGRO_DISPLAY &dis);
+
+	//! Draw the Character Layer
+	void drawCharacter(CharacterPlayer &c, CharacterMovement movement);
 };
