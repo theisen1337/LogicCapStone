@@ -4,9 +4,6 @@ void StateManager::run()
 {
 	Initialization();
 
-	//Might be Removed
-	mainDraw.tileBuffer(*display, Map);	
-
 	// Starts the Timer
 	al_start_timer(timer);
 
@@ -113,15 +110,15 @@ void StateManager::Drawing()
 		interactions.redraw = false;
 		double t = al_get_time();
 
-		al_hold_bitmap_drawing(1);
+		//al_hold_bitmap_drawing(1);
 
 		//DRAW ALL LAYERS
-		mainDraw.drawWorld(Map);
-		mainDraw.drawCharacter(player, interactions.movement.getCharacterXPosition(), interactions.movement.getCharacterYPosition());
+		mainDraw.drawWorld(Map, *display);
+		mainDraw.drawCharacter(player, interactions.movement);
 		mainDraw.Draw(ObjMang); 
 
 
-		al_hold_bitmap_drawing(0);
+		//al_hold_bitmap_drawing(0);
 
 		al_identity_transform(&transform);
 		al_use_transform(&transform);

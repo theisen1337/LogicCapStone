@@ -3,6 +3,8 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
+#include "GlobalConstants.h"
 
 class Tile
 {
@@ -29,9 +31,8 @@ public:
 	*/
 	bool loaded;
 
-	//! Image of the tile
-	ALLEGRO_BITMAP *pic;
-
+	//! Vector to hold location of image on atlas
+	std::vector<int> atlLoc;
 
 	//! Type of the tile
 	Types type;
@@ -52,7 +53,7 @@ public:
 	void genPicture();
 		
 	//! Getter for the tile image
-	ALLEGRO_BITMAP * getTilePic() { return pic; };
+	std::vector<int> getTilePic() { return atlLoc; };
 		
 	//! Getter to check if tile is Loaded
 	bool getLoaded() { return loaded; };
