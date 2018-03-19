@@ -15,7 +15,7 @@ void TransportLayer::Draw()
 {
 	if (!arrTracks.empty())
 	{
-		for (int i = 0; i < arrTracks.size(); i++)
+		for (unsigned int i = 0; i < arrTracks.size(); i++)
 		{
 			arrTracks[i].Draw();
 		}

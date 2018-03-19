@@ -28,6 +28,15 @@ void TransportBase::removeItems()
 	ItemsOntrack.pop_front();
 }
 
+
+void TransportBase::setConnection(MachineBase &start, MachineBase &end)
+{
+	startingNode(start);
+	enddingNode(end);
+	layTrack(start.getPlacementX(), start.getPlacementY(), end.getPlacementX(), end.getPlacementY());
+}
+
+
 void TransportBase::startingNode(MachineBase &start)
 {
 	startMachine = start;
@@ -37,6 +46,8 @@ void TransportBase::enddingNode(MachineBase &end)
 {
 	endMachine = end;
 }
+
+
 
 void TransportBase::Compute()
 {

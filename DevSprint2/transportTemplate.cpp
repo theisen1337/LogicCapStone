@@ -4,7 +4,7 @@
 SlowTrack::SlowTrack()
 {
 	ALLEGRO_COLOR slow = al_map_rgb(60, 60, 60);
-	Transport(1.0, slow);
+	TransportBase(1.0, slow);
 }
 
 
@@ -14,6 +14,6 @@ SlowTrack::SlowTrack()
 FastTrack::FastTrack()
 {
 	ALLEGRO_COLOR fast = al_map_rgb(55, 391, 157);
-	Transport(0.5, fast);
+	TransportBase(0.5, fast);
 }
 
