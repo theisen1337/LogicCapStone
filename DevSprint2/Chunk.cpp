@@ -8,7 +8,7 @@ Chunk::Chunk()
 	
 }
 
-void Chunk::genChunkMap(ALLEGRO_BITMAP* atl)
+void Chunk::genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string>> &ref)
 {
 	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 	al_set_target_bitmap(map);
@@ -19,21 +19,51 @@ void Chunk::genChunkMap(ALLEGRO_BITMAP* atl)
 		for (int m = 0; m < GC::chunkDim; m++)
 		{
 			terrainLayer[l][m].genPicture();
-			oreLayer[l][m].genPicture();
-			tempLoc = terrainLayer[l][m].getTilePic();
-			al_draw_scaled_bitmap(atl,
-				tempLoc[0], tempLoc[1],
-				GC::tileStartDim, GC::tileStartDim,
-				(l*GC::tileDim), (m*GC::tileDim),
-				GC::tileDim, GC::tileDim, 0);
-			tempLoc = oreLayer[l][m].getTilePic();
-			al_draw_scaled_bitmap(atl,
-				tempLoc[0], tempLoc[1],
-				GC::tileStartDim, GC::tileStartDim,
-				(l*GC::tileDim), (m*GC::tileDim),
-				GC::tileDim, GC::tileDim, 0);
+
+			for (int i = 0; i < ref.size(); i++)
+			{
+				for (int j = 0; j < ref[i].size(); j++)
+				{
+					tempLoc = terrainLayer[l][m].getAtLoc();
+					if (ref[i][j].compare(tempLoc)==0)
+					{
+						al_draw_scaled_bitmap(atl,
+							(i*GC::tileDim), (j*GC::tileDim),
+							GC::tileDim, GC::tileDim,
+							(l*GC::tileDim), (m*GC::tileDim),
+							GC::tileDim, GC::tileDim, 0);
+						break;
+					}
+				}
+			}
 		}
 	}
+
+	for (int n = 0; n < GC::chunkDim; n++)
+	{
+		for (int o = 0; o < GC::chunkDim; o++)
+		{
+			oreLayer[n][o].genPicture();
+
+			for (int i = 0; i < ref.size(); i++)
+			{
+				for (int j = 0; j < ref[i].size(); j++)
+				{
+					tempLoc = oreLayer[n][o].getAtLoc();
+					if (ref[i][j].compare(tempLoc) == 0)
+					{
+						al_draw_scaled_bitmap(atl,
+							(i*GC::tileDim), (j*GC::tileDim),
+							GC::tileDim, GC::tileDim,
+							(n*GC::tileDim), (o*GC::tileDim),
+							GC::tileDim, GC::tileDim, 0);
+						break;
+					}
+				}
+			}
+		}
+	}
+
 
 	isGen = true;
 }

@@ -1,3 +1,4 @@
+//! Manages Tile information and Tile interaction with chunks
 #pragma once
 #include <allegro5/allegro.h>
 #include <string>
@@ -15,7 +16,7 @@ public:
 	*/
 	enum Types
 	{
-		GRASS, /*! Grass tile*/
+		GRASS,/*! Grass tile*/
 		WATER,/*! Water tile*/
 		DIRT,/*! Dirt tile*/
 		COAL,/*! Coal ore tile*/
@@ -33,6 +34,9 @@ public:
 
 	//! Vector to hold location of image on atlas
 	std::vector<int> atlLoc;
+
+	//! Atlas Location
+	std::string atLoc;
 
 	//! Type of the tile
 	Types type;
@@ -78,5 +82,8 @@ public:
 
 	//! Set Chunk Y Location
 	void setChunkY(int y) { chunkY = y; };
+
+	//! Get the atlas Location
+	std::string getAtLoc() { return atLoc; };
  };
 

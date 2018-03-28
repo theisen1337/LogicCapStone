@@ -16,5 +16,5 @@ CharacterPlayer::~CharacterPlayer()
 
 void CharacterPlayer::InitializeClass()
 {
-	characterPIC = al_load_bitmap("Resources//Character//Character.png");
+	charRef = "Character.png";
 }

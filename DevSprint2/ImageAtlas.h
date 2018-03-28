@@ -1,7 +1,5 @@
-//! ImageAtlas Class
-/*!
-Manages and Creates the Image Atlases to be used by drawing.
-*/
+//! Manages and Creates Image Atlases
+
 
 #pragma once
 #include <iostream>
@@ -16,15 +14,6 @@ namespace fs = std::experimental::filesystem;
 class ImageAtlas
 {
 private:
-	//! Types of Atlases 
-	enum AtlasType
-	{
-		Terrain,
-		Machine,
-		Item,
-		Character
-	};
-
 	//! Vector to hold file names
 	std::vector<std::string> tempFileNames;
 
@@ -44,6 +33,15 @@ private:
 	ALLEGRO_BITMAP* temp;
 	
 public:
+	//! Types of Atlases 
+	enum AtlasType
+	{
+		Terrain,
+		Machine,
+		Item,
+		Character
+	};
+
 	//! Initialize the Image Atlas Class
 	void Initialize();
 

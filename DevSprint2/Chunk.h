@@ -1,3 +1,4 @@
+//! Manages 2D vector of Tiles and Image of the Chunk
 #include "Tile.h"
 #include <vector>
 #include "generate.h"
@@ -14,7 +15,7 @@ private:
 	int worldPosH;
 
 	//! Temp location on atlas for picture drawing
-	std::vector<int> tempLoc;
+	std::string tempLoc;
 
 	//! 2D vectors for bottom layer of map
 	std::vector<std::vector<Tile>> terrainLayer;
@@ -58,7 +59,7 @@ public:
 	void toggleGen() { if (isGen) { isGen = false; } else { isGen = true; } };
 
 	//! Generate chunk map
-	void genChunkMap(ALLEGRO_BITMAP* atl);
+	void genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string>> &ref);
 
 	//! Get map
 	ALLEGRO_BITMAP * getMap() { return map; };

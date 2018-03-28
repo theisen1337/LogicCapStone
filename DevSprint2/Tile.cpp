@@ -5,6 +5,7 @@ Tile::Tile(Tile::Types tileType)
 		//Constructor
 	type = tileType;
 	atlLoc.resize(2);
+	loaded = false;
 	genPicture();
 }
 
@@ -26,29 +27,20 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			//pic = al_load_bitmap("Terrain//Grass//grass1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 0;
+	
+			atLoc = "grass1.png";
 			break;
 		case 2:
-			//pic = al_load_bitmap("Terrain//Grass//grass2.png");
-			atlLoc[0] = 48;
-			atlLoc[1] = 0;
+			atLoc = "grass2.png";
 			break;
 		case 3:
-			//pic = al_load_bitmap("Terrain//Grass//grass3.png");
-			atlLoc[0] = 96;
-			atlLoc[1] = 0;
+			atLoc = "grass3.png";
 			break;
 		case 4:
-			//pic = al_load_bitmap("Terrain//Grass//grass4.png");
-			atlLoc[0] = 144;
-			atlLoc[1] = 0;
+			atLoc = "grass4.png";
 			break;
 		default:
-			//pic = al_load_bitmap("Terrain//Grass//grass1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 0;
+			atLoc = "grass1.png";
 			break;
 		}
 		break;
@@ -59,29 +51,19 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			//pic = al_load_bitmap("Terrain//Water//water1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 96;
+			atLoc = "water1.png";
 			break;
 		case 2:
-			//pic = al_load_bitmap("Terrain//Water//water2.png");
-			atlLoc[0] = 48;
-			atlLoc[1] = 96;
+			atLoc = "water2.png";
 			break;
 		case 3:
-			//pic = al_load_bitmap("Terrain//Water//water3.png");
-			atlLoc[0] = 96;
-			atlLoc[1] = 96;
+			atLoc = "water3.png";
 			break;
 		case 4:
-			//pic = al_load_bitmap("Terrain//Water//water4.png");
-			atlLoc[0] = 144;
-			atlLoc[1] = 96;
+			atLoc = "water4.png";
 			break;
 		default:
-			//pic = al_load_bitmap("Terrain//Water//water1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 96;
+			atLoc = "water1.png";
 			break;
 		}
 		break;
@@ -92,62 +74,42 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			//pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 48;
+			atLoc = "dirt1.png";
 			break;
 		case 2:
-			//pic = al_load_bitmap("Terrain//Dirt//dirt2.png");
-			atlLoc[0] = 48;
-			atlLoc[1] = 48;
+			atLoc = "dirt2.png";
 			break;
 		case 3:
-			//pic = al_load_bitmap("Terrain//Dirt//dirt3.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 96;
+			atLoc = "dirt3.png";
 			break;
 		case 4:
-			//pic = al_load_bitmap("Terrain//Dirt//dirt4.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 144;
+			atLoc = "dirt4.png";
 			break;
 		default:
-			//pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
-			atlLoc[0] = 0;
-			atlLoc[1] = 48;
+			atLoc = "dirt1.png";
 			break;
 		}
 
 		break;
 
 	case Tile::COAL:
-		//pic = al_load_bitmap("Terrain//Ore//coal.png");
-		atlLoc[0] = 48;
-		atlLoc[1] = 144;
+		atLoc = "coal.png";
 		break;
 
 	case Tile::IRON:
-		//pic = al_load_bitmap("Terrain//Ore//iron.png");
-		atlLoc[0] = 0;
-		atlLoc[1] = 144;
+		atLoc = "iron.png";
 		break;
 
 	case Tile::TEMP_IRON:
-		//pic = al_load_bitmap("Terrain//Ore//iron.png");
-		atlLoc[0] = 0;
-		atlLoc[1] = 144;
+		atLoc = "iron.png";
 		break;
 
 	case Tile::TEMP_COAL:
-		//pic = al_load_bitmap("Terrain//Ore//coal.png");
-		atlLoc[0] = 48;
-		atlLoc[1] = 144;
+		atLoc = "coal.png";
 		break;
 
 	case Tile::EMPTY:
-		//pic = al_load_bitmap("Terrain//Empty//empty.png");
-		atlLoc[0] = 144;
-		atlLoc[1] = 144;
+		atLoc = "empty.png";
 		break;
 	default:
 		break;
