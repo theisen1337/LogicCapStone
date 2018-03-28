@@ -63,5 +63,8 @@ class StateManager
 		bool GAMERUN = true;
 
 		void MainLoop(); //World &Map, Artist &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font
+
+		float screenX = 0.0;
+		float screenY = 0.0;
 };
 

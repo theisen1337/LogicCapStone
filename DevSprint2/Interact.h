@@ -32,9 +32,10 @@ public:
 
 	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM);
 
-	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY);
 
-
+	// TEST Grab Mouse Position
+	ALLEGRO_MOUSE_STATE mousepos;
 
 	/* Keep track of pressed mouse button. */
 	int mouse;
@@ -63,9 +64,9 @@ private:
 	//ALLEGRO_EVENT_QUEUE *queue;
 	//ALLEGRO_EVENT event;
 
-	int start_x;
-	int start_y;
-	int end_x;
-	int end_y;
+	float startX;
+	float startY;
+	float endX;
+	float endY;
 	float distance;
 };

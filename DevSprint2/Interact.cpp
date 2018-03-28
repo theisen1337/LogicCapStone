@@ -8,20 +8,9 @@ ALLEGRO_EVENT event;
 
 Interact::~Interact() {}
 
-
-
 // This calls the appropriate interaction functions in whatever object got clicked
 void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM)
 {
-	// NOTES:
-	// Nested For Loop to Check Every Item in Chunk
-	// Chunk information is pulled from Character Class
-	// Then go down to tile information (32 tiles per chunk)
-	// Analyze all objects within the Chunk associated with a tile (x, y)
-	// Apply distance formula and find the closest object
-	// Check if closest object is within clicking threshold
-	// ***What to do with items??***
-	// ***X, and Y of object indpenedent or dependent on chunks??***
 
 	int prev_distance = 0;
 	int new_distance = 0;
@@ -128,7 +117,7 @@ void Interact::interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager
 	}*/
 }
 
-bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY)
 {
 	al_wait_for_event(queue, &event);
 
@@ -216,22 +205,38 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	// Checks for Mouse Button Press
 	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) 
 	{
-		start_x = event.mouse.x;
-		start_y = event.mouse.y;
+		al_get_mouse_state(&mousepos);
 		mouse = event.mouse.button;
+		float mouseposX = (float)mousepos.x;
+		float mouseposY = (float)mousepos.y;
+
+		startX = mouseposX + abs(screenX);
+		startY = mouseposY + abs(screenY);
+
+		std::cout << "Start Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
+		std::cout << "Start Screen: (" << abs(screenX) << ", " << abs(screenY) << ")" << endl;
+		std::cout << "Initial Coordinates: (" << startX << ", " << startY << ")" << endl << endl;
 	}
 
 	// Checks for Mouse Button Release
 	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) 
 	{
-		end_x = event.mouse.x;
-		end_y = event.mouse.y;
+		al_get_mouse_state(&mousepos);
+		float mouseposX = (float)mousepos.x;
+		float mouseposY = (float)mousepos.y;
 
-		distance = sqrt(pow((end_x - start_x), 2) + pow((end_y - start_y), 2));
+		endX = mouseposX + abs(screenX);
+		endY = mouseposY + abs(screenY);
+
+		std::cout << "End Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
+		std::cout << "End Screen: (" << abs(screenX) << ", " << abs(screenY) << ")" << endl;
+		std::cout << "End Coordinates: (" << endX << ", " << endY << ")" << endl << endl;
+
+		distance = sqrt(pow((endX - startX), 2) + pow((endY - startY), 2));
 
 		if (distance < 2)
 		{
-			interactions(end_x, end_y, mouse, OM);
+			interactions(endX, endY, mouse, OM);
 		}
 
 		mouse = 0;
@@ -248,8 +253,8 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		}
 		/* Right button zooms/rotates. */
 		if (mouse == 2) {
-			rotate += event.mouse.dx * 0.01;
-			zoom += event.mouse.dy * 0.01 * zoom;
+			//rotate += event.mouse.dx * 0.01;
+			//zoom += event.mouse.dy * 0.01 * zoom;
 		}
 		zoom += event.mouse.dz * 0.1 * zoom;
 		if (zoom < 0.1) zoom = 0.1;
@@ -267,4 +272,3 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	}
 	return true;
 }
-
