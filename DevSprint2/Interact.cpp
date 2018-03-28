@@ -175,6 +175,19 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx -= movement.getSpeed();
 			break;
+		case ALLEGRO_KEY_M:
+			OM.getML().arrMachines[0].leftClick();
+			break;
+		case ALLEGRO_KEY_S:
+			OM.getML().arrMachines[1].leftClick();
+			break;
+		case ALLEGRO_KEY_P:
+			al_show_native_message_box(al_get_current_display(),
+				"",
+				"Paused",
+				"",
+				NULL, ALLEGRO_MESSAGEBOX_ERROR);
+			break;
 		}
 		break;
 	case ALLEGRO_EVENT_TIMER:

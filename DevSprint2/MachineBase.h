@@ -1,6 +1,10 @@
 #pragma once
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include "allegro5/allegro_native_dialog.h"
+
+//Imgui for Messagebox
+//#include "imgui.h"
 
 #include "ItemBase.h"
 
@@ -43,6 +47,9 @@ public:
 	float getPlacementX();
 	float getPlacementY();
 
+	float getHeight();
+	float getWidth();
+
 	void setTile(int x, int y);
 	int getTileX();
 	int getTileY();
@@ -68,6 +75,9 @@ private:
 	ALLEGRO_BITMAP * MAS_ON_Image;
 	ALLEGRO_BITMAP * MAS_IDLE_Image;
 
+	//Height, and Width
+	float Width = 64;
+	float Height = 64;
 
 
 	// AS = AnimateSheet

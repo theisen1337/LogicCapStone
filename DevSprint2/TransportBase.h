@@ -1,6 +1,6 @@
 #pragma once
 
-#include <deque>
+#include <vector>
 #include "ItemBase.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
@@ -22,7 +22,7 @@ public:
 
 	void setConnection(MachineBase &start, MachineBase &end);
 
-	void addItems(ItemBase Items);
+	void addItems(ItemBase &Items);
 	void removeItems();
 
 	void startingNode(MachineBase &start);
@@ -38,9 +38,13 @@ public:
 
 private:
 
-	ALLEGRO_COLOR trackColor;
-	MachineBase startMachine;
-	MachineBase endMachine;
+	void MoveObject(int index);
+	bool TrackStop = false;
+
+	void TransportBase::checkEndMachine();
+	
+	MachineBase * startMachine;
+	MachineBase * endMachine;
 
 	void TransportItems();
 
@@ -51,17 +55,18 @@ private:
 
 	int trackSegments;
 
-	float trackspeed;
 	float start_x, start_y , end_x, end_y;
 
 
 	//path for Items to travel in float x and y
-	std::deque<XYPoint> trackpath;
+	//std::deque<XYPoint> trackpath;
 
 	//hold Items contents, REPLACE string with Items object
-	std::deque<ItemBase> ItemsOntrack;
+	std::vector<ItemBase> ItemsOntrack;
 
-	
+protected:
+	ALLEGRO_COLOR trackColor;
+	float trackspeed;
 
 };
 

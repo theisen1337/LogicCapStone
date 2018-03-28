@@ -17,7 +17,7 @@ void TransportLayer::Draw()
 	{
 		for (unsigned int i = 0; i < arrTracks.size(); i++)
 		{
-			arrTracks[i].Draw();
+			arrTracks.at(i).Draw();
 		}
 	}
 }
@@ -28,7 +28,7 @@ void TransportLayer::Compute()
 	{
 		for (int i = 0; i < arrTracks.size(); i++)
 		{
-			arrTracks[i].Compute();
+			arrTracks.at(i).Compute();
 		}
 	}
 }

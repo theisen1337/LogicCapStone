@@ -1,7 +1,7 @@
 #include "MainCompute.h"
 
 
-void MainCompute::Compute(ObjectManager OM)
+void MainCompute::Compute(ObjectManager &OM)
 {
 	OM.Compute();
 	ComputeTPS();
