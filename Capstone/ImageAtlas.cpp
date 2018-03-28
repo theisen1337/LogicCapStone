@@ -4,24 +4,28 @@ void ImageAtlas::Initialize()
 {
 	fs::path pl;
 
+	//Get the file names of terrain folder
 	pl = fs::current_path();
 	pl /= "Resources//Terrain";
 	tempFileNames = getFileNames(pl);
 	genRefVect(terrainRef);
 	tempFileNames.clear();
 
+	//get file names of items folder
 	pl = fs::current_path();
 	pl /= "Resources//Items";
 	tempFileNames = getFileNames(pl);
 	genRefVect(itemRef);
 	tempFileNames.clear();
 
+	//get the file names of the machine folder
 	pl = fs::current_path();
 	pl /= "Resources//Machine";
 	tempFileNames = getFileNames(pl);
 	genRefVect(machineRef);
 	tempFileNames.clear();
 
+	//get the file names of the character folder
 	pl = fs::current_path();
 	pl /= "Resources//Character";
 	tempFileNames = getFileNames(pl);
@@ -90,7 +94,7 @@ void ImageAtlas::genImageAtlases()
 		for (int j = 0; j < terrainRef[i].size(); j++)
 		{
 			ALLEGRO_BITMAP* t;
-			std::cout << terrainRef[i][j].c_str() << '\n';
+			//std::cout << terrainRef[i][j].c_str() << '\n';
 			t = al_load_bitmap(("Resources//Terrain//" + terrainRef[i][j]).c_str());
 			al_draw_scaled_bitmap(t,
 				0,0,
@@ -161,5 +165,26 @@ void ImageAtlas::genImageAtlases()
 
 ALLEGRO_BITMAP* ImageAtlas::LoadImageAtlas(AtlasType type)
 {
-	return temp;
+	switch (type)
+	{
+	case ImageAtlas::Terrain:
+		temp = al_load_bitmap("Resources//terrainAtlas.png");
+		return temp;
+		break;
+	case ImageAtlas::Machine:
+		temp = al_load_bitmap("Resources//machineAtlas.png");
+		return temp;
+		break;
+	case ImageAtlas::Item:
+		temp = al_load_bitmap("Resources//itemAtlas.png");
+		return temp;
+		break;
+	case ImageAtlas::Character:
+		temp = al_load_bitmap("Resources//characterAtlas.png");
+		return temp;
+		break;
+	default:
+		return temp;
+		break;
+	}
 }

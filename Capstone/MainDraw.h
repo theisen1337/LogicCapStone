@@ -1,7 +1,4 @@
-//! MainDraw Class
-/*!
-Manages all the drawing to the screen
-*/
+//! Manages Drawing of Objects to the Screen
 
 #pragma once
 #include <iostream>
@@ -26,7 +23,28 @@ private:
 	ImageAtlas ia;
 
 	//! Main atlas for all image atlases
-	ALLEGRO_BITMAP *atlas;
+	ALLEGRO_BITMAP *terrainAtlas;
+
+	//! Main atlas for all image atlases
+	ALLEGRO_BITMAP *characterAtlas;
+
+	//! Main atlas for all image atlases
+	ALLEGRO_BITMAP *itemAtlas;
+
+	//! Main atlas for all image atlases
+	ALLEGRO_BITMAP *machineAtlas;
+
+	//! Reference For Images
+	std::vector<std::vector<std::string>> terrainRef;
+
+	//! Reference For Images
+	std::vector<std::vector<std::string>> characterRef;
+
+	//! Reference For Images
+	std::vector<std::vector<std::string>> itemRef;
+
+	//! Reference For Images
+	std::vector<std::vector<std::string>> machineRef;
 public:
 	//! Initialization of Drawing
 	void Init();
@@ -38,5 +56,5 @@ public:
 	void drawWorld(World &world, ALLEGRO_DISPLAY &dis);
 
 	//! Draw the Character Layer
-	void drawCharacter(CharacterPlayer &c, CharacterMovement movement);
+	void drawCharacter(CharacterPlayer &c, CharacterMovement &movement);
 };

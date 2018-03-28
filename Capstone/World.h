@@ -1,7 +1,5 @@
-//! World Class
-/*!
-	Manages multiple chunks that make up the entire world.
-*/
+//! Manages the World and the vector of chunks
+
 
 #pragma once
 #include <vector>
@@ -43,6 +41,6 @@ public:
 	std::vector<std::vector<Chunk>> getChunk() { return world; };
 
 	//! Draw the world to back buffer
-	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis);
+	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref);
 };
 

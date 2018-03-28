@@ -44,7 +44,7 @@ void World::updateWorld(int charWorldW, int charWorldH)
 	*/
 }
 
-void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis)
+void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref)
 {
 
 	for (int i = 0; i < GC::worldDim; i++)
@@ -53,7 +53,7 @@ void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis)
 		{
 			if (!world[i][j].getGen())
 			{
-				world[i][j].genChunkMap(atl);
+				world[i][j].genChunkMap(atl,ref);
 				al_set_target_backbuffer(&dis);
 			}
 

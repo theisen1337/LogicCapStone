@@ -2,6 +2,7 @@
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include <string>
 
 class CharacterPlayer
 {
@@ -15,11 +16,10 @@ public:
 	CharacterPlayer();
 	~CharacterPlayer();
 
-	ALLEGRO_BITMAP * getPic() { return characterPIC; };
+	std::string getRef() { return charRef; };
 	void InitializeClass();
 
 private:
-	ALLEGRO_BITMAP *characterPIC;
-
+	std::string charRef;
 };
 
