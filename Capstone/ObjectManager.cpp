@@ -60,7 +60,7 @@ void ObjectManager::addItem(float X, float Y)
 {
 }
 
-void ObjectManager::addItem(float X, float Y, Items item)
+void ObjectManager::addItem(float X, float Y, ItemBase item)
 {
 }
 #pragma endregion
@@ -70,12 +70,12 @@ ObjectManager::~ObjectManager()
 {
 }
 
-void ObjectManager::Draw()
+void ObjectManager::Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef, ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef )
 {
 	OL.Draw();
-	ML.Draw();
-	TL.Draw(); // later this should be drawn before ML, only for testing is it draw second.
-	IL.Draw();
+	ML.Draw(machAtl, machRef);
+	TL.Draw(itemAtl, itemRef); // later this should be drawn before ML, only for testing is it draw second.
+	IL.Draw(itemAtl, itemRef);
 }
 
 void ObjectManager::Compute()

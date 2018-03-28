@@ -2,7 +2,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 
-#include "Items.h"
+#include "ItemBase.h"
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 
 struct Stack 
 {
-	Items i;
+	ItemBase i;
 	int n;
 	int max;
 };
@@ -36,7 +36,7 @@ public:
 	bool isWorking();
 
 	void Compute();
-	void Draw();
+	void Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef);
 
 	void setPlacement(float x, float y);
 	

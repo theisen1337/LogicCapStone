@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-#include "Items.h"
+#include "ItemBase.h"
 
 #include <vector>
 #include <array>
@@ -17,12 +17,12 @@ public:
 	ItemLayer();
 	~ItemLayer();
 
-	void Draw();
+	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
 	void Init();
 
 	ALLEGRO_BITMAP * getItems(unsigned int index);
 
-	std::vector<Items> arrItems;
+	std::vector<ItemBase> arrItems;
 
 private:
 	int SIZE_X = 100;

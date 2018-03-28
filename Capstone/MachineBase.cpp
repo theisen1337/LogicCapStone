@@ -1,9 +1,6 @@
 #include "MachineBase.h"
 #include "FileIO.h"
 
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro.h"
-
 
 MachineBase::MachineBase()
 {
@@ -136,7 +133,7 @@ void MachineBase::Compute()
 	}
 }
 
-void MachineBase::Draw()
+void MachineBase::Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef)
 {
 	if(Busy)
 		al_draw_scaled_bitmap(MAS_ON_Image,0,0,48,48,

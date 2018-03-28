@@ -1,6 +1,5 @@
 #include "Transport.h"
-#include "Items.h"
-#include "math.h"
+
 
 Transport::Transport(float speed,ALLEGRO_COLOR color)
 {
@@ -19,7 +18,7 @@ Transport::~Transport()
 }
 
 
-void Transport::addItems(Items Items)
+void Transport::addItems(ItemBase Items)
 {
 	ItemsOntrack.push_back(Items);
 }
@@ -45,13 +44,13 @@ void Transport::Compute()
 	{
 		//TODO: check someone to make sure track is not full
 		startMachine.OutBuffer.n--;
-		Items temp = startMachine.OutBuffer.i;
+		ItemBase temp = startMachine.OutBuffer.i;
 		temp.setXY(start_x, start_y);
 		addItems(temp);
 	}
 }
 
-void Transport::Draw()
+void Transport::Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef)
 {
 	al_draw_line(start_x,start_y,end_x,end_y,trackColor,5);
 
@@ -60,7 +59,7 @@ void Transport::Draw()
 		
 		for (int y = 0; y < ItemsOntrack.size(); y++)
 		{
-			ItemsOntrack[y].Draw();
+			ItemsOntrack[y].Draw(itemAtl, itemRef);
 		}
 		
 	}

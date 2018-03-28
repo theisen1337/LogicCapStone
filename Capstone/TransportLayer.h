@@ -8,7 +8,7 @@ public:
 	TransportLayer();
 	~TransportLayer();
 
-	void Draw();
+	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
 	void Compute();
 	std::vector<Transport> arrTracks;
 

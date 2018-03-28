@@ -25,12 +25,12 @@ void ItemLayer::Init()
 	arrItems.push_back(coal);*/
 }
 
-void ItemLayer::Draw()
+void ItemLayer::Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef)
 {
 	if (!arrItems.empty())
 	{
 		for (int i = 0; i < arrItems.size(); i++)
-			arrItems[i].Draw();
+			arrItems[i].Draw(itemAtl, itemRef);
 	}
 	//for (int i = 0; i < arrItems.size(); i++)
 	//	arrItems.at(i).Draw();

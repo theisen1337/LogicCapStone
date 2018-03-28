@@ -1,6 +1,5 @@
 #include "MachineLayer.h"
-#include "vector"
-#include "ItemTemplate.h"
+
 
 
 //struct Stack
@@ -17,7 +16,6 @@
 //	float rotate;
 //
 //};
-#include "transportTemplate.h"
 
 MachineLayer::MachineLayer()
 {
@@ -67,12 +65,12 @@ void MachineLayer::Compute()
 	}
 }
 
-void MachineLayer::Draw()
+void MachineLayer::Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef)
 {
 	if (!arrMachines.empty())
 	{
 		for (int i = 0; i < arrMachines.size(); i++)
-			arrMachines.at(i).Draw();
+			arrMachines.at(i).Draw(machAtl, machRef);
 	}
 }
 

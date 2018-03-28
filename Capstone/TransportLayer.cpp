@@ -1,5 +1,4 @@
 #include "TransportLayer.h"
-#include "transportTemplate.h"
 
 
 TransportLayer::TransportLayer()
@@ -12,13 +11,13 @@ TransportLayer::~TransportLayer()
 }
 
 
-void TransportLayer::Draw()
+void TransportLayer::Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef)
 {
 	if (!arrTracks.empty())
 	{
 		for (int i = 0; i < arrTracks.size(); i++)
 		{
-			arrTracks[i].Draw();
+			arrTracks[i].Draw(itemAtl, itemRef);
 		}
 	}
 }
