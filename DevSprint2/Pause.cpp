@@ -4,12 +4,14 @@
 using namespace std;
 //ALLEGRO_EVENT event;
 
-Pause::Pause()
+//al_destroy_display(window);
+
+Pause::Pause(void)
 {
 
 }
 
-Pause::~Pause() 
+Pause::~Pause(void) 
 {
 
 }
@@ -41,7 +43,7 @@ void Pause::draw(int displayW, int displayH)
 		
 
 		bitNum = to_string(i); //changes i into a string of the same number
-		bitButton = "Buttons//Button"; //file location much like "Terrain//Water//water3.png" in the Tiles.cpp file
+		bitButton = "Buttons//Button"; //file location much like al_load_bitmap("Resources//Character//Character.png")
 		bitButton += bitNum; //adds the number to the location string
 		bitButton += ".png"; //file type
 		const char *buttonLoc = bitButton.c_str(); //converts to const char pointer
@@ -66,7 +68,7 @@ void Pause::buttonHover(int x, int mouseX, int mouseY) //check to see if the mou
 {
 	for (int i = 0; i < 4; i++) //loop to check all of the buttons to see if the hovering is happening
 	{
-		if ((mouseX >= x) && (mouseX <= x + w) && (mouseY >= yBut[i]) && (mouseY <= yBut[i] + h))
+		if ((mouseX >= x) && (mouseX <= x + wButton) && (mouseY >= yBut[i]) && (mouseY <= yBut[i] + hButton))
 		{
 			hover[i] = true; // if this is true, then a mouse click or button press, whatever is choses, will activate the desired effect
 		}

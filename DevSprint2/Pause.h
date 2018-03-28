@@ -12,8 +12,8 @@ class Pause
 public:
 	//! open menu
 	//void menuOpen();
-	Pause();
-	~Pause();
+	Pause(void);
+	~Pause(void);
 
 	//! close menu
 	void menuExit();
@@ -43,8 +43,8 @@ private:
 	//! X and Y positions and Width and Height
 	//int x = 100;
 	//int y;
-	int w = 200;
-	int h = 55;
+	int wButton = 200;
+	int hButton = 55;
 	//int yPlace = 50;
 
 };
