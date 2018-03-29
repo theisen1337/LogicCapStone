@@ -126,80 +126,68 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	{
 		return false;
 	}
-	switch (event.type)
+
+	// Checks for Keyboard Presses
+	if (event.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-	case ALLEGRO_EVENT_KEY_DOWN:
-		switch (event.keyboard.keycode)
-		{
-		case ALLEGRO_KEY_UP:
-			movement.vy -= movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_DOWN:
-			movement.vy += movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_LEFT:
-			movement.vx -= movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_RIGHT:
-			movement.vx += movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_R:
+		if (event.keyboard.keycode == ALLEGRO_KEY_R)
 			Map.initialGeneration();
-		case ALLEGRO_KEY_ESCAPE:
+		if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 			return false;
-		}
-		break;
-	case ALLEGRO_EVENT_KEY_UP:
-		switch (event.keyboard.keycode)
+
+
+	}
+
+	// Character Movement
+	if (event.type == ALLEGRO_EVENT_KEY_CHAR)
+	{
+		if (event.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
-		case ALLEGRO_KEY_UP:
-			movement.vy += movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_DOWN:
-			movement.vy -= movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_LEFT:
-			movement.vx += movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_RIGHT:
-			movement.vx -= movement.getSpeed();
-			break;
-		case ALLEGRO_KEY_M:
+			movement.moveCharacterUp();
+			if (movement.getCharacterYPosition() < 0)
+			{
+				movement.setCharacterYPosition(0);
+			}
+		}
+		if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
+		{
+			movement.moveCharacterDown();
+			if (movement.getCharacterYPosition() > mapYBoundary)
+			{
+				movement.setCharacterYPosition(mapYBoundary);
+			}
+		}
+		if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+		{
+			movement.moveCharacterLeft();
+			if (movement.getCharacterXPosition() < 0)
+			{
+				movement.setCharacterXPosition(0);
+			}
+		}
+		if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+		{
+			movement.moveCharacterRight();
+			if (movement.getCharacterXPosition() > mapXBoundary)
+			{
+				movement.setCharacterXPosition(mapXBoundary);
+			}
+		}
+	}
+
+	if(event.type == ALLEGRO_EVENT_KEY_UP)
+	{
+	
+		if (event.keyboard.keycode ==  ALLEGRO_KEY_M)
 			OM.getML().arrMachines[0].leftClick();
-			break;
-		case ALLEGRO_KEY_S:
+		if (event.keyboard.keycode == ALLEGRO_KEY_S)
 			OM.getML().arrMachines[1].leftClick();
-			break;
-		case ALLEGRO_KEY_P:
+		if (event.keyboard.keycode == ALLEGRO_KEY_P)
 			al_show_native_message_box(al_get_current_display(),
 				"",
 				"Paused",
 				"",
 				NULL, ALLEGRO_MESSAGEBOX_ERROR);
-			break;
-		}
-		break;
-	case ALLEGRO_EVENT_TIMER:
-		movement.moveCharacterX();//DF
-		if (movement.getCharacterXPosition() > mapXBoundary)
-		{
-			movement.setCharacterXPosition(mapXBoundary);
-		}
-		else if (movement.getCharacterXPosition() < 0)
-		{
-			movement.setCharacterXPosition(0);
-		}
-		movement.moveCharacterY();
-		if (movement.getCharacterYPosition() > mapYBoundary)
-		{
-			movement.setCharacterYPosition(mapYBoundary);
-		}
-		else if (movement.getCharacterYPosition() < 0)
-		{
-			movement.setCharacterYPosition(0);
-		}
-		break;
-		redraw = true;
 	}
 
 	// Checks for Mouse Button Press

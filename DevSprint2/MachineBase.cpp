@@ -235,33 +235,69 @@ void MachineBase::leftClick()
 		"Success",
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);*/
 
-	std::cout << "########################################################################################\n";
-	std::cout << "InputBuffer:\n";
+	std::string output = "";
+	std::string msg = "";
+	output += "########################################################################################\n";
+	output += "InputBuffer:\n";
 	for (int i = 0; i < InputBuffer.size(); i++)
-		std::cout << "\tInputBuffer[" << i << "].i = " << InputBuffer[i].i.getName() 
-				  << "\tInputBuffer[" << i << "].n = " << InputBuffer[i].n 
-		          << "\tInputBuffer[" << i << "].max = " << InputBuffer[i].max << endl;
+	{
+		output += "\tInputBuffer[";
+		output += to_string(i);
+		output += "].i = ";
+		output += InputBuffer[i].i.getName();
+		output += "\tInputBuffer[";
+		output += to_string(i);
+		output += "].n = ";
+		output += to_string(InputBuffer[i].n);
+		output += "\tInputBuffer[";
+		output += to_string(i) + "";
+		output += "].max = ";
+		output += to_string(InputBuffer[i].max);
+		output += "\n";
+	}
 
-	std::cout << "CraftRecipe:\n";
+		output += "CraftRecipe:\n";
 	for (int i = 0; i < CraftRecipe.size(); i++)
-		std::cout << "\tCraftRecipe[" << i << "].i = " << CraftRecipe[i].i.getName()
-		<< "\tCraftRecipe[" << i << "].n = " << CraftRecipe[i].n
-		<< "\tCraftRecipe[" << i << "].max = " << CraftRecipe[i].max << endl;
+	{
+		output += "\tCraftRecipe[";
+		output += to_string(i);
+		output += "].i = ";
+		output += CraftRecipe[i].i.getName();
+		output += "\tCraftRecipe[";
+		output += to_string(i);
+		output += "].n = ";
+		output += to_string(CraftRecipe[i].n);
+		output += "\tCraftRecipe[";
+		output += to_string(i);
+		output += "].max = ";
+		output += to_string(CraftRecipe[i].max);
+		output += "\n";
+	}
 
-	std::cout << "OutBuffer:\n";
-		std::cout << "\tOutBuffer.i = " << OutBuffer.i.getName()
-		<< "\tCraftOutBuffer.n = " << OutBuffer.n
-		<< "\tCraftOutBuffer.max = " << OutBuffer.max << endl;
+	output += "OutBuffer:\n";
+	output += "\tOutBuffer.i = ";
+	output += OutBuffer.i.getName();
+	output += "\tCraftOutBuffer.n = ";
+	output += to_string(OutBuffer.n);
+	output += "\tCraftOutBuffer.max = ";
+	output += to_string(OutBuffer.max);
+	output += "\n";
 
-	std::cout << "Work:\n";
-		std::cout << "\ttotalWork = " << totalWork
-		<< "\tjobWork = " << jobWork
-		<< "\tworkPerSecond = " << WorkPerSecond << endl;
-		std::cout << "########################################################################################\n";
+	output += "Work:\n";
+	output += "\ttotalWork = ";
+	output += to_string(totalWork);
+	output += "\tjobWork = ";
+	output += to_string(jobWork);
+	output += "\tworkPerSecond = ";
+	output += to_string(WorkPerSecond);
+	output += "\n";;
+	output += "########################################################################################\n";
+
+	std:cout << output;
 
 		al_show_native_message_box(al_get_current_display(),
 			"Machine",
-			"",
+			output.c_str(),
 			"Success",
 			NULL, ALLEGRO_MESSAGEBOX_ERROR);
 
