@@ -13,7 +13,7 @@ public:
 	std::vector<MachineBase> arrMachines;
 	void Init(FastTrack & fast, SlowTrack & slow);
 	void Compute();
-	void Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef);
+	void Draw();
 	MachineLayer();
 	~MachineLayer();
 private:

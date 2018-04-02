@@ -1,18 +1,16 @@
 #pragma once
-#include "Transport.h"
+#include "TransportBase.h"
 
-class SlowTrack : public Transport
+class SlowTrack : public TransportBase
 {
 public:
 	SlowTrack();
-	void Init();
 private:
 };
 
-class FastTrack : public Transport
+class FastTrack : public TransportBase
 {
 public:
 	FastTrack();
-	void Init();
 private:
 };

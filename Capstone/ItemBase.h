@@ -30,6 +30,8 @@ public:
 	float getCoordinateX();
 	float getCoordinateY();
 
+	void setName(std::string name);
+
 	void setDropped(bool boolVar);
 	bool checkDropped();
 
@@ -46,7 +48,7 @@ public:
 	void leftClick();
 	void rightClick();
 
-	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
+	void Draw();
 
 	void setXY(float x, float y); 
 

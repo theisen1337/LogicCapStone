@@ -1,14 +1,14 @@
 #pragma once
-#include "Items.h"
-#include "Ore.h"
-class CoalOreItem : public Items
+#include "ItemBase.h"
+#include "OreBase.h"
+class CoalOreItem : public ItemBase
 {
 public:
 	CoalOreItem();
 private:
 };
 
-class IronOreItem : public Items
+class IronOreItem : public ItemBase
 {
 public:
 	IronOreItem();

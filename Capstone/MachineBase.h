@@ -1,6 +1,10 @@
 #pragma once
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include "allegro5/allegro_native_dialog.h"
+
+//Imgui for Messagebox
+//#include "imgui.h"
 
 #include "ItemBase.h"
 
@@ -36,12 +40,15 @@ public:
 	bool isWorking();
 
 	void Compute();
-	void Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef);
+	void Draw();
 
 	void setPlacement(float x, float y);
 	
 	float getPlacementX();
 	float getPlacementY();
+
+	float getHeight();
+	float getWidth();
 
 	void setTile(int x, int y);
 	int getTileX();
@@ -68,6 +75,9 @@ private:
 	ALLEGRO_BITMAP * MAS_ON_Image;
 	ALLEGRO_BITMAP * MAS_IDLE_Image;
 
+	//Height, and Width
+	float Width = 64;
+	float Height = 64;
 
 
 	// AS = AnimateSheet
@@ -76,7 +86,7 @@ private:
 	int AS_rows, AS_Columns;	//TODO
 
 	//Machine location Varriables
-	float PlacementX, placementY;
+	float placementX, placementY;
 	int TileX, TileY;
 
 	//Machine Work

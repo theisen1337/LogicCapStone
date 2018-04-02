@@ -43,6 +43,7 @@ void StateManager::Initialization()
 	Map.InitalizeClass();
 	player.InitializeClass();
 	mainDraw.Init();
+	ObjMang.Init();
 
 	timer = al_create_timer(1.0 / 60);
 
@@ -52,6 +53,7 @@ void StateManager::Initialization()
 	al_register_event_source(queue, al_get_mouse_event_source());
 	al_register_event_source(queue, al_get_display_event_source(display));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
+
 }
 
 void StateManager::Transformations()
@@ -59,16 +61,24 @@ void StateManager::Transformations()
 	w = al_get_display_width(display);
 	h = al_get_display_height(display);
 
-	/* Initialize transformation. */
+	// Initialize transformation. 
 	al_identity_transform(&transform);
-	/* Move to scroll position. */
-	al_translate_transform(&transform, -interactions.scroll_x, -interactions.scroll_y);
-	/* Rotate and scale around the center first. */
+	// Move to scroll position. 
+	al_translate_transform(&transform, -interactions.scrollX, -interactions.scrollY);
+	// Rotate and scale around the center first. 
 	al_rotate_transform(&transform, interactions.rotate);
 	al_scale_transform(&transform, interactions.zoom, interactions.zoom);
-	/* Move scroll position to screen center. */
+	// Move scroll position to screen center. 
 	al_translate_transform(&transform, w * 0.5, h * 0.5);
-	/* All subsequent drawing is transformed. */
+	
+	// Resets the top left screen coordinates
+	screenX = 0.0;
+	screenY = 0.0;
+
+	// Transforms the coordinates to give us the top left corner of the screen
+	al_transform_coordinates(&transform, &screenX, &screenY);
+
+	// All subsequent drawing is transformed
 	al_use_transform(&transform);
 }
 
@@ -83,7 +93,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang, screenX, screenY);
 
 	//#####################################################################
 	/*
@@ -137,11 +147,11 @@ void StateManager::Drawing()
 
 		
 		al_flip_display();
-		interactions.fps_accum++;
-		if (t - interactions.fps_time >= 1) {
-			interactions.fps = interactions.fps_accum;
-			interactions.fps_accum = 0;
-			interactions.fps_time = t;
+		interactions.fpsAccum++;
+		if (t - interactions.fpsTime >= 1) {
+			interactions.fps = interactions.fpsAccum;
+			interactions.fpsAccum = 0;
+			interactions.fpsTime = t;
 		}
 	}
 

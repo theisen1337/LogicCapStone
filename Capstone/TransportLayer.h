@@ -1,5 +1,5 @@
 #pragma once
-#include "transportTemplate.h"
+#include "TransportTemplate.h"
 
 #include <vector>
 class TransportLayer
@@ -8,9 +8,9 @@ public:
 	TransportLayer();
 	~TransportLayer();
 
-	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
+	void Draw();
 	void Compute();
-	std::vector<Transport> arrTracks;
+	std::vector<TransportBase> arrTracks;
 
 private:
 

@@ -1,27 +1,26 @@
-#include "Ore.h"
-#include <string>
+#include "OreBase.h"
 
 
-Ore::Ore()
+OreBase::OreBase()
 {
 }
 
-Ore::Ore(std::string oreType)
+OreBase::OreBase(std::string oreType)
 {
 
 }
 
-int Ore::getHealth()
+int OreBase::getHealth()
 {
 	return health;
 }
 
-int Ore::getTravelSpeed()
+int OreBase::getTravelSpeed()
 {
 	return travelSpeed;
 }
 
-void Ore::leftClickInteract()
+void OreBase::leftClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
 		"Character Interaction",
@@ -30,7 +29,7 @@ void Ore::leftClickInteract()
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
-void Ore::rightClickInteract()
+void OreBase::rightClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
 		"Character Interaction",
@@ -39,12 +38,12 @@ void Ore::rightClickInteract()
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
-void Ore::Drop()
+void OreBase::Drop()
 {
 	//TODO: Implement
 }
 
-void Ore::gotHit(int damage)
+void OreBase::gotHit(int damage)
 {
 	health -= damage;
 	if (health < 0)
@@ -53,30 +52,30 @@ void Ore::gotHit(int damage)
 	}
 }
 
-void Ore::draw()
+void OreBase::draw()
 {
 }
 
-void Ore::setXCoordinate(int x)
+void OreBase::setXCoordinate(int x)
 {
 	xCoordinate = x;
 }
 
-void Ore::setYCoordinate(int y)
+void OreBase::setYCoordinate(int y)
 {
 	yCoordinate = y;
 }
 
-Ore::~Ore()
+OreBase::~OreBase()
 {
 }
 
-void Ore::setTravelSpeed(int speed)
+void OreBase::setTravelSpeed(int speed)
 {
 	travelSpeed = speed;
 }
 
-void Ore::setHealth(int health)
+void OreBase::setHealth(int health)
 {
 	this->health = health;
 }

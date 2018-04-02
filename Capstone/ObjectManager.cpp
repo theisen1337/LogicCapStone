@@ -10,13 +10,25 @@ ObjectManager::ObjectManager()
 void ObjectManager::Init()
 {
 	Smith smith1;
-	smith1.setPlacement(120*15,120*15);
+	smith1.setPlacement(64 * 20, 64 * 12);
+	smith1;
 
 	Miner mine1;
-	mine1.setPlacement(120 * 12, 120 * 12);
+	mine1.setPlacement(64 * 12, 64 * 12);
+
 	ML.arrMachines.push_back(mine1);
 	ML.arrMachines.push_back(smith1);
 
+	SlowTrack track1;
+	//track1.setConnection(mine1, smith1); // null refference.
+	track1.setConnection(ML.arrMachines.at(0),ML.arrMachines.at(1));
+	TL.arrTracks.push_back(track1);
+
+}
+
+MachineBase & ObjectManager::getMLMachine(std::vector<MachineBase> & Machines, int index)
+{
+	return Machines[index];
 }
 
 #pragma region Machines
@@ -70,12 +82,13 @@ ObjectManager::~ObjectManager()
 {
 }
 
-void ObjectManager::Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef, ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef )
+//Go through the drawing of each of the layers of the game.
+void ObjectManager::Draw()
 {
 	OL.Draw();
-	ML.Draw(machAtl, machRef);
-	TL.Draw(itemAtl, itemRef); // later this should be drawn before ML, only for testing is it draw second.
-	IL.Draw(itemAtl, itemRef);
+	ML.Draw();
+	TL.Draw(); // later this should be drawn before ML, only for testing is it draw second.
+	IL.Draw();
 }
 
 void ObjectManager::Compute()

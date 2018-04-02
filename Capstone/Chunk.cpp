@@ -1,13 +1,13 @@
 #include "Chunk.h"
 
+// ###############
+// # CONSTRUCTOR #
+// ###############
+Chunk::Chunk() {}
 
-
-
-Chunk::Chunk()
-{
-	
-}
-
+// #######################
+// # GENERATES CHUNK MAP #
+// #######################
 void Chunk::genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string>> &ref)
 {
 	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
@@ -68,6 +68,9 @@ void Chunk::genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string
 	isGen = true;
 }
 
+// ######################
+// # INITIAL GENERATION #
+// ######################
 void Chunk::initalGen()
 {
 	terrainLayer.resize(GC::chunkDim, std::vector<Tile>(GC::chunkDim, Tile(Tile::GRASS)));
@@ -75,14 +78,12 @@ void Chunk::initalGen()
 	map = al_create_bitmap(GC::tileDim * GC::chunkDim, GC::tileDim * GC::chunkDim);
 }
 
+// UNDER CONSTRUCTION
 void Chunk::genChunk() //Might be worthless
 {
-	
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
 	oreLayer = gen.newOreAlGore(oreLayer, terrainLayer);
 	terrainLayer = gen.setTileGrid(terrainLayer);
 	terrainLayer = gen.newLakeAlGore(oreLayer,terrainLayer);
 	terrainLayer = gen.revampWater(terrainLayer);
 }
-
-

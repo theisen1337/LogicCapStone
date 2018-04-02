@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ore.h"
+#include "OreBase.h"
 #include "allegro5/allegro_native_dialog.h"
 
-class Iron : public Ore
+class Iron : public OreBase
 {
-	Iron() : Ore()
+	Iron() : OreBase()
 	{
 		setTravelSpeed(2);
 		setHealth(2);

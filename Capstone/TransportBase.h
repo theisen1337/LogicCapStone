@@ -1,6 +1,6 @@
 #pragma once
 
-#include <deque>
+#include <vector>
 #include "ItemBase.h"
 #include "MachineTemplate.h"
 #include "allegro5/allegro_primitives.h"
@@ -13,14 +13,16 @@ struct XYPoint
 };
 
 
-class Transport
+class TransportBase
 {
 public:
-	Transport();
-	~Transport();
-	Transport(float speed, ALLEGRO_COLOR color);
+	TransportBase();
+	~TransportBase();
+	TransportBase(float speed, ALLEGRO_COLOR color);
 
-	void addItems(ItemBase Items);
+	void setConnection(MachineBase &start, MachineBase &end);
+
+	void addItems(ItemBase &Items);
 	void removeItems();
 
 	void startingNode(MachineBase &start);
@@ -28,7 +30,7 @@ public:
 
 
 	void Compute();
-	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
+	void Draw();
 
 	void layTrack(float sx, float sy, float ex, float ey);
 	void removeTrack();
@@ -36,9 +38,13 @@ public:
 
 private:
 
-	ALLEGRO_COLOR trackColor;
-	MachineBase startMachine;
-	MachineBase endMachine;
+	void MoveObject(int index);
+	bool TrackStop = false;
+
+	void checkEndMachine();
+	
+	MachineBase * startMachine;
+	MachineBase * endMachine;
 
 	void TransportItems();
 
@@ -49,17 +55,18 @@ private:
 
 	int trackSegments;
 
-	float trackspeed;
 	float start_x, start_y , end_x, end_y;
 
 
 	//path for Items to travel in float x and y
-	std::deque<XYPoint> trackpath;
+	//std::deque<XYPoint> trackpath;
 
 	//hold Items contents, REPLACE string with Items object
-	std::deque<ItemBase> ItemsOntrack;
+	std::vector<ItemBase> ItemsOntrack;
 
-	
+protected:
+	ALLEGRO_COLOR trackColor;
+	float trackspeed;
 
 };
 

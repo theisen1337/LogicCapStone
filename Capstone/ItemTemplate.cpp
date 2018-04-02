@@ -2,10 +2,14 @@
 
 CoalOreItem::CoalOreItem()
 {
-	Items("Coal-Ore");
+	//ItemBase("Coal-Ore");
+	setPic("Resources//Items//ITEM_COAL.png");
+	setName("Coal-Ore");
 }
 
 IronOreItem::IronOreItem()
 {
-	Items("Iron-Ore");
+	//ItemBase("Iron-Ore"); // <----- Bug
+	setPic("Resources//Items//ITEM_IRON.png");
+	setName("Iron-Ore");
 }

@@ -19,7 +19,7 @@ void MainDraw::Init()
 
 void MainDraw::Draw(ObjectManager &OM)
 {
-	OM.Draw(machineAtlas, machineRef, itemAtlas, itemRef);
+	OM.Draw();
 }
 
 void MainDraw::drawWorld(World &world, ALLEGRO_DISPLAY & dis)

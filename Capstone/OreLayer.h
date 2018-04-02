@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Ore.h"
+#include "OreBase.h"
 #include <vector>
 
 class OreLayer
 {
 public:
-	std::vector<Ore> layer;
+	std::vector<OreBase> layer;
 	void Compute();
 	void Draw();
 	OreLayer();
 	~OreLayer();
-	void addToLayer(Ore newOre);
+	void addToLayer(OreBase newOre);
 };

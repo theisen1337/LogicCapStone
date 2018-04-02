@@ -1,9 +1,13 @@
 #include "Coal.h"
 
-void Coal::Interact()
-{
-}
+// #######################
+// # PERFORM INTERACTION #
+// #######################
+void Coal::Interact() {}
 
+// ##########################
+// # LEFT CLICK INTERACTION #
+// ##########################
 void Coal::leftClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
@@ -13,6 +17,9 @@ void Coal::leftClickInteract()
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
+// ###########################
+// # RIGHT CLICK INTERACTION #
+// ###########################
 void Coal::rightClickInteract()
 {
 	al_show_native_message_box(al_get_current_display(),
@@ -22,8 +29,10 @@ void Coal::rightClickInteract()
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 
+// ####################
+// # CREATE COAL ITEM #
+// ####################
 void Coal::Drop()
 {
 	// TODO: create a coal Items obj
 }
-

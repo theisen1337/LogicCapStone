@@ -4,7 +4,7 @@
 #include "TransportLayer.h"
 #include "ItemLayer.h"
 #include "OreLayer.h" 
-//#include "PlayerLayer"
+// #include "PlayerLayer"
 
 #include "MachineTemplate.h"
 
@@ -16,7 +16,7 @@ public:
 
 	void Init();
 
-	void Draw(ALLEGRO_BITMAP * machAtl, std::vector<std::vector<std::string>> &machRef, ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
+	void Draw();
 	void Compute();
 
 	void addMachine(float X, float Y); //TODO create Template class to store recipes
@@ -38,6 +38,8 @@ public:
 	void removeML();
 	void removeTL();
 	void removeIL();
+
+	MachineBase & getMLMachine(std::vector<MachineBase> & Machines, int index);
 
 	OreLayer & getOL() { return OL; }
 	MachineLayer & getML() { return ML; }

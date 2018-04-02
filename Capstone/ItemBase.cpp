@@ -19,6 +19,11 @@ void ItemBase::setPic(std::string path)
 	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
 }
 
+void ItemBase::setName(std::string name)
+{
+	ItemsName = name;
+}
+
 // Overloaded Constructor
 ItemBase::ItemBase(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y)
 {
@@ -47,7 +52,11 @@ float ItemBase::getCoordinateY()
 
 void ItemBase::leftClick()
 {
-
+	al_show_native_message_box(al_get_current_display(),
+		"Item:",
+		ItemsName.c_str(),
+		"Success",
+		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
 void ItemBase::rightClick()
 {
@@ -150,8 +159,8 @@ ALLEGRO_BITMAP * ItemBase::getBitMap()
 	return ItemsImage;
 }
 
-void ItemBase::Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef)
+void ItemBase::Draw()
 {
-		al_draw_scaled_bitmap(ItemsImage, 0, 0, 16, 16,
-			xCoordinate, yCoordinate, 32, 32, 0);
+	al_draw_bitmap(ItemsImage, xCoordinate, yCoordinate,0);
+	//al_draw_scaled_bitmap(ItemsImage,0,0, 16,16, xCoordinate, yCoordinate, 32,32,0);
 }

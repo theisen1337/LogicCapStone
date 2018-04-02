@@ -102,7 +102,7 @@ std::string FileIO::openPicture(std::string path)
 	if (!file)
 	{
 		file.clear();
-		path = "Terrain//Dev//test.png";
+		//path = "Terrain//Dev//test.png";
 		
 		file.open(path.c_str()); // Try to open for I/O
 		if (!file)
@@ -111,7 +111,7 @@ std::string FileIO::openPicture(std::string path)
 			return nullptr;
 		}
 		file.close();
-		return "Terrain//Dev//test.png";
+		//return "Terrain//Dev//test.png";
 	}
 	file.close();
 	return path;

@@ -3,12 +3,13 @@
 #include <string>
 
 
-class typesOfOres
+class OreTemplate
 {
 public:
-	typesOfOres();
+	OreTemplate();
 	int getNumberOfDifferentOres();
 	std::string getNameOfOre(int i);
+
 private:
 	void addNewOreType(std::string name);
 	int numberOfDifferentOres = 0;

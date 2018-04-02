@@ -6,12 +6,12 @@
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
 
-class Ore
+class OreBase
 {
 public:
-	Ore();
-	Ore(std::string OreType);
-	Ore(int OreType);
+	OreBase();
+	OreBase(std::string OreType);
+	OreBase(int OreType);
 	int getHealth();
 	int getTravelSpeed();
 	virtual void leftClickInteract();
@@ -23,7 +23,7 @@ public:
 	void setXCoordinate(int x);
 	int getYCoordinate() { return yCoordinate; }
 	void setYCoordinate(int y);
-	~Ore();
+	~OreBase();
 
 
 private:

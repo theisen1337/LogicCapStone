@@ -17,7 +17,7 @@ public:
 	ItemLayer();
 	~ItemLayer();
 
-	void Draw(ALLEGRO_BITMAP * itemAtl, std::vector<std::vector<std::string>> &itemRef);
+	void Draw();
 	void Init();
 
 	ALLEGRO_BITMAP * getItems(unsigned int index);
