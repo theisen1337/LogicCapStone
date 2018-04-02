@@ -140,23 +140,23 @@ void MachineBase::Draw()
 {
 	if(Busy)
 		al_draw_scaled_bitmap(MAS_ON_Image,0,0,48,48,
-			PlacementX, placementY, Width, Height, 0);
+			placementX, placementY, Width, Height, 0);
 	else
 		al_draw_scaled_bitmap(MAS_OFF_Image, 0, 0, 48, 48,
-			PlacementX, placementY, Width, Height, 0);
+			placementX, placementY, Width, Height, 0);
 }
 
 //Placement methods
 
 void MachineBase::setPlacement(float x, float y)
 {
-	PlacementX = x;
+	placementX = x;
 	placementY = y;
 }
 
 float MachineBase::getPlacementX()
 {
-	return PlacementX;
+	return placementX;
 }
 
 float MachineBase::getPlacementY()

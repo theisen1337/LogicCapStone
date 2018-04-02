@@ -64,7 +64,7 @@ void StateManager::Transformations()
 	// Initialize transformation. 
 	al_identity_transform(&transform);
 	// Move to scroll position. 
-	al_translate_transform(&transform, -interactions.scroll_x, -interactions.scroll_y);
+	al_translate_transform(&transform, -interactions.scrollX, -interactions.scrollY);
 	// Rotate and scale around the center first. 
 	al_rotate_transform(&transform, interactions.rotate);
 	al_scale_transform(&transform, interactions.zoom, interactions.zoom);
@@ -147,11 +147,11 @@ void StateManager::Drawing()
 
 		
 		al_flip_display();
-		interactions.fps_accum++;
-		if (t - interactions.fps_time >= 1) {
-			interactions.fps = interactions.fps_accum;
-			interactions.fps_accum = 0;
-			interactions.fps_time = t;
+		interactions.fpsAccum++;
+		if (t - interactions.fpsTime >= 1) {
+			interactions.fps = interactions.fpsAccum;
+			interactions.fpsAccum = 0;
+			interactions.fpsTime = t;
 		}
 	}
 

@@ -1,57 +1,71 @@
 #include "CharacterMovement.h"
 
-CharacterMovement::CharacterMovement()//DF
+// ###############
+// # CONSTRUCTOR #
+// ###############
+CharacterMovement::CharacterMovement()
 {
 	characterXPosition = 0;
 	characterYPosition = 0;
 }
 
+// ########################
+// # OVERLOADED CHARACTER #
+// ########################
 CharacterMovement::CharacterMovement(int xPosition, int yPosition)
 {
 	characterXPosition = xPosition;
 	characterYPosition = yPosition;
 }
 
-int CharacterMovement::moveCharacterLeft(int distance)
-{
-	characterXPosition -= distance;
-	return characterXPosition;
-}
-
-int CharacterMovement::moveCharacterRight(int distance)
-{
-	characterXPosition += distance;
-	return characterXPosition;
-}
-
-int CharacterMovement::moveCharacterUp(int distance)
-{
-	characterYPosition -= distance;
-	return characterYPosition;
-}
-
-int CharacterMovement::moveCharacterDown(int distance)
-{
-	characterYPosition += distance;
-	return characterYPosition;
-}
-
+// #####################
+// # RETURN X POSITION #
+// #####################
 int CharacterMovement::getCharacterXPosition()
 {
 	return characterXPosition;
 }
-
-void CharacterMovement::setCharacterXPosition(int x)
-{
-	characterXPosition = x;
-}
-
+// #####################
+// # RETURN Y POSITION #
+// #####################
 int CharacterMovement::getCharacterYPosition()
 {
 	return characterYPosition;
 }
+// ################
+// # RETURN SPEED #
+// ################
+int CharacterMovement::getSpeed()
+{
+	return speed;
+}
 
+// ##################
+// # SET X POSITION #
+// ##################
+void CharacterMovement::setCharacterXPosition(int x)
+{
+	characterXPosition = x;
+}
+// ##################
+// # SET Y POSITION #
+// ##################
 void CharacterMovement::setCharacterYPosition(int y)
 {
 	characterYPosition = y;
+}
+
+// ###################
+// # MOVE X POSITION #
+// ###################
+void CharacterMovement::moveCharacterX()
+{
+	characterXPosition += vx;
+}
+// ###################
+// # MOVE Y POSITION #
+// ###################
+void CharacterMovement::moveCharacterY()
+{
+	characterYPosition += vy;
 }

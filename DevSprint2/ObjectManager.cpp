@@ -10,7 +10,7 @@ ObjectManager::ObjectManager()
 void ObjectManager::Init()
 {
 	Smith smith1;
-	smith1.setPlacement(64*20,64*12);
+	smith1.setPlacement(64 * 20, 64 * 12);
 	smith1;
 
 	Miner mine1;

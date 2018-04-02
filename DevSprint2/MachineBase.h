@@ -86,7 +86,7 @@ private:
 	int AS_rows, AS_Columns;	//TODO
 
 	//Machine location Varriables
-	float PlacementX, placementY;
+	float placementX, placementY;
 	int TileX, TileY;
 
 	//Machine Work

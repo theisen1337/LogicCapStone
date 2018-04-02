@@ -7,37 +7,14 @@
 #pragma once
 class Chunk
 {
-private:
-	//! World X Position
-	int worldPosW;
-
-	//! World Y Position
-	int worldPosH;
-
-	//! Temp location on atlas for picture drawing
-	std::string tempLoc;
-
-	//! 2D vectors for bottom layer of map
-	std::vector<std::vector<Tile>> terrainLayer;
-
-	//! 2D vectors for ore layer of map
-	std::vector<std::vector<Tile>> oreLayer;
-
-	//! Bool for if the chunk is currently generated
-	bool isGen = false;
-
-	//! Bitmap to hold all the tiles drawn to it.
-	ALLEGRO_BITMAP *map;
-
-	//! Generation Object
-	Generation gen;
 public:
 	//! Constructor
 	Chunk();
 
-	//! Get tile from bottom layer
+	//! Return the Tile Layer
 	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
 
+	//! Return the Ore Layer
 	std::vector<std::vector<Tile>> getOre() { return oreLayer; };
 
 	//! Set world X position
@@ -69,5 +46,28 @@ public:
 
 	//! Generate Chunk Resources
 	void genChunk();
+
+private:
+	//! World X Position
+	int worldPosW;
+	//! World Y Position
+	int worldPosH;
+
+	//! Temp location on atlas for picture drawing
+	std::string tempLoc;
+
+	//! 2D vectors for terrain layer of map
+	std::vector<std::vector<Tile>> terrainLayer;
+	//! 2D vectors for ore layer of map
+	std::vector<std::vector<Tile>> oreLayer;
+
+	//! Bool for if the chunk is currently generated
+	bool isGen = false;
+
+	//! Bitmap to hold all the tiles drawn to it.
+	ALLEGRO_BITMAP *map;
+
+	//! Generation Object
+	Generation gen;
 };
 
