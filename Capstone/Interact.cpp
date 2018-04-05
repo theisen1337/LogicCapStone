@@ -200,15 +200,19 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
+
 			movement.vy -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_DOWN:
 			movement.vy += movement.getSpeed();
+
 			break;
 		case ALLEGRO_KEY_LEFT:
+
 			movement.vx -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_RIGHT:
+
 			movement.vx += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_R:
@@ -221,15 +225,20 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
+
 			movement.vy += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_DOWN:
+			
 			movement.vy -= movement.getSpeed();
+			
 			break;
 		case ALLEGRO_KEY_LEFT:
+
 			movement.vx += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_RIGHT:
+
 			movement.vx -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_P:
@@ -261,6 +270,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.setCharacterYPosition(0);
 		}
 		break;
+
 		redraw = true;
 	}
 
@@ -331,9 +341,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			//rotate += event.mouse.dx * 0.01;
 			//zoom += event.mouse.dy * 0.01 * zoom;
 		}
-		zoom += event.mouse.dz * 0.1 * zoom;
-		if (zoom < 0.1) zoom = 0.1;
-		if (zoom > 10) zoom = 10;
+		//zoom += event.mouse.dz * 0.1 * zoom;
+		//if (zoom < 0.1) zoom = 0.1;
+		//if (zoom > 10) zoom = 10;
 	}
 
 	// Checks Timer to Redraw

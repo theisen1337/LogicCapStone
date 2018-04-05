@@ -38,7 +38,7 @@ public:
 	void updateWorld(int charWorldW, int charWorldH);
 		
 	//! World 2D vector Getter.
-	std::vector<std::vector<Chunk>> getChunk() { return world; };
+	std::vector<std::vector<Chunk>>& getChunk() { return world; };
 
 	//! Draw the world to back buffer
 	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref);

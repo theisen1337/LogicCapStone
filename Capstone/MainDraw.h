@@ -57,4 +57,6 @@ public:
 
 	//! Draw the Character Layer
 	void drawCharacter(CharacterPlayer &c, CharacterMovement &movement);
+
+	
 };
