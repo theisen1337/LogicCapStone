@@ -30,7 +30,7 @@ void ItemLayer::Draw()
 	if (!arrItems.empty())
 	{
 		for (int i = 0; i < arrItems.size(); i++)
-			arrItems[i].Draw();
+			arrItems.at(i).Draw();
 	}
 	//for (int i = 0; i < arrItems.size(); i++)
 	//	arrItems.at(i).Draw();

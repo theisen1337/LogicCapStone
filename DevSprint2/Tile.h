@@ -1,8 +1,11 @@
+//! Manages Tile information and Tile interaction with chunks
 #pragma once
 #include <allegro5/allegro.h>
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
+#include "GlobalConstants.h"
 
 class Tile
 {
@@ -13,7 +16,7 @@ public:
 	*/
 	enum Types
 	{
-		GRASS, /*! Grass tile*/
+		GRASS,/*! Grass tile*/
 		WATER,/*! Water tile*/
 		DIRT,/*! Dirt tile*/
 		COAL,/*! Coal ore tile*/
@@ -29,9 +32,11 @@ public:
 	*/
 	bool loaded;
 
-	//! Image of the tile
-	ALLEGRO_BITMAP *pic;
+	//! Vector to hold location of image on atlas
+	std::vector<int> atlLoc;
 
+	//! Atlas Location
+	std::string atLoc;
 
 	//! Type of the tile
 	Types type;
@@ -52,7 +57,7 @@ public:
 	void genPicture();
 		
 	//! Getter for the tile image
-	ALLEGRO_BITMAP * getTilePic() { return pic; };
+	std::vector<int> getTilePic() { return atlLoc; };
 		
 	//! Getter to check if tile is Loaded
 	bool getLoaded() { return loaded; };
@@ -77,5 +82,8 @@ public:
 
 	//! Set Chunk Y Location
 	void setChunkY(int y) { chunkY = y; };
+
+	//! Get the atlas Location
+	std::string getAtLoc() { return atLoc; };
  };
 

@@ -1,20 +1,23 @@
 #include "CharacterPlayer.h"
 #include "FileIO.h"
 
-
-
+// ###############
+// # CONSTRUCTOR #
+// ###############
 CharacterPlayer::CharacterPlayer()
 {
 	FileIO file;
-	//characterPIC = al_load_bitmap(file.openPicture("Character//Character.png").c_str());
 }
 
+// #################
+// # DECONSTRUCTOR #
+// #################
+CharacterPlayer::~CharacterPlayer() {}
 
-CharacterPlayer::~CharacterPlayer()
-{
-}
-
+// ########################
+// # INITIALIZE CHARACTER #
+// ######################## 
 void CharacterPlayer::InitializeClass()
 {
-	characterPIC = al_load_bitmap("Character//Character.png");
+	charRef = "Character.png";
 }

@@ -2,69 +2,52 @@
 	
 
 void MainDraw::Init()
-{							//"Terrain//Machine//Miner//Miner_ON.png"
+{	
+	ia.Initialize();
+	//atlas = al_load_bitmap("Resources//terrainAtlasOld.png");
+	terrainAtlas = ia.LoadImageAtlas(ImageAtlas::Terrain);
+	terrainRef = ia.getTerrainRef();
+	characterAtlas = ia.LoadImageAtlas(ImageAtlas::Character);
+	characterRef = ia.getCharacterRef();
+	machineAtlas = ia.LoadImageAtlas(ImageAtlas::Machine);
+	machineRef = ia.getMachineRef();
+	itemAtlas = ia.LoadImageAtlas(ImageAtlas::Item);
+	itemRef = ia.getItemRef();
 
 }
+
 
 void MainDraw::Draw(ObjectManager &OM)
 {
-	//ML.Draw();
-	//TL.Compute();
+	OM.Draw();
 }
 
-void MainDraw::tileBuffer(ALLEGRO_DISPLAY & dis, World & world)
+void MainDraw::drawWorld(World &world, ALLEGRO_DISPLAY & dis)
 {
-	//al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
-	Bitmap = al_create_bitmap(4096, 4096);
-	al_set_target_bitmap(Bitmap);
-	//These two loops are for looping through world vector
-	for (int j = 0; j < 2; j++)
-	{
-		for (int k = 0; k < 2; k++)
-		{
+	//atlas = ia.LoadImageAtlas(ImageAtlas::Terrain);
+	//ref = ia.getTerrainRef();
 
-			//al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
-			//	0, 0,
-			//	2048, 2048,
-			//	(j*2048), (k*2048),
-			//2048, 2048, 0);
-			//Draw the temp bitmap	
-			al_draw_bitmap(world.getChunk()[j][k].getMap(), (j * 2048), (k * 2048), 0);
-		}
-	}
+
 	al_set_target_backbuffer(&dis);
-}
-
-void MainDraw::drawWorld(World world)
-{
-	
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
-	/*
-	for (int j = 0; j < worldDim; j++)
-	{
-	for (int k = 0; k < worldDim; k++)
-	{
-	al_draw_scaled_bitmap(world.getChunk()[j][k].getMap(),
-	0, 0,
-	2048, 2048,
-	(j * 2048), (k * 2048),
-	2048, 2048, 0);
-
-	//al_draw_bitmap(world.getChunk()[j][k].getMap(),
-	//(j * 2048), (k * 2048), 0);
-	}
-	}*/
-
-	//Draw the world Map
-	al_draw_bitmap(Bitmap, 0, 0, 0);
-
-
+	world.drawWorld(terrainAtlas, dis, terrainRef);
 }
 
-void MainDraw::drawCharacter(CharacterPlayer & c, int xPosition, int yPosition)
+void MainDraw::drawCharacter(CharacterPlayer & c, CharacterMovement & movement)
 {
-	
-	al_draw_scaled_bitmap(c.getPic(), 0, 0, 48, 48, xPosition, yPosition, 48, 48, 0);
+	//atlas = ia.LoadImageAtlas(ImageAtlas::Character);
+	//ref = ia.getCharacterRef();
 
+	for (int i = 0; i < characterRef.size(); i++)
+	{
+		for (int j = 0; j < characterRef[i].size(); j++)
+		{
+			if (characterRef[i][j].compare(c.getRef())== 0)
+			{
+				al_draw_scaled_bitmap(characterAtlas, i*GC::charImgDim, j*GC::charImgDim, 48, 48, movement.getCharacterXPosition(), movement.getCharacterYPosition(), GC::charImgDim, GC::charImgDim, 0);
+				break;
+			}
+		}
+	}
 }

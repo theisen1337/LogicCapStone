@@ -30,6 +30,8 @@ public:
 	float getCoordinateX();
 	float getCoordinateY();
 
+	void setName(std::string name);
+
 	void setDropped(bool boolVar);
 	bool checkDropped();
 

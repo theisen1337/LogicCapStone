@@ -2,24 +2,34 @@
 
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
+#include <string>
 
 class CharacterPlayer
 {
 
 public:
 
+	//! X and Y of Player
 	float locationX, locationY;
-	int chuckX, chuckY;
 
+	//! X and Y Chunk Location
+	int chunkX, chunkY;
 
+	//! Constructor
 	CharacterPlayer();
+
+	//! Deconstructor
 	~CharacterPlayer();
 
-	ALLEGRO_BITMAP * getPic() { return characterPIC; };
+	//! Retrieves Reference to Character
+	std::string getRef() { return charRef; };
+
+	//! Initializes Class
 	void InitializeClass();
 
 private:
-	ALLEGRO_BITMAP *characterPIC;
 
+	//! Character Reference
+	std::string charRef;
 };
 

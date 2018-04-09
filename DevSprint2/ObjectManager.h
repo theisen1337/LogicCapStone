@@ -39,6 +39,8 @@ public:
 	void removeTL();
 	void removeIL();
 
+	MachineBase & getMLMachine(std::vector<MachineBase> & Machines, int index);
+
 	OreLayer & getOL() { return OL; }
 	MachineLayer & getML() { return ML; }
 	TransportLayer & getTL() { return TL; }

@@ -4,6 +4,8 @@ Tile::Tile(Tile::Types tileType)
 {	
 		//Constructor
 	type = tileType;
+	atlLoc.resize(2);
+	loaded = false;
 	genPicture();
 }
 
@@ -12,12 +14,11 @@ void Tile::setType(Tile::Types tileType)
 		//Set the tile type and generate new picture
 	type = tileType;
 	genPicture();
-	loaded = true;
 }
 
 void Tile::genPicture()
 {	
-		//Switch statement for setting picture of the tile
+	//Switch statement for setting picture of the tile
 	switch (type)
 	{
 	case Tile::GRASS:
@@ -26,19 +27,20 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			pic = al_load_bitmap("Terrain//Grass//grass1.png");
+	
+			atLoc = "grass1.png";
 			break;
 		case 2:
-			pic = al_load_bitmap("Terrain//Grass//grass2.png");
+			atLoc = "grass2.png";
 			break;
 		case 3:
-			pic = al_load_bitmap("Terrain//Grass//grass3.png");
+			atLoc = "grass3.png";
 			break;
 		case 4:
-			pic = al_load_bitmap("Terrain//Grass//grass4.png");
+			atLoc = "grass4.png";
 			break;
 		default:
-			pic = al_load_bitmap("Terrain//Grass//grass1.png");
+			atLoc = "grass1.png";
 			break;
 		}
 		break;
@@ -49,19 +51,19 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			pic = al_load_bitmap("Terrain//Water//water1.png");
+			atLoc = "water1.png";
 			break;
 		case 2:
-			pic = al_load_bitmap("Terrain//Water//water2.png");
+			atLoc = "water2.png";
 			break;
 		case 3:
-			pic = al_load_bitmap("Terrain//Water//water3.png");
+			atLoc = "water3.png";
 			break;
 		case 4:
-			pic = al_load_bitmap("Terrain//Water//water4.png");
+			atLoc = "water4.png";
 			break;
 		default:
-			pic = al_load_bitmap("Terrain//Water//water1.png");
+			atLoc = "water1.png";
 			break;
 		}
 		break;
@@ -72,51 +74,48 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
+			atLoc = "dirt1.png";
 			break;
 		case 2:
-			pic = al_load_bitmap("Terrain//Dirt//dirt2.png");
+			atLoc = "dirt2.png";
 			break;
 		case 3:
-			pic = al_load_bitmap("Terrain//Dirt//dirt3.png");
+			atLoc = "dirt3.png";
 			break;
 		case 4:
-			pic = al_load_bitmap("Terrain//Dirt//dirt4.png");
+			atLoc = "dirt4.png";
 			break;
 		default:
-			pic = al_load_bitmap("Terrain//Dirt//dirt1.png");
+			atLoc = "dirt1.png";
 			break;
 		}
-		
+
 		break;
 
 	case Tile::COAL:
-		pic = al_load_bitmap("Terrain//Ore//coal.png");
-
+		atLoc = "coal.png";
 		break;
 
 	case Tile::IRON:
-		pic = al_load_bitmap("Terrain//Ore//iron.png");
-
+		atLoc = "iron.png";
 		break;
 
 	case Tile::TEMP_IRON:
-		pic = al_load_bitmap("Terrain//Ore//iron.png");
-
+		atLoc = "iron.png";
 		break;
 
 	case Tile::TEMP_COAL:
-		pic = al_load_bitmap("Terrain//Ore//coal.png");
-
+		atLoc = "coal.png";
 		break;
 
 	case Tile::EMPTY:
-		pic = al_load_bitmap("Terrain//Empty//empty.png");
-
+		atLoc = "empty.png";
 		break;
 	default:
 		break;
 	}
+
+	loaded = true;
 }
 
 /*TO DO'S

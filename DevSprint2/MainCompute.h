@@ -6,7 +6,7 @@
 class MainCompute
 {
 public:
-	void Compute(ObjectManager OM);
+	void Compute(ObjectManager &OM);
 	void ComputeTPS();
 
 
