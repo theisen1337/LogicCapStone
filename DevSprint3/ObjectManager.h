@@ -7,6 +7,8 @@
 // #include "PlayerLayer"
 
 #include "MachineTemplate.h"
+#include <array>
+#include "GlobalConstants.h"
 
 class ObjectManager
 {
@@ -46,13 +48,25 @@ public:
 	TransportLayer & getTL() { return TL; }
 	ItemLayer & getIL() { return IL; }
 
+	// TAYLOR ADDED CODE
+
+	struct hotbarItems
+	{
+		bool machine = false;
+		std::string machineType = "";
+		bool item = false;
+		std::string itemType = "";
+		int num = 0;
+	};
+
+	void ObjectManager::addMachine(float X, float Y, int i);
+	void ObjectManager::addItem(float X, float Y, int i);
+
+	std::vector<hotbarItems> hotbar = std::vector<hotbarItems>(8); // CHECK SIZE IN MEMORY
+
 private:
 	OreLayer OL;
 	MachineLayer ML;
 	TransportLayer TL;
 	ItemLayer IL;
-
-
-
 };
-
