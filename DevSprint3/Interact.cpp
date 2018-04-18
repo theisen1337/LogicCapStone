@@ -700,6 +700,12 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx += movement.getSpeed();
 			break;
+		case ALLEGRO_KEY_F1:
+			showDebugMenu = !showDebugMenu;
+			break;
+		case ALLEGRO_KEY_F2:
+			showFPS = !showFPS;
+			break;
 		case ALLEGRO_KEY_R:
 			Map.initialGeneration();
 		case ALLEGRO_KEY_ESCAPE:
@@ -799,6 +805,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	case ALLEGRO_EVENT_TIMER:
 		movement.moveCharacterX();//DF
 
+		scrollX += movement.vx;
 		if (movement.getCharacterXPosition() > mapXBoundary)
 		{
 			movement.setCharacterXPosition(mapXBoundary);
@@ -807,9 +814,14 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			movement.setCharacterXPosition(0);
 		}
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for left boundary)
+		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < 540)
+		{
+			scrollX = al_get_display_width(display);
+		}
 
 		movement.moveCharacterY();
-
+		scrollY += movement.vy;
 		if (movement.getCharacterYPosition() > mapYBoundary)
 		{
 			movement.setCharacterYPosition(mapYBoundary);
@@ -818,9 +830,14 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			movement.setCharacterYPosition(0);
 		}
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
+		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < 480)
+		{
+			scrollY = al_get_display_height(display);
+		}
 
 		break;
-		redraw = true; // WHY IS THIS HERE?
+
 	}
 
 	// Checks for Mouse Button Press

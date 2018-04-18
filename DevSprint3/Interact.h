@@ -98,12 +98,25 @@ public:
 	double fpsTime;
 
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
-	int charXPosition = 0;
-	int charYPosition = 0;
+	int charXPosition = 1000;
+	int charYPosition = 1000;
 	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
-	CharacterMovement movement;
-	int mapXBoundary = 6100;
-	int mapYBoundary = 6100;
+	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
+	int numberOfChunks = 5;
+	int mapXBoundary = 32 * 64 * al_get_bitmap_width(character);
+	int mapYBoundary = 32 * 64 * al_get_bitmap_height(character);
+
+	//! Gives positioning with player in the center
+	float scrollX = charYPosition + al_get_bitmap_height(character) / 2;
+	float scrollY = charXPosition + al_get_bitmap_width(character) / 2;
+
+
+	//! bool for debug menu
+	bool showDebugMenu = false;
+
+	//! bool for fps
+	bool showFPS = true;
+
 
 private:
 
