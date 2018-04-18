@@ -292,7 +292,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 
 		break;
 
-		redraw = true;
+
 	}
 
 	// Checks for Mouse Button Press
