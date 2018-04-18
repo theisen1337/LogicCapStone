@@ -10,11 +10,11 @@ ObjectManager::ObjectManager()
 void ObjectManager::Init()
 {
 	Smith smith1;
-	smith1.setPlacement(64 * 20, 64 * 12);
+	smith1.setPlacement(64 * 52, 64 * 12);
 	smith1;
 
 	Miner mine1;
-	mine1.setPlacement(64 * 12, 64 * 12);
+	mine1.setPlacement(64 * 44, 64 * 12);
 
 	ML.arrMachines.push_back(mine1);
 	ML.arrMachines.push_back(smith1);

@@ -29,6 +29,7 @@ using namespace std;
 class StateManager
 {
 	public:
+
 		ObjectManager ObjMang;
 		GlobalStatics GlobStat;
 		Interact Interactions;
@@ -59,6 +60,7 @@ class StateManager
 		void Drawing();
 		void Interacting();
 		void Exiting();
+		void MainMenu();
 
 		bool GAMERUN = true;
 

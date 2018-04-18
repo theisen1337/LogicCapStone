@@ -22,6 +22,7 @@ This Function allows us to interact with objects, the world, and even the charac
 #include "OreLayer.h"
 #include "CharacterMovement.h"
 #include "ObjectManager.h"
+#include "GlobalStatics.h"
 
 // Include Standard Libraries
 #include <math.h>
@@ -36,6 +37,14 @@ class Interact
 {
 public:
 
+	enum ObType
+	{
+		Machine,
+		Item,
+		Ore,
+		Character,
+		Terrain
+	};
 	//! Constructor
 	Interact();
 	
@@ -54,7 +63,7 @@ public:
 		<> *queue -> Gives access to the Queue for Different Events
 		<> &OM -> References the Object Manager for Accessibility
 	*/
-	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic);
 
 	//! Used to Tell if Mouse was Pressed by Left or Right Button
 	ALLEGRO_MOUSE_STATE mousepos;
@@ -109,4 +118,7 @@ private:
 	float minX;
 	float maxY;
 	float minY;
+
+	//! The type of the closest object.
+	Interact::ObType closestObject;
 };

@@ -125,6 +125,7 @@ void Chunk::genChunk() //Might be worthless
 	}
 
 
+
 	/*
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
 	oreLayer = gen.newOreAlGore(oreLayer, terrainLayer);
@@ -132,3 +133,4 @@ void Chunk::genChunk() //Might be worthless
 	terrainLayer = gen.newLakeAlGore(oreLayer,terrainLayer);
 	terrainLayer = gen.revampWater(terrainLayer);*/
 }
+

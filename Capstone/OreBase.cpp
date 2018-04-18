@@ -1,13 +1,13 @@
 #include "OreBase.h"
 
 
-OreBase::OreBase()
+OreBase::OreBase(Type OT, Tile &t, int wX, int wY, int cX, int cY):tileRef(t)
 {
-}
-
-OreBase::OreBase(std::string oreType)
-{
-
+	oreType = OT;
+	xWorld = wX;
+	yWorld = wY;
+	xChunk = cX;
+	yChunk = cY;
 }
 
 int OreBase::getHealth()
@@ -54,16 +54,6 @@ void OreBase::gotHit(int damage)
 
 void OreBase::draw()
 {
-}
-
-void OreBase::setXCoordinate(int x)
-{
-	xCoordinate = x;
-}
-
-void OreBase::setYCoordinate(int y)
-{
-	yCoordinate = y;
 }
 
 OreBase::~OreBase()
