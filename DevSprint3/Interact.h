@@ -48,8 +48,20 @@ public:
 	//! Check for Active State
 	int Interact::checkActive();
 
+	//! Place Objects onto the Map and Update Hotbar
+	void Interact::placeObject(ObjectManager &OM, int X, int Y, int index);
+
+	//! Spawn Objects into the Game for Testing
+	void Interact::spawnObject(ObjectManager &OM, int X, int Y);
+
+	//! Prints out the Current Hotbar Slot
+	void Interact::printSlot(ObjectManager &OM, bool &slot, int index);
+
+	//! Prints out the Entire Hotbar
+	void Interact::printHotbar(ObjectManager &OM);
+
 	//! Main Function for Placing Objects
-	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM, float screenX, float screenY);
+	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
 
 	//! Main Function for Interacting with Objects
 	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
@@ -93,7 +105,6 @@ public:
 	int mapXBoundary = 6100;
 	int mapYBoundary = 6100;
 
-
 private:
 
 	//! Transformed X and Y Position from Button Press
@@ -117,11 +128,12 @@ private:
 	//! Booleans Used to Determine Placement State
 	bool slot1 = false; bool slot2 = false; bool slot3 = false; bool slot4 = false;
 	bool slot5 = false; bool slot6 = false; bool slot7 = false; bool slot8 = false;
-	bool machineMode = false; bool itemMode = false;
+	bool machineMode = false; bool itemMode = false; bool trackMode = false;
 	bool interactMode = true;
 
-	bool *stateArray[11] = { &slot1, &slot2, &slot3, &slot4,
+	//! Array to Store Boolean States
+	bool *stateArray[12] = { &slot1, &slot2, &slot3, &slot4,
 							&slot5, &slot6, &slot7, &slot8,
-							&machineMode, &itemMode, &interactMode };
-
+							&machineMode, &itemMode, &trackMode, 
+							&interactMode };
 };

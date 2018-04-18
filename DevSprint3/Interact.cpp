@@ -203,57 +203,301 @@ int Interact::checkActive()
 	return -1;
 }
 
+// ###############################
+// # Places Objects onto the Map #
+// ###############################
+void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
+{
+	if (OM.hotbar[index].machine)
+	{
+		// Calculates Positioning of Machines
+		int machineX = X / 64; machineX *= 64;
+		int machineY = Y / 64; machineY *= 64;
+
+		OM.addMachine(machineX, machineY, index);
+		OM.hotbar[index].num -= 1;
+
+		cout << "Placed " << OM.hotbar[index].machineType << endl << endl;
+
+		if (OM.hotbar[index].num == 0)
+			cout << "Slot " << index + 1 << " is Empty" << endl;
+		else if (OM.hotbar[index].num == 1)
+			cout << "Slot " << index + 1 << " Now Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << endl;
+		else
+			cout << "Slot " << index + 1 << " Now Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << "'s" << endl;
+
+		std::vector<string> arrHotbar;
+		for (int i = 0; i < 8; i++)
+		{
+			if (i == index)
+			{
+				arrHotbar.push_back("X");
+			}
+			else
+			{
+				arrHotbar.push_back(" ");
+			}
+		}
+		cout << "[ " << arrHotbar[0] << " ] ";
+		cout << "[ " << arrHotbar[1] << " ] ";
+		cout << "[ " << arrHotbar[2] << " ] ";
+		cout << "[ " << arrHotbar[3] << " ] ";
+		cout << "[ " << arrHotbar[4] << " ] ";
+		cout << "[ " << arrHotbar[5] << " ] ";
+		cout << "[ " << arrHotbar[6] << " ] ";
+		cout << "[ " << arrHotbar[7] << " ] " << endl << endl;
+	}
+	else if (OM.hotbar[0].item)
+	{
+		// Calculates Positioning of Items
+		int itemX = X - 8;
+		int itemY = Y - 8;
+
+		OM.addItem(itemX, itemY, index);
+		OM.hotbar[index].num -= 1;
+
+		cout << "Placed " << OM.hotbar[index].itemType << endl << endl;
+
+		if (OM.hotbar[index].num == 0)
+			cout << "Slot " << index + 1 << " is Empty" << endl;
+		else if (OM.hotbar[index].num == 1)
+			cout << "Slot " << index + 1 << " New Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << endl;
+		else
+			cout << "Slot " << index + 1 << " New Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
+		
+		std::vector<string> arrHotbar;
+		for (int i = 0; i < 8; i++)
+		{
+			if (i == index)
+			{
+				arrHotbar.push_back("X");
+			}
+			else
+			{
+				arrHotbar.push_back(" ");
+			}
+		}
+		cout << "[ " << arrHotbar[0] << " ] ";
+		cout << "[ " << arrHotbar[1] << " ] ";
+		cout << "[ " << arrHotbar[2] << " ] ";
+		cout << "[ " << arrHotbar[3] << " ] ";
+		cout << "[ " << arrHotbar[4] << " ] ";
+		cout << "[ " << arrHotbar[5] << " ] ";
+		cout << "[ " << arrHotbar[6] << " ] ";
+		cout << "[ " << arrHotbar[7] << " ] " << endl << endl;
+	}
+	else
+	{
+		cout << "ERROR, NO TYPE DEFINED. FIX ME" << endl;
+	}
+}
+
+// ##############################
+// # Spawn Objects onto the Map #
+// ##############################
+void Interact::spawnObject(ObjectManager &OM, int X, int Y)
+{
+	// If Spawning Machine
+	// If Spawning Item
+	// If Spawning Track
+}
+
+// ##############################
+// # Prints Current Hotbar Slot #
+// ##############################
+void Interact::printSlot(ObjectManager &OM, bool &slot, int index)
+{
+	swapActive(slot);
+
+	if (slot)
+	{
+		if (OM.hotbar[index].num != 0)
+		{
+			if (OM.hotbar[index].machine)
+			{
+				if (OM.hotbar[index].num == 1)
+				{
+					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << endl;
+				}
+				else
+				{
+					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << "'s" << endl;
+				}
+			}
+			else if (OM.hotbar[index].item)
+			{
+				if (OM.hotbar[index].num == 1)
+				{
+					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << endl;
+				}
+				else
+				{
+					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
+				}
+			}
+			else
+			{
+				cout << "Slot " << index + 1 << " is Empty" << endl;
+			}
+
+			std::vector<string> arrHotbar;
+			for (int i = 0; i < 8; i++)
+			{
+				if (i == index)
+				{
+					arrHotbar.push_back("X");
+				}
+				else
+				{
+					arrHotbar.push_back(" ");
+				}
+			}
+			cout << "[ " << arrHotbar[0] << " ] ";
+			cout << "[ " << arrHotbar[1] << " ] ";
+			cout << "[ " << arrHotbar[2] << " ] ";
+			cout << "[ " << arrHotbar[3] << " ] ";
+			cout << "[ " << arrHotbar[4] << " ] ";
+			cout << "[ " << arrHotbar[5] << " ] ";
+			cout << "[ " << arrHotbar[6] << " ] ";
+			cout << "[ " << arrHotbar[7] << " ] " << endl << endl;
+		}
+	}
+	else
+	{
+		cout << "Slot " << index + 1 << " Deselected" << endl;
+		cout << "Enable Interact Mode" << endl;
+	}
+}
+
+// ########################
+// # Prints Entire Hotbar #
+// ########################
+void Interact::printHotbar(ObjectManager &OM)
+{
+	cout << "#########################################################################################################" << endl << endl;
+	cout << "[ h1 ] [ h2 ] [ h3 ] [ h4 ] [ h5 ] [ h6 ] [ h7 ] [ h8 ] " << endl << endl;
+	
+
+	for (int i = 0; i < 8; i++)
+	{
+		cout << "[ h" << i+1 << " ] = ";
+		if (OM.hotbar[i].num == 0)
+		{
+			cout << "Empty" << endl;
+		}
+		else
+		{
+			if (OM.hotbar[i].machine)
+			{
+				if (OM.hotbar[i].num == 1)
+				{
+					cout << OM.hotbar[i].num << " " << OM.hotbar[i].machineType << endl;
+				}
+				else
+				{
+					cout << OM.hotbar[i].num << " " << OM.hotbar[i].machineType << "'s" << endl;
+				}
+			}
+			else if (OM.hotbar[i].item)
+			{
+				if (OM.hotbar[i].num == 1)
+				{
+					cout << OM.hotbar[i].num << " " << OM.hotbar[i].itemType << endl;
+				}
+				else
+				{
+					cout << OM.hotbar[i].num << " " << OM.hotbar[i].itemType << "'s" << endl;
+				}
+			}
+			else
+				cout << "ERROR, FIX ME" << endl;
+		}
+	}
+}
+
 // #################
 // # Place Objects #
 // #################
-void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM, float screenX, float screenY)
+void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM)
 {
 	switch (checkActive())
 	{
 	case 0:
-		// Place Hotbar Item 1
-		std::cout << "Hotbar Item 1" << endl;
+		if (OM.hotbar[0].num != 0) // If the hotbar slot 1 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 0);
+		}
 		break;
+
 	case 1:
-		// Place Hotbar Item 2
-		std::cout << "Hotbar Item 2" << endl;
+		if (OM.hotbar[1].num != 0) // If the hotbar slot 2 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 1);
+		}
 		break;
+
 	case 2:
-		// Place Hotbar Item 3
-		std::cout << "Hotbar Item 3" << endl;
+		if (OM.hotbar[2].num != 0) // If the hotbar slot 3 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 2);
+		}
 		break;
+
 	case 3:
-		// Place Hotbar Item 4
-		std::cout << "Hotbar Item 4" << endl;
+		if (OM.hotbar[3].num != 0) // If the hotbar slot 4 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 3);
+		}
 		break;
+
 	case 4:
-		// Place Hotbar Item 5
-		std::cout << "Hotbar Item 5" << endl;
+		if (OM.hotbar[4].num != 0) // If the hotbar slot 5 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 4);
+		}
 		break;
+
 	case 5:
-		// Place Hotbar Item 6
-		std::cout << "Hotbar Item 6" << endl;
+		if (OM.hotbar[5].num != 0) // If the hotbar slot 6 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 5);
+		}
 		break;
+
 	case 6:
-		// Place Hotbar Item 7
-		std::cout << "Hotbar Item 7" << endl;
+		if (OM.hotbar[6].num != 0) // If the hotbar slot 7 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 6);
+		}
 		break;
+
 	case 7:
-		// Place Hotbar Item 8
-		std::cout << "Hotbar Item 8" << endl;
+		if (OM.hotbar[7].num != 0) // If the hotbar slot 8 is not empty ...
+		{
+			placeObject(OM, mouseX, mouseY, 7);
+		}
 		break;
+
 	case 8:
 		// Place Machine Object
-		std::cout << "Place Object" << endl;
+		spawnObject(OM, mouseX, mouseY);
 		break;
+
 	case 9:
 		// Place Item Object
-		std::cout << "Place Item" << endl;
+		spawnObject(OM, mouseX, mouseY);
 		break;
+
 	case 10:
+		// Place Track Object
+		spawnObject(OM, mouseX, mouseY);
+		break;
+
+	case 11:
 		// No Placement [Case Not Needed]
 		std::cout << "Not Needed Case" << endl;
 		break;
+
 	case -1:
 		// Nothing is Active [ERROR]
 		std::cout << "ERROR" << endl;
@@ -266,22 +510,21 @@ void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM, 
 // #########################
 void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &OM, float screenX, float screenY)
 {
-	// Stores Previously Calculated Distance
 	int prevDistance = 0;
-	// Stores Newly Calculated Distance
 	int newDistance = 0;
-	// Stores X Position of Object
+	// Stores X Position of Object [UPDATE IN FUTURE FOR BETTER METHOD]
 	int objectX = 1000000;
-	// Stores Y Position of Object
+	// Stores Y Position of Object [UPDATE IN FUTURE FOR BETTER METHOD]
 	int objectY = 1000000;
 	// Stores Index in Array of Object
 	int objectIndex = 0;
 
-	// Initializes Distance (Very High as We Want the First Object Right Away)
+	// Initializes Distance
 	prevDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
 
-	// LOOP FOR ITEM OBJECTS (CURRENTLY NONE)
-	/*
+	// #########################
+	// # LOOP FOR ITEM OBJECTS #
+	// #########################
 
 	// Loops Through the Item Layer and Finds Closest Item to the Mouse Release
 	for (int i = 0; i < OM.getIL().arrItems.size(); i++)
@@ -289,63 +532,56 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 		// Calculates New Distance Between Mouse and Object from Item Layer
 		newDistance = sqrt(pow((mouseX - OM.getIL().arrItems[i].getCoordinateX()), 2) + pow((mouseY - OM.getIL().arrItems[i].getCoordinateY()), 2));
 
-		// If the Newly Calculated Distance is Closer than the Previous ...
-		if (newDistance < prevDistance)
+		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
 		{
-			// Set the New Distance to the Old Distance
 			prevDistance = newDistance;
-			// Store the X and Y Coordinate of the Object as well as the Index in the Array
+
+			// Grab X and Y of Object
 			objectX = OM.getIL().arrItems[i].getCoordinateX();
 			objectY = OM.getIL().arrItems[i].getCoordinateY();
+
+			// Set X and Y to Center of Object
 			objectX += 8;
 			objectY += 8;
+
 			objectIndex = i;
 		}
 	}
 
-	// If the smallest distance found from the for loop is less than 10 ...
-	// (So if the closest object is within 10 "pixels" of the mouse)
-	// DEPRECIATED AND NOT IN USE UNTIL ITEM INTERACTION NEEDED
-	if (prevDistance < 10)
+	// Calculate Distance Between Mouse and Center of Object
+	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
+
+	// Print Distance for Debugging
+	/*std::cout << "Distance to Nearest Object: " << newDistance << endl;*/
+
+	// Set Boundaries of Object
+	maxX = objectX + 8; minX = objectX - 8;
+	maxY = objectY + 8; minY = objectY - 8;
+
+	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If user clicks on an object ...
 	{
-		// If the Left Button was Pressed ...
-		if (mouse == 1)
+		if (mouse == 1) // If the Left Button was Pressed ...
 		{
-			// Call the leftClick() Function of the Closest Object
-			OM.getIL().arrItems[object_index].leftClick();
+			// 'Left Click' Object
+			OM.getIL().arrItems[objectIndex].leftClick();
 			return;
 		}
-		// If the Right Button was Pressed ...
-		else if (mouse == 2)
+		else if (mouse == 2) // If the Right Button was Pressed ...
 		{
-			// Call the rightClick() Function of the Closest Object
-			OM.getIL().arrItems[object_index].rightClick();
+			// 'Right Click' Object
+			OM.getIL().arrItems[objectIndex].rightClick();
 			return;
 		}
-		// If Somehow No Button was Pressed (Possibly Error) ...
-		else
+		else // If Somehow No Button was Pressed (Possibly Error) ...
 		{
+			cout << "ERROR, Please fix" << endl;
 			return;
 		}
 	}
-	*/
 
-	// GRAB OBJECTS ON SCREEN (NOT WORKING)
-	/*
-	ObjectManager tempOM;
-
-	for (int i = 0; i < OM.getML().arrMachines.size(); i++)
-	{
-		if (((OM.getML().arrMachines[i].getPlacementX() > screenX) &&
-			(OM.getML().arrMachines[i].getPlacementX() < (screenX + 640))) &&
-			((OM.getML().arrMachines[i].getPlacementY() > screenY) &&
-			(OM.getML().arrMachines[i].getPlacementX() < (screenX + 480))))
-		{
-			tempOM.getML().arrMachines.resize(i + 1);
-			tempOM.getML().arrMachines[i] = OM.getML().arrMachines[i];
-		}
-	}
-	*/
+	// #########################
+	// # LOOP FOR THE MACHINES #
+	// #########################
 
 	// Loops Through the Machine Layer and Finds Closest Machine to the Mouse Release
 	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
@@ -353,19 +589,18 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 		// Calculates New Distance Between Mouse and Object from Machine Layer
 		newDistance = sqrt(pow((mouseX - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouseY - OM.getML().arrMachines[j].getPlacementY()), 2));
 
-		// If the Newly Calculated Distance is Closer than the Previous ...
-		if (newDistance < prevDistance)
+		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
 		{
-			// Set the New Distance to the Old Distance
 			prevDistance = newDistance;
 
-			// Store the X and Y Coordinate of the Object as well as the Index in the Array
+			// Grab World X and Y
 			objectX = OM.getML().arrMachines[j].getPlacementX();
 			objectY = OM.getML().arrMachines[j].getPlacementY();
 
-			// Add 32 to the X and Y to get the middle of the object and store index to object
+			// Set X and Y to Center of Object
 			objectX += 32;
 			objectY += 32;
+
 			objectIndex = j;
 		}
 	}
@@ -373,34 +608,30 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	// Calculates the Newest Distance between Mouse and Center of Object
 	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
 
-	std::cout << "Distance to Nearest Object: " << newDistance << endl;
+	// Print Distance for Debugging
+	/*std::cout << "Distance to Nearest Object: " << newDistance << endl;*/
 
 	// Sets the Boundaries of the Nearest Object
-	maxX = objectX + 32;
-	minX = objectX - 32;
-	maxY = objectY + 32;
-	minY = objectY - 32;
+	maxX = objectX + 32; minX = objectX - 32;
+	maxY = objectY + 32; minY = objectY - 32;
 
-	// If the User Clicked Within the Object's Boundaries ...
-	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY))
+	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If the User Clicked Within the Object's Boundaries ...
 	{
-		// If the Left Button was Pressed ...
-		if (mouse == 1)
+		if (mouse == 1) // If the Left Button was Pressed ...
 		{
-			// Call the leftClick() Function of the Closest Object
+			// 'Left Click' Machine
 			OM.getML().arrMachines[objectIndex].leftClick();
 			return;
 		}
-		// If the Right Button was Pressed ...
-		else if (mouse == 2)
+		else if (mouse == 2) // If the Right Button was Pressed ...
 		{
-			// Call the rightClick() Function of the Closest Object
+			// 'Right Click' Machine
 			OM.getML().arrMachines[objectIndex].rightClick();
 			return;
 		}
-		// If Somehow No Button was Pressed (Possibly Error or middle mouse click) ...
-		else
+		else // If Somehow No Button was Pressed (Possibly Error or middle mouse click) ...
 		{
+			cout << "ERROR, Please Fix" << endl;
 			return;
 		}
 	}
@@ -475,21 +706,26 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			return false;
 		}
 		break;
+
 	case ALLEGRO_EVENT_KEY_UP:
 		switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
 			movement.vy += movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_DOWN:
 			movement.vy -= movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_LEFT:
 			movement.vx += movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx -= movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_P:
 			al_show_native_message_box(al_get_current_display(),
 				"",
@@ -497,50 +733,72 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 				"",
 				NULL, ALLEGRO_MESSAGEBOX_ERROR);
 			break;
+
 		case ALLEGRO_KEY_1:
-			// Select/Deselect First Hotbar Slot
-			swapActive(slot1);
+			// Select/Deselect 1st Hotbar Slot
+			printSlot(OM, slot1, 0);
 			break;
+
 		case ALLEGRO_KEY_2:
-			// Select/Deselect Second Hotbar Slot
-			swapActive(slot2);
+			// Select/Deselect 2nd Hotbar Slot
+			printSlot(OM, slot2, 1);
 			break;
+
 		case ALLEGRO_KEY_3:
-			// Select/Deselect Third Hotbar Slot
-			swapActive(slot3);
+			// Select/Deselect 3rd Hotbar Slot
+			printSlot(OM, slot3, 2);
 			break;
+
 		case ALLEGRO_KEY_4:
-			// Select/Deselect Fourth Hotbar Slot
-			swapActive(slot4);
+			// Select/Deselect 4th Hotbar Slot
+			printSlot(OM, slot4, 3);
 			break;
+
 		case ALLEGRO_KEY_5:
-			// Select/Deselect Fifth Hotbar Slot
-			swapActive(slot5);
+			// Select/Deselect 5th Hotbar Slot
+			printSlot(OM, slot5, 4);
 			break;
+
 		case ALLEGRO_KEY_6:
-			// Select/Deselect Sixth Hotbar Slot
-			swapActive(slot6);
+			// Select/Deselect 6th Hotbar Slot
+			printSlot(OM, slot6, 5);
 			break;
+
 		case ALLEGRO_KEY_7:
-			// Select/Deselect Seventh Hotbar Slot
-			swapActive(slot7);
+			// Select/Deselect 7th Hotbar Slot
+			printSlot(OM, slot7, 6);
 			break;
+
 		case ALLEGRO_KEY_8:
-			// Select/Deselect Eighth Hotbar Slot
-			swapActive(slot8);
+			// Select/Deselect 8th Hotbar Slot
+			printSlot(OM, slot8, 7);
 			break;
+
 		case ALLEGRO_KEY_M:
 			// Turn on/off Machine Spawning
 			swapActive(machineMode);
 			break;
+
 		case ALLEGRO_KEY_I:
 			// Turn on/off Item Spawning
 			swapActive(itemMode);
 			break;
+
+		case ALLEGRO_KEY_T:
+			// Turn on/off Track Spawning
+			swapActive(trackMode);
+			break;
+
+		case ALLEGRO_KEY_H:
+			// Print out Entire Hotbar
+			printHotbar(OM);
+			break;
 		}
 		break;
+
 	case ALLEGRO_EVENT_TIMER:
 		movement.moveCharacterX();//DF
+
 		if (movement.getCharacterXPosition() > mapXBoundary)
 		{
 			movement.setCharacterXPosition(mapXBoundary);
@@ -549,7 +807,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			movement.setCharacterXPosition(0);
 		}
+
 		movement.moveCharacterY();
+
 		if (movement.getCharacterYPosition() > mapYBoundary)
 		{
 			movement.setCharacterYPosition(mapYBoundary);
@@ -558,8 +818,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			movement.setCharacterYPosition(0);
 		}
+
 		break;
-		redraw = true;
+		redraw = true; // WHY IS THIS HERE?
 	}
 
 	// Checks for Mouse Button Press
@@ -583,7 +844,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		// Debug Information
 		//std::cout << "Start Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
 		//std::cout << "Start Screen: (" << abs(startScreenX) << ", " << abs(startScreenY) << ")" << endl;
-		std::cout << "Initial Coordinates: (" << startX << ", " << startY << ")" << endl << endl;
+		//std::cout << "Initial Coordinates: (" << startX << ", " << startY << ")" << endl << endl;
 	}
 
 	// Checks for Mouse Button Release
@@ -606,7 +867,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		// Debug Information
 		//std::cout << "End Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
 		//std::cout << "End Screen: (" << abs(endScreenX) << ", " << abs(endScreenY) << ")" << endl;
-		std::cout << "End Coordinates: (" << endX << ", " << endY << ")" << endl << endl;
+		//std::cout << "End Coordinates: (" << endX << ", " << endY << ")" << endl << endl;
 		
 		// Calculate Distance from Start to End Position
 		distance = sqrt(pow((endScreenX - startScreenX), 2) + pow((endScreenY - startScreenY), 2));
@@ -617,7 +878,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			// If interaction mode is not enabled ...
 			if (!interactMode)
 			{
-				placement(endX, endY, mouse, OM, endScreenX, endScreenY);
+				placement(endX, endY, mouse, OM);
 			}
 			else
 			{
