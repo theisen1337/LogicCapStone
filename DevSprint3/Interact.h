@@ -32,6 +32,8 @@ This Function allows us to interact with objects, the world, and even the charac
 #include <stdlib.h>
 #include <time.h>
 
+#include "GlobalConstants.h"
+
 class Interact
 {
 public:
@@ -89,9 +91,7 @@ public:
 	//! Used when Drawing
 	bool redraw = true;
 
-	//! Gives Positioning to Center of Map
-	float scrollX = 100 * 32 / 2;
-	float scrollY = 100 * 32 / 2;
+
 
 	//! Counter to Show In-Game FPS
 	int fps, fpsAccum;
@@ -100,15 +100,15 @@ public:
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
 	int charXPosition = 1000;
 	int charYPosition = 1000;
-	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
+
 	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
 	int numberOfChunks = 5;
-	int mapXBoundary = 32 * 64 * al_get_bitmap_width(character);
-	int mapYBoundary = 32 * 64 * al_get_bitmap_height(character);
+	int mapXBoundary = 32 * 64 * 64;
+	int mapYBoundary = 32 * 64 * 48;
 
 	//! Gives positioning with player in the center
-	float scrollX = charYPosition + al_get_bitmap_height(character) / 2;
-	float scrollY = charXPosition + al_get_bitmap_width(character) / 2;
+	float scrollX = charYPosition + GC::charImgDim / 2;
+	float scrollY = charXPosition + GC::charImgDim / 2;
 
 
 	//! bool for debug menu
