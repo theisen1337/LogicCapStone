@@ -1,54 +1,87 @@
+//! Manages 2D vector of Tiles and Image of the Chunk
 #include "Tile.h"
 #include <vector>
-#include "generate.h"
+#include <ctime>
+#include "NewGen.h"
+#include "GlobalConstants.h"
 
 #pragma once
 class Chunk
 {
-private:
-		//Chunk width and heights
-	int chunkDim = 32;
-		//Tile width and heights
-	int tileDim = 64;
-		//Position of the chunk in the world vector
-	int worldPosW;
-	int worldPosH;
-		//2D vectors for bottom layer of map
-	std::vector<std::vector<Tile>> terrainLayer;
-		//2D vectors for ore layer of map
-	std::vector<std::vector<Tile>> oreLayer;
-		//Bool for if the chunk is currently generated
-	bool isGen = false;
-		//Bitmap to hold all the tiles drawn to it.
-	ALLEGRO_BITMAP *map;
-		//Generations
-	Generation gen;
 public:
-		//Constructor
+	//! Constructor
 	Chunk();
-		//Get tile from bottom layer
+
+	//! Return the Tile Layer
 	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
-		//Set Width of chunk
-	void setChunkDim(int w) { chunkDim = w; };
-		//Set Height of chunk
-	int getChunkDim() { return chunkDim; };
-		//Set world positions 
+
+	//! Return the Ore Layer
+	std::vector<std::vector<Tile>> getOre() { return oreLayer; };
+
+	//! Set world X position
 	void setWorldPosW(int w) { worldPosW = w; };
+
+	//! Set world Y position
 	void setWorldPosH(int h) { worldPosH = h; };
-		//Get world positions
+
+	//! Get world X position
 	int getWorldPosW() { return worldPosW; };
+
+	//! Get world Y position
 	int getWorldPosH() { return worldPosH; };
-		//Get isGen boolean
+
+	//! Check if Chunk is Generated
 	bool getGen() { return isGen; };
-		//Toggle the state of the isGen variable
+
+	//! Toggle the state of the isGen variable
 	void toggleGen() { if (isGen) { isGen = false; } else { isGen = true; } };
-		//Generate chunk map
-	void genChunkMap();
-		//Get map
+
+	//! Generate chunk map
+	void genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string>> &ref);
+
+	//! Get map
 	ALLEGRO_BITMAP * getMap() { return map; };
-		//Initial Generation of Tiles
+
+	//! Initial Generation of Tiles
 	void initalGen();
-		//Generate Chunk Resources
+
+	//! Generate Chunk Resources
 	void genChunk();
+
+	//! change biome more consistantly
+	void bioChange1(); //added by Brandon
+
+private:
+	//! used as a bio stat
+	//int bio = 0;
+	int h, w;
+
+	//! used as placeholder for biome stats
+	int biome1[5][5];
+
+	//! World X Position
+	int worldPosW;
+	//! World Y Position
+	int worldPosH;
+
+	//! Biome stat
+	int temp = 0; //added by Brandon
+
+	//! Temp location on atlas for picture drawing
+	std::string tempLoc;
+
+	//! 2D vectors for terrain layer of map
+	std::vector<std::vector<Tile>> terrainLayer;
+	//! 2D vectors for ore layer of map
+	std::vector<std::vector<Tile>> oreLayer;
+
+	//! Bool for if the chunk is currently generated
+	bool isGen = false;
+
+	//! Bitmap to hold all the tiles drawn to it.
+	ALLEGRO_BITMAP *map;
+
+	//! Generation Object
+	NewGen gen;
 };
 
