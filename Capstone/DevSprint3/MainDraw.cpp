@@ -9,10 +9,10 @@ void MainDraw::Init()
 	terrainRef = ia.getTerrainRef();
 	characterAtlas = ia.LoadImageAtlas(ImageAtlas::Character);
 	characterRef = ia.getCharacterRef();
-	machineAtlas = ia.LoadImageAtlas(ImageAtlas::Machine);
-	machineRef = ia.getMachineRef();
-	itemAtlas = ia.LoadImageAtlas(ImageAtlas::Item);
-	itemRef = ia.getItemRef();
+	//machineAtlas = ia.LoadImageAtlas(ImageAtlas::Machine);
+	//machineRef = ia.getMachineRef();
+	//itemAtlas = ia.LoadImageAtlas(ImageAtlas::Item);
+	//itemRef = ia.getItemRef();
 
 }
 

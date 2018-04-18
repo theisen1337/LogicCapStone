@@ -7,16 +7,16 @@ World::World()
 		
 }
 
-void World::InitalizeClass()
+void World::InitalizeClass(ObjectManager &objm)
 {
 	//worldSize = 5;
 	//Sets the vector size
 	world.resize(GC::worldDim, std::vector<Chunk>(GC::worldDim, Chunk()));
 	//Runs the initial generation of map
-	initialGeneration();
+	initialGeneration(objm);
 }
 
-void World::initialGeneration()
+void World::initialGeneration(ObjectManager &objm)
 {
 	//Assign world positions to chunks
 	for (int i = 0; i < GC::worldDim; i++)
@@ -24,9 +24,12 @@ void World::initialGeneration()
 		for (int j = 0; j < GC::worldDim; j++) {
 			world[i][j].initalGen();
 			world[i][j].genChunk();
+			world[i][j].setWorldPosX(i);
+			world[i][j].setWorldPosY(j);
 		}
 	}
 
+	popOreLayer(objm);
 	
 }
 
@@ -64,5 +67,41 @@ void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std
 
 }
 
+void World::popOreLayer(ObjectManager & objm)
+{
+	for (int g = 0; g < world.size(); g++)
+	{
+		for (int h = 0; h < world[g].size(); h++)
+		{
+			for (int i = 0; i < world[g][h].getOre().size(); i++)
+			{
+				for (int j = 0; j < world[g][h].getOre()[i].size(); j++)
+				{
+					if (world[g][h].getOre()[i][j].getType() != Tile::EMPTY)
+					{
+						Tile::Types oreType = world[g][h].getOre()[i][j].getType();
+						switch (oreType)
+						{
+						case Tile::COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 

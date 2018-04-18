@@ -100,7 +100,7 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 		}
 	}
 	*/
-
+	
 	// Loops Through the Machine Layer and Finds Closest Machine to the Mouse Release
 	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
 	{
@@ -118,7 +118,7 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 			objectIndex = j;
 		}
 	}
-
+	
 	// Calculates the Newest Distance between Mouse and Center of Object
 	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
 
@@ -148,6 +148,8 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 			return;
 		}
 	}
+
+
 	/*
 	for (int k = 0; k < oreLayer.arrOres.size(); k++)
 	{
@@ -184,7 +186,7 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 // ####################################
 // # Mouse and Keyboard Functionality #
 // ####################################
-bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic)
 {
 	al_wait_for_event(queue, &event);
 
@@ -192,6 +194,25 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 	{
 		return false;
+	}
+
+	if (globStatic.getState() == GlobalStatics::MAINMENU)
+	{
+		if (event.type == ALLEGRO_EVENT_KEY_UP)
+		{
+			if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+			{
+				globStatic.setState(GlobalStatics::GAME);
+				redraw = true;
+			}
+		}else if (event.type == ALLEGRO_EVENT_KEY_DOWN)
+		{
+			if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+			{
+				globStatic.setState(GlobalStatics::GAME);
+				redraw = true;
+			}
+		}
 	}
 
 	switch (event.type)
@@ -216,7 +237,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.vx += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_R:
-			Map.initialGeneration();
+			//Map.initialGeneration();
 		case ALLEGRO_KEY_ESCAPE:
 			return false;
 		}

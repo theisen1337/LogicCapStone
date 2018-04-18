@@ -14,16 +14,35 @@ void StateManager::MainLoop()
 {
 	while (GAMERUN)
 	{
-		Interacting();
-		Transformations();
-		Drawing();
-		Computing();
+		switch (GlobStat.getState())
+		{
+		case GlobalStatics::MAINMENU:
+			Interacting();
+			MainMenu();
+			break;
+
+		case GlobalStatics::GAME:
+			Interacting();
+			Transformations();
+			Drawing();
+			Computing();
+			break;
+
+		case GlobalStatics::PAUSE:
+
+			break;
+
+		default:
+
+			break;
+		}
 	}
 	Exiting();
 }
 
 void StateManager::Initialization()
 {
+
 	// RANDOMIZATION //
 	srand(time(NULL));
 
@@ -40,10 +59,10 @@ void StateManager::Initialization()
 	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 	//INITIALIZE THE OBJECTS
-	Map.InitalizeClass();
+	ObjMang.Init();
+	Map.InitalizeClass(ObjMang);
 	player.InitializeClass();
 	mainDraw.Init();
-	ObjMang.Init();
 
 	timer = al_create_timer(1.0 / 60);
 
@@ -93,7 +112,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang, screenX, screenY);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang, screenX, screenY, GlobStat);
 
 	//#####################################################################
 	/*
@@ -189,4 +208,14 @@ void StateManager::Exiting()
 {
 	//Keep up stuff here!
 	std::cout << "CLEAN UP STUFF!!!!!!";
+}
+
+void StateManager::MainMenu()
+{
+	al_set_target_backbuffer(display);
+	al_clear_to_color(al_map_rgb(255, 0, 0));
+	al_draw_textf(font, al_map_rgb(255, 255, 255),
+		54, 48, ALLEGRO_ALIGN_CENTRE, "GAME TITLE");
+
+
 }
