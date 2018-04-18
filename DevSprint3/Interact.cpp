@@ -820,6 +820,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		}
 
 		break;
+		redraw = true; // WHY IS THIS HERE?
 	}
 
 	// Checks for Mouse Button Press
