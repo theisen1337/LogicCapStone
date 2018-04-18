@@ -24,7 +24,10 @@ public:
 		TEMP_COAL,/*! Temp coal, Used in Generation*/
 		TEMP_IRON,/*! Temp iron, Used in Generation*/
 		TEMP_WATER,/*! Temp water, Used in Generation*/
-		EMPTY/*! Empty tile*/
+		EMPTY,/*! Empty tile*/
+		SAND,
+		QUICK,
+		TEMP_QUICK
 	};
 	//! Loaded Tile Boolean
 	/*!

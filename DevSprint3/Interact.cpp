@@ -1,158 +1,5 @@
 #include "Interact.h"
 
-// #####################
-// # OLD K-D TREE CODE #
-// #####################
-/*
-
-const int MAX_DIM = 3;
-
-struct kd_node_t
-{
-	double x[MAX_DIM];
-	struct kd_node_t *left, *right;
-};
-
-inline double dist(struct kd_node_t *a, struct kd_node_t *b, int dim)
-{
-	double t, d = 0;
-	while (dim--)
-	{
-		t = a->x[dim] - b->x[dim];
-		d += t*t;
-	}
-	return d;
-}
-
-inline void swap(struct kd_node_t *x, struct kd_node_t *y)
-{
-	double tmp[MAX_DIM];
-	memcpy(tmp, x->x, sizeof(tmp));
-	memcpy(x->x, y->x, sizeof(tmp));
-	memcpy(y->x, tmp, sizeof(tmp));
-}
-
-struct kd_node_t* find_median(struct kd_node_t *start, struct kd_node_t *end, int idx)
-{
-	if (end <= start) return NULL;
-	if (end == start + 1) return start;
-
-	struct kd_node_t *p, *store, *md = start + (end - start) / 2;
-	double pivot;
-
-	while (1)
-	{
-		pivot = md->x[idx];
-
-		swap(md, end - 1);
-		for (store = p = start; p < end; p++)
-		{
-			if (p->x[idx] < pivot)
-			{
-				if (p != store)
-					swap(p, store);
-				store++;
-			}
-		}
-		swap(store, end - 1);
-
-		// if the median has duplicate values
-		if (store->x[idx] == md->x[idx])
-			return md;
-
-		if (store > md) end = store;
-		else start = store;
-	}
-}
-
-struct kd_node_t* make_tree(struct kd_node_t *t, int len, int i, int dim)
-{
-	struct kd_node_t *n;
-
-	if (!len) return 0;
-
-	if ((n = find_median(t, t + len, i)))
-	{
-		i = (i + 1) % dim;
-		n->left = make_tree(t, n - t, i dim);
-		n->right = make_tree(n + 1, t + len - (n + 1), i, dim);
-	}
-	return n;
-}
-
-// Global for Now, Will Change
-int visited = 0;
-
-void nearest(struct kd_node_t *root, struct kd_node_t *nd, int i, int dim, struct kd_node_t **best, double *best_dist)
-{
-	double d, dx, dx2;
-
-	// If there is no root, then return
-	if (!root) return;
-
-	// Calculate Distance
-	// root = root tree
-	// nd = mouse position
-	// dim = number of dimensions
-	d = dist(root, nd, dim);
-
-	dx = root->x[i] - nd->x[i];
-	dx2 = dx * dx;
-
-	visited++;
-
-	// If found is not a set variable or if new distance is less than current best
-	if (!*best || d < *best_dist)
-	{
-		// Set the new best distance
-		*best_dist = d;
-		// update the root
-		*best = root;
-	}
-
-	// If there is no best distance, return
-	if (!*best_dist) return;
-
-	// Performs dimension shifts (horizontal, vertical, horizontal, etc.)
-	if (++i >= dim) i = 0;
-
-	// Recursively search left tree
-	nearest(dx > 0 ? root->left : root->right, nd, i, dim, best, best_dist);
-
-	// If dx2 is larger than the best_dist, then return (base case)
-	if (dx2 >= *best_dist) return;
-
-	// recursively search right tree
-	nearest(dx > 0 ? root->right : root->left, nd, i, dim, best, best_dist);
-}
-
-// PLACE BELOW CODE IN INITIALIZATION
-
-struct kd_node_t wp[] = { current X, Y positions }
-struct kd_node_t testNode = { mouse positioning }
-struct kd_node_t *root, *found;
-double best_dist;
-
-root = make_tree(wp, sizeof(wp) / sizeof(wp[1]), 0, 2);
-
-visited = 0;
-found = 0;
-
-// Root = Origin of Tree
-// TestNode = Where Mouse is Located
-// 0 is single iteration
-// 2 is the dimensions
-// Found is where the nearest coordinate is
-// best_dist is what the distance is
-nearest(root, &testNode, 0, 2, &found, &best_dist);
-
-cout << "Searching for " + testNode.x[0] + testNode.x[1] << endl;
-cout << "Found " + found->x[0], found->x[1];
-cout << "Distance " + sqrt(best_dist);
-cout << "Visited " + visited + " nodes.";
-
-*/
-
 // ####################
 // # Create our Event #
 // ####################
@@ -187,7 +34,6 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	// Initializes Distance (Very High as We Want the First Object Right Away)
 	prevDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
 
-	// LOOP FOR ITEM OBJECTS (CURRENTLY NONE)
 	/*
 
 	// Loops Through the Item Layer and Finds Closest Item to the Mouse Release
@@ -210,9 +56,11 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 		}
 	}
 
+	*/
+
 	// If the smallest distance found from the for loop is less than 10 ...
 	// (So if the closest object is within 10 "pixels" of the mouse)
-	// DEPRECIATED AND NOT IN USE UNTIL ITEM INTERACTION NEEDED
+	/* DEPRECIATED AND NOT IN USE UNTIL ITEM INTERACTION NEEDED
 	if (prevDistance < 10)
 	{
 		// If the Left Button was Pressed ...
@@ -237,7 +85,6 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	}
 	*/
 
-	// GRAB OBJECTS ON SCREEN (NOT WORKING)
 	/*
 	ObjectManager tempOM;
 
@@ -257,20 +104,15 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	// Loops Through the Machine Layer and Finds Closest Machine to the Mouse Release
 	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
 	{
-		// Calculates New Distance Between Mouse and Object from Machine Layer
 		newDistance = sqrt(pow((mouseX - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouseY - OM.getML().arrMachines[j].getPlacementY()), 2));
 
-		// If the Newly Calculated Distance is Closer than the Previous ...
 		if (newDistance < prevDistance)
 		{
-			// Set the New Distance to the Old Distance
 			prevDistance = newDistance;
-
-			// Store the X and Y Coordinate of the Object as well as the Index in the Array
 			objectX = OM.getML().arrMachines[j].getPlacementX();
 			objectY = OM.getML().arrMachines[j].getPlacementY();
 
-			// Add 32 to the X and Y to get the middle of the object and store index to object
+			// Add 32 to the X and Y to get the middle of the object
 			objectX += 32;
 			objectY += 32;
 			objectIndex = j;
@@ -280,7 +122,7 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	// Calculates the Newest Distance between Mouse and Center of Object
 	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
 
-	std::cout << "Distance to Nearest Object: " << newDistance << endl;
+	std::cout << "Distance: " << newDistance << endl;
 
 	// Sets the Boundaries of the Nearest Object
 	maxX = objectX + 32;
@@ -291,28 +133,21 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 	// If the User Clicked Within the Object's Boundaries ...
 	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY))
 	{
-		// If the Left Button was Pressed ...
 		if (mouse == 1)
 		{
-			// Call the leftClick() Function of the Closest Object
 			OM.getML().arrMachines[objectIndex].leftClick();
 			return;
 		}
-		// If the Right Button was Pressed ...
 		else if (mouse == 2)
 		{
-			// Call the rightClick() Function of the Closest Object
 			OM.getML().arrMachines[objectIndex].rightClick();
 			return;
 		}
-		// If Somehow No Button was Pressed (Possibly Error or middle mouse click) ...
 		else
 		{
 			return;
 		}
 	}
-
-	// LOOP THROUGH ORE OBJECTS (CURRENTLY NONE) (ALSO DEPRECIATED)
 	/*
 	for (int k = 0; k < oreLayer.arrOres.size(); k++)
 	{
@@ -365,15 +200,19 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
+
 			movement.vy -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_DOWN:
 			movement.vy += movement.getSpeed();
+
 			break;
 		case ALLEGRO_KEY_LEFT:
+
 			movement.vx -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_RIGHT:
+
 			movement.vx += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_R:
@@ -386,15 +225,20 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
+
 			movement.vy += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_DOWN:
+			
 			movement.vy -= movement.getSpeed();
+			
 			break;
 		case ALLEGRO_KEY_LEFT:
+
 			movement.vx += movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_RIGHT:
+
 			movement.vx -= movement.getSpeed();
 			break;
 		case ALLEGRO_KEY_P:
@@ -426,6 +270,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.setCharacterYPosition(0);
 		}
 		break;
+
 		redraw = true;
 	}
 
@@ -496,9 +341,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			//rotate += event.mouse.dx * 0.01;
 			//zoom += event.mouse.dy * 0.01 * zoom;
 		}
-		zoom += event.mouse.dz * 0.1 * zoom;
-		if (zoom < 0.1) zoom = 0.1;
-		if (zoom > 10) zoom = 10;
+		//zoom += event.mouse.dz * 0.1 * zoom;
+		//if (zoom < 0.1) zoom = 0.1;
+		//if (zoom > 10) zoom = 10;
 	}
 
 	// Checks Timer to Redraw

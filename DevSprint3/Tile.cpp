@@ -111,6 +111,53 @@ void Tile::genPicture()
 	case Tile::EMPTY:
 		atLoc = "empty.png";
 		break;
+
+	case Tile::SAND:
+		//IF dirt set pic to dirt image
+		r = rand() % 4 + 1;
+		switch (r)
+		{
+		case 1:
+			atLoc = "sand1.png";
+			break;
+		case 2:
+			atLoc = "sand2.png";
+			break;
+		case 3:
+			atLoc = "sand3.png";
+			break;
+		case 4:
+			atLoc = "sand4.png";
+			break;
+		default:
+			atLoc = "sand5.png";
+			break;
+		}
+
+	case Tile::QUICK:
+		//IF dirt set pic to dirt image
+		r = rand() % 4 + 1;
+		switch (r)
+		{
+		case 1:
+			atLoc = "qSand1.png";
+			break;
+		case 2:
+			atLoc = "qSand2.png";
+			break;
+		case 3:
+			atLoc = "qSand3.png";
+			break;
+		case 4:
+			atLoc = "qSand4.png";
+			break;
+		default:
+			atLoc = "qSand5.png";
+			break;
+		}    
+	case Tile::TEMP_QUICK:
+			atLoc = "sand.png";
+			break;
 	default:
 		break;
 	}
