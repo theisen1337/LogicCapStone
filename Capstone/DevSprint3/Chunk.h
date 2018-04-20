@@ -4,7 +4,6 @@
 #include "generate.h"
 #include "GlobalConstants.h"
 #include "NewGen.h"
-#include "ObjectManager.h"
 
 #pragma once
 class Chunk
@@ -20,16 +19,16 @@ public:
 	std::vector<std::vector<Tile>>& getOre() { return oreLayer; };
 
 	//! Set world X position
-	void setWorldPosX(int w) { worldPosX = w; };
+	void setWorldPosW(int w) { worldPosW = w; };
 
 	//! Set world Y position
-	void setWorldPosY(int h) { worldPosY = h; };
+	void setWorldPosH(int h) { worldPosH = h; };
 
 	//! Get world X position
-	int getWorldPosX() { return worldPosX; };
+	int getWorldPosW() { return worldPosW; };
 
 	//! Get world Y position
-	int getWorldPosY() { return worldPosY; };
+	int getWorldPosH() { return worldPosH; };
 
 	//! Check if Chunk is Generated
 	bool getGen() { return isGen; };
@@ -51,9 +50,9 @@ public:
 
 private:
 	//! World X Position
-	int worldPosX;
+	int worldPosW;
 	//! World Y Position
-	int worldPosY;
+	int worldPosH;
 
 	//! Temp location on atlas for picture drawing
 	std::string tempLoc;

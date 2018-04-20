@@ -1,7 +1,5 @@
 #include "ObjectManager.h"
 
-
-
 ObjectManager::ObjectManager()
 {
 }
@@ -24,6 +22,16 @@ void ObjectManager::Init()
 	track1.setConnection(ML.arrMachines.at(0),ML.arrMachines.at(1));
 	TL.arrTracks.push_back(track1);
 
+	// SETUP HOTBAR ITEMS
+
+	// Add Machine to Hotbar
+	hotbar[0].machine = true;
+	hotbar[0].machineType = "Miner";
+	hotbar[0].num = 2;
+
+	hotbar[1].machine = true;
+	hotbar[1].machineType = "Smith";
+	hotbar[1].num = 1;
 }
 
 MachineBase & ObjectManager::getMLMachine(std::vector<MachineBase> & Machines, int index)
@@ -36,6 +44,27 @@ void ObjectManager::addMachine(float X, float Y)
 {
 }
 
+void ObjectManager::addMachine(float X, float Y, int i)
+{
+	if (hotbar[i].machineType == "Smith")
+	{
+		Smith smith;
+
+		smith.setPlacement(X, Y);
+
+		ML.arrMachines.push_back(smith);
+	}
+	if (hotbar[i].machineType == "Miner")
+	{
+		Miner miner;
+
+		miner.setPlacement(X, Y);
+
+		ML.arrMachines.push_back(miner);
+	}
+}
+
+// CURRENTLY NOT NEEDED
 void ObjectManager::addSmith(float X, float Y)
 {
 }
@@ -74,6 +103,26 @@ void ObjectManager::addItem(float X, float Y)
 
 void ObjectManager::addItem(float X, float Y, ItemBase item)
 {
+}
+
+void ObjectManager::addItem(float X, float Y, int i)
+{
+	/*if (hotbar[i].itemType == "Coal")
+	{
+		Coal coal;
+
+		coal.setPlacement(X, Y);
+
+		IL.arrItems.push_back(coal);
+	}
+	if (hotbar[i].itemType == "Iron")
+	{
+		Iron iron;
+
+		iron.setPlacement(X, Y);
+
+		IL.arrItems.push_back(iron);
+	}*/
 }
 #pragma endregion
 

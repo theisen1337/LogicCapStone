@@ -14,35 +14,16 @@ void StateManager::MainLoop()
 {
 	while (GAMERUN)
 	{
-		switch (GlobStat.getState())
-		{
-		case GlobalStatics::MAINMENU:
-			Interacting();
-			MainMenu();
-			break;
-
-		case GlobalStatics::GAME:
-			Interacting();
-			Transformations();
-			Drawing();
-			Computing();
-			break;
-
-		case GlobalStatics::PAUSE:
-
-			break;
-
-		default:
-
-			break;
-		}
+		Interacting();
+		Transformations();
+		Drawing();
+		Computing();
 	}
 	Exiting();
 }
 
 void StateManager::Initialization()
 {
-
 	// RANDOMIZATION //
 	srand(time(NULL));
 
@@ -59,10 +40,10 @@ void StateManager::Initialization()
 	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
 
 	//INITIALIZE THE OBJECTS
-	ObjMang.Init();
-	Map.InitalizeClass(ObjMang);
+	Map.InitalizeClass();
 	player.InitializeClass();
 	mainDraw.Init();
+	ObjMang.Init();
 
 	timer = al_create_timer(1.0 / 60);
 
@@ -112,7 +93,7 @@ void StateManager::Interacting()
 	//#####################################################################
 
 	//Returns false if the game exit button is pressed	
-	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang, screenX, screenY, GlobStat);
+	GAMERUN = interactions.beginInteractions(Map, mainDraw, display, font, queue, ObjMang, screenX, screenY);
 
 	//#####################################################################
 	/*
@@ -153,15 +134,49 @@ void StateManager::Drawing()
 
 
 		if (font) {
-			al_draw_filled_rounded_rectangle(4, 4, 100, 30,
-				8, 8, al_map_rgba(0, 0, 0, 200));
-			al_draw_textf(font, al_map_rgb(255, 255, 255),
-				54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
 
-			al_draw_filled_rounded_rectangle(4, 44, 100, 74,
-				8, 8, al_map_rgba(0, 0, 0, 200));
-			al_draw_textf(font, al_map_rgb(255, 255, 255),
-				54, 48, ALLEGRO_ALIGN_CENTRE, "CPS: %d", GlobStat.getCPS());
+			if (interactions.showFPS)
+			{
+				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
+					8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(255, 255, 255),
+					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
+			}
+
+			int numberOfMenuItems = 0;
+			// copy and paste the 4 lines of code and change the text part to add new item to debug menu
+			if (interactions.showDebugMenu)
+			{
+				al_draw_filled_rounded_rectangle(500, 4, 596, 30, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 8, ALLEGRO_ALIGN_CENTRE, "Debug Menu");
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CPS: %d", GlobStat.getCPS());
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CharX: %d", interactions.movement.getCharacterXPosition());
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CharY: %d", interactions.movement.getCharacterYPosition());
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CamX: %f", interactions.scrollX);
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CamY: %f", interactions.scrollY);
+				numberOfMenuItems++;
+			}
+
 		}
 
 		
@@ -208,14 +223,4 @@ void StateManager::Exiting()
 {
 	//Keep up stuff here!
 	std::cout << "CLEAN UP STUFF!!!!!!";
-}
-
-void StateManager::MainMenu()
-{
-	al_set_target_backbuffer(display);
-	al_clear_to_color(al_map_rgb(255, 0, 0));
-	al_draw_textf(font, al_map_rgb(255, 255, 255),
-		54, 48, ALLEGRO_ALIGN_CENTRE, "GAME TITLE");
-
-
 }

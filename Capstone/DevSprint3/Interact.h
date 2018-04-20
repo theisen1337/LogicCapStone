@@ -22,7 +22,6 @@ This Function allows us to interact with objects, the world, and even the charac
 #include "OreLayer.h"
 #include "CharacterMovement.h"
 #include "ObjectManager.h"
-#include "GlobalStatics.h"
 
 // Include Standard Libraries
 #include <math.h>
@@ -33,23 +32,38 @@ This Function allows us to interact with objects, the world, and even the charac
 #include <stdlib.h>
 #include <time.h>
 
+#include "GlobalConstants.h"
+
 class Interact
 {
 public:
 
-	enum ObType
-	{
-		Machine,
-		Item,
-		Ore,
-		Character,
-		Terrain
-	};
 	//! Constructor
 	Interact();
 	
 	//! Deconstructor
 	~Interact();
+
+	//! Swaps the Active Placement Modes
+	void Interact::swapActive(bool &active);
+
+	//! Check for Active State
+	int Interact::checkActive();
+
+	//! Place Objects onto the Map and Update Hotbar
+	void Interact::placeObject(ObjectManager &OM, int X, int Y, int index);
+
+	//! Spawn Objects into the Game for Testing
+	void Interact::spawnObject(ObjectManager &OM, int X, int Y);
+
+	//! Prints out the Current Hotbar Slot
+	void Interact::printSlot(ObjectManager &OM, bool &slot, int index);
+
+	//! Prints out the Entire Hotbar
+	void Interact::printHotbar(ObjectManager &OM);
+
+	//! Main Function for Placing Objects
+	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
 
 	//! Main Function for Interacting with Objects
 	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
@@ -63,7 +77,7 @@ public:
 		<> *queue -> Gives access to the Queue for Different Events
 		<> &OM -> References the Object Manager for Accessibility
 	*/
-	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY);
 
 	//! Used to Tell if Mouse was Pressed by Left or Right Button
 	ALLEGRO_MOUSE_STATE mousepos;
@@ -77,32 +91,40 @@ public:
 	//! Used when Drawing
 	bool redraw = true;
 
-	//! Gives Positioning to Center of Map
-	float scrollX = 100 * 32 / 2;
-	float scrollY = 100 * 32 / 2;
+
 
 	//! Counter to Show In-Game FPS
 	int fps, fpsAccum;
 	double fpsTime;
 
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
-	int charXPosition = 0;
-	int charYPosition = 0;
-	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
-	CharacterMovement movement;
-	int mapXBoundary = 6100;
-	int mapYBoundary = 6100;
+	int charXPosition = 1000;
+	int charYPosition = 1000;
+
+	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
+	int numberOfChunks = 5;
+	int mapXBoundary = 32 * 64 * 64;
+	int mapYBoundary = 32 * 64 * 48;
+
+	//! Gives positioning with player in the center
+	float scrollX = charYPosition + GC::charImgDim / 2;
+	float scrollY = charXPosition + GC::charImgDim / 2;
+
+
+	//! bool for debug menu
+	bool showDebugMenu = false;
+
+	//! bool for fps
+	bool showFPS = true;
 
 
 private:
 
 	//! Transformed X and Y Position from Button Press
-	float startX;
-	float startY;
+	float startX, startY;
 
 	//! Transformed X and Y Position from Button Release
-	float endX;
-	float endY;
+	float endX, endY;
 
 	//! Used to Store Distance Between Objects
 	float distance;
@@ -114,11 +136,17 @@ private:
 	float endScreenY;
 
 	//! The Max/Mins are Used to Define the Boundaries of an Object
-	float maxX;
-	float minX;
-	float maxY;
-	float minY;
+	float maxX, minX, maxY, minY;
 
-	//! The type of the closest object.
-	Interact::ObType closestObject;
+	//! Booleans Used to Determine Placement State
+	bool slot1 = false; bool slot2 = false; bool slot3 = false; bool slot4 = false;
+	bool slot5 = false; bool slot6 = false; bool slot7 = false; bool slot8 = false;
+	bool machineMode = false; bool itemMode = false; bool trackMode = false;
+	bool interactMode = true;
+
+	//! Array to Store Boolean States
+	bool *stateArray[12] = { &slot1, &slot2, &slot3, &slot4,
+							&slot5, &slot6, &slot7, &slot8,
+							&machineMode, &itemMode, &trackMode, 
+							&interactMode };
 };

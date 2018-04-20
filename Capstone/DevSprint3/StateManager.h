@@ -66,7 +66,5 @@ class StateManager
 
 		float screenX = 0.0;
 		float screenY = 0.0;
-
-		void MainMenu();
 };
 
