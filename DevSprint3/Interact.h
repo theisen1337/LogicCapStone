@@ -1,11 +1,5 @@
 #pragma once
 
-/*
-
-This Function allows us to interact with objects, the world, and even the character
-
-*/
-
 // Include Allegro Addons
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -62,11 +56,16 @@ public:
 	//! Prints out the Entire Hotbar
 	void Interact::printHotbar(ObjectManager &OM);
 
+	int Interact::findSlot(ObjectManager &OM, std::string name);
+
+	//! Searches for Closest Object on Map
+	void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY);
+
 	//! Main Function for Placing Objects
-	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
+	void Interact::placement(ObjectManager &OM, int mouseX, int mouseY);
 
 	//! Main Function for Interacting with Objects
-	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
+	void interactions(ObjectManager &OM, int mouse_x, int mouse_y);
 
 	/*! Allows Keyboard and Mouse Functionality
 		- Parameters:
@@ -119,6 +118,20 @@ public:
 
 
 private:
+
+	//! Struct to Store Closest Object Information
+	struct CloseObject
+	{
+		bool machine = false;
+		bool item = false;
+		bool ore = false;
+		int objectX = 0;
+		int objectY = 0;
+		int objectIndex = 0;
+		std::string objectName = "";
+	};
+
+	CloseObject closeObject;
 
 	//! Transformed X and Y Position from Button Press
 	float startX, startY;
