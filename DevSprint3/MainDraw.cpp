@@ -39,15 +39,49 @@ void MainDraw::drawCharacter(CharacterPlayer & c, CharacterMovement & movement)
 	//atlas = ia.LoadImageAtlas(ImageAtlas::Character);
 	//ref = ia.getCharacterRef();
 
-	for (int i = 0; i < characterRef.size(); i++)
+	/*for (int i = 0; i < characterRef.size(); i++)
 	{
 		for (int j = 0; j < characterRef[i].size(); j++)
 		{
 			if (characterRef[i][j].compare(c.getRef())== 0)
 			{
-				al_draw_scaled_bitmap(characterAtlas, i*GC::charImgDim, j*GC::charImgDim, 48, 48, movement.getCharacterXPosition(), movement.getCharacterYPosition(), GC::charImgDim, GC::charImgDim, 0);
+				al_draw_scaled_bitmap(characterAtlas, i*GC::charImgWidth, j*GC::charImgHeight, GC::charImgWidth, GC::charImgHeight, movement.getCharacterXPosition(), movement.getCharacterYPosition(), GC::charImgWidth, GC::charImgHeight, 0);
 				break;
 			}
 		}
+	}*/
+
+	
+
+	if (movement.CharCompass.N || (movement.CharCompass.N && movement.CharCompass.E) || (movement.CharCompass.N && movement.CharCompass.W))
+	{
+		c.imageoffset = 0;
+	
+		c.imageAni += 0.3;
 	}
+	else if (movement.CharCompass.S || (movement.CharCompass.S && movement.CharCompass.E) || (movement.CharCompass.S && movement.CharCompass.W))
+	{
+		c.imageoffset = 1;
+		
+		c.imageAni += .3;;
+	}
+	else if (movement.CharCompass.E)
+	{
+		c.imageoffset = 2;
+		
+		c.imageAni += 0.3;
+	}
+	else if (movement.CharCompass.W)
+	{
+		c.imageoffset = 3;
+		
+		c.imageAni += 0.3;
+	}
+
+	al_draw_scaled_bitmap(characterAtlas, c.imageoffset*GC::charImgWidth, ((int)(c.imageAni) % 3)*GC::charImgHeight,
+							GC::charImgWidth, GC::charImgHeight,
+							movement.getCharacterXPosition(), movement.getCharacterYPosition(),
+							GC::charImgWidth, GC::charImgHeight,
+							0);
+
 }

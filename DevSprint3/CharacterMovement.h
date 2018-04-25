@@ -5,6 +5,14 @@
 #include <math.h>
 #pragma once
 
+
+struct Compass {
+bool N;
+bool E;
+bool S;
+bool W;
+};
+
 class CharacterMovement
 {
 public:
@@ -33,10 +41,14 @@ public:
 	void moveCharacterY();
 	//! get the speed of the character
 	int getSpeed();
+	
+	//!direction of player;
+	Compass CharCompass;
+
 
 private:
 	
-
+	
 	//! y position for the character
 	int characterYPosition = 0;
 	//! x position for the character

@@ -20,7 +20,77 @@
 
 
 static int TicksPerSecond;
+static auto RunTime = std::chrono::high_resolution_clock::now();
+static auto PauseTime = std::chrono::high_resolution_clock::now();
 
+static bool InitialClock = true;
+static bool isPausedB = false;
+static float TotalPauseTime = 0;
+
+void GlobalStatics::InitializeTime()
+{
+	//only allow the RunTime Clock to be set to zero once.
+	if (InitialClock)
+	{
+		RunTime = std::chrono::high_resolution_clock::now();
+		InitialClock = false;
+	}
+}
+
+
+
+
+// Recieve RunTime
+float GlobalStatics::getRunTime()
+{
+	auto current = std::chrono::high_resolution_clock::now(); //Grab time now
+	float time = std::chrono::duration<float, std::chrono::seconds::period>(current - RunTime).count(); // difference between timestamp now and timestamp and beginning of Program.
+	return time;
+}
+
+float GlobalStatics::getGameTime()
+{
+	return getRunTime() - getPauseTime();
+}
+
+float GlobalStatics::getPauseTime()
+{
+	if (isPausedB)
+	{
+		auto current = std::chrono::high_resolution_clock::now();
+		TotalPauseTime += std::chrono::duration<float, std::chrono::seconds::period>(current - PauseTime).count();
+		PauseTime = std::chrono::high_resolution_clock::now();
+	}
+	return TotalPauseTime;
+}
+
+void GlobalStatics::setPause(bool Pause)
+{
+	
+	if (Pause && isPausedB)	//Game has been paused, after already being paused.
+	{
+		throw "Developer has made a mistake in calling Pause, GlobalStatics.cpp, setPause()\n";
+	}
+	else if (Pause)			//Game has been paused while not being paused
+	{
+		isPausedB = true;
+		PauseTime = std::chrono::high_resolution_clock::now();
+	}
+	else if (!Pause && !isPausedB)
+	{
+		throw "Developer has made a mistake in calling Pause, GlobalStatics.cpp, setPause()\n";
+	}
+	else					//Game has been unpaused.
+	{
+		getPauseTime();
+		isPausedB = false;
+	}
+}
+
+bool GlobalStatics::isPaused()
+{ 
+	return isPausedB; 
+}
 
 int & GlobalStatics::getCPS()
 {

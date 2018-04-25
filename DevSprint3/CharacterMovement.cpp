@@ -40,6 +40,7 @@ int CharacterMovement::getSpeed()
 	return speed;
 }
 
+
 // ##################
 // # SET X POSITION #
 // ##################

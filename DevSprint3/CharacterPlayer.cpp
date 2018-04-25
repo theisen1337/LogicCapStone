@@ -20,4 +20,5 @@ CharacterPlayer::~CharacterPlayer() {}
 void CharacterPlayer::InitializeClass()
 {
 	charRef = "Character.png";
+
 }

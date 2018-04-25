@@ -31,20 +31,20 @@ void Tile::genPicture()
 			atLoc = "grass1.png";
 			break;
 		case 2:
-			atLoc = "grass2.png";
+			atLoc = "grass1.png";
 			break;
 		case 3:
-			atLoc = "grass3.png";
+			atLoc = "grass1.png";
 			break;
 		case 4:
-			atLoc = "grass4.png";
+			atLoc = "grass1.png";
 			break;
 		default:
 			atLoc = "grass1.png";
 			break;
 		}
 		break;
-
+		
 	case Tile::WATER:
 		//IF water set pic to water image
 		r = rand() % 4 + 1;

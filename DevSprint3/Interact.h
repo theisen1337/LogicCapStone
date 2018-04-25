@@ -112,8 +112,8 @@ public:
 	int mapYBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgDim;
 
 	//! Gives positioning with player in the center
-	float scrollX = charYPosition + GC::charImgDim / 2;
-	float scrollY = charXPosition + GC::charImgDim / 2;
+	float scrollX = charYPosition + GC::charImgWidth / 2;
+	float scrollY = charXPosition + GC::charImgHeight / 2;
 
 
 	//! bool for debug menu

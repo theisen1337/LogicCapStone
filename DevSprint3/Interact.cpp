@@ -663,35 +663,54 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	switch (event.type)
 	{
 	case ALLEGRO_EVENT_KEY_DOWN:
-		switch (event.keyboard.keycode)
+		if (event.keyboard.keycode == ALLEGRO_KEY_UP)
+		{
+			movement.vy -= movement.getSpeed();
+			movement.CharCompass.N = true;
+		}
+		else if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+		{
+			movement.vx += movement.getSpeed();
+			movement.CharCompass.E = true;
+		}
+		else if (event.keyboard.keycode == ALLEGRO_KEY_DOWN )
+		{
+			movement.vy += movement.getSpeed();
+			movement.CharCompass.S = true;
+		}
+		else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT)
+		{
+			movement.vx -= movement.getSpeed();
+			movement.CharCompass.W = true;
+		}
+		/*switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
-			movement.vy -= movement.getSpeed();
+			
 			break;
-
 		case ALLEGRO_KEY_DOWN:
 			movement.vy += movement.getSpeed();
+			movement.setDirection(South);
 			break;
-
 		case ALLEGRO_KEY_LEFT:
 			movement.vx -= movement.getSpeed();
+			movement.setDirection(West);
 			break;
-
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx += movement.getSpeed();
+			movement.setDirection(East);
 			break;
-
 		case ALLEGRO_KEY_F1:
 			showDebugMenu = !showDebugMenu;
 			break;
-
 		case ALLEGRO_KEY_F2:
 			showFPS = !showFPS;
 			break;
-
+		case ALLEGRO_KEY_R:
+			Map.initialGeneration();
 		case ALLEGRO_KEY_ESCAPE:
 			return false;
-		}
+		}*/
 		break;
 
 	case ALLEGRO_EVENT_KEY_UP:
@@ -699,18 +718,22 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 		case ALLEGRO_KEY_UP:
 			movement.vy += movement.getSpeed();
+			movement.CharCompass.N = false;
 			break;
 
 		case ALLEGRO_KEY_DOWN:
 			movement.vy -= movement.getSpeed();
+			movement.CharCompass.S = false;
 			break;
 
 		case ALLEGRO_KEY_LEFT:
 			movement.vx += movement.getSpeed();
+			movement.CharCompass.W = false;
 			break;
 
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx -= movement.getSpeed();
+			movement.CharCompass.E = false;
 			break;
 
 		case ALLEGRO_KEY_P:

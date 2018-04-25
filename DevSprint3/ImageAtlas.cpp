@@ -125,7 +125,7 @@ void ImageAtlas::genImageAtlases()
 	al_save_bitmap("Resources//machineAtlas.png", temp);
 
 	//Generate the Character Atlas
-	temp = al_create_bitmap((characterRef.size() * GC::charImgDim), (characterRef[0].size() * GC::charImgDim));
+	temp = al_create_bitmap((characterRef.size() * GC::charImgWidth), (characterRef[0].size() * GC::charImgHeight));
 	al_set_target_bitmap(temp);
 	for (int i = 0; i < characterRef.size(); i++)
 	{
@@ -136,9 +136,9 @@ void ImageAtlas::genImageAtlases()
 			t = al_load_bitmap(("Resources//Character//" + characterRef[i][j]).c_str());
 			al_draw_scaled_bitmap(t,
 				0, 0,
-				GC::charImgDim, GC::charImgDim,
-				(i*GC::charImgDim), (j*GC::charImgDim),
-				GC::charImgDim, GC::charImgDim, 0);
+				GC::charImgWidth, GC::charImgHeight,
+				(i*GC::charImgWidth), (j*GC::charImgHeight),
+				GC::charImgWidth, GC::charImgHeight, 0);
 		}
 	}
 	al_save_bitmap("Resources//characterAtlas.png", temp);
@@ -180,7 +180,7 @@ ALLEGRO_BITMAP* ImageAtlas::LoadImageAtlas(AtlasType type)
 		return temp;
 		break;
 	case ImageAtlas::Character:
-		temp = al_load_bitmap("Resources//characterAtlas.png");
+		temp = al_load_bitmap("Resources//characterAtlas2.png");
 		return temp;
 		break;
 	default:

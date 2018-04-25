@@ -8,7 +8,10 @@ class CharacterPlayer
 {
 
 public:
-
+	//! Image offset for direction 
+	int imageoffset = 1;
+	//! Animation tickers for animating the character
+	float imageAni = 0;
 	//! X and Y of Player
 	float locationX, locationY;
 
