@@ -46,10 +46,10 @@ public:
 	void initalGen();
 
 	//! Generate Chunk Resources
-	void genChunk();
+	//void Chunk::genChunk() //void Chunk::genChunk(vector < vector <int> > biome) 
+	void genChunk(int bio);
 
-	//! change biome more consistantly
-	void bioChange1(); //added by Brandon
+	
 
 private:
 	//! used as a bio stat
@@ -57,7 +57,7 @@ private:
 	int h, w;
 
 	//! used as placeholder for biome stats
-	int biome1[5][5];
+	//vector < vector <int> > biome1;
 
 	//! World X Position
 	int worldPosW;

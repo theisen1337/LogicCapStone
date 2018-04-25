@@ -79,62 +79,49 @@ void Chunk::initalGen()
 }
 
 // UNDER CONSTRUCTION
-void Chunk::genChunk() //Might be worthless
+// edited by brandon. uses the int bio to determine the biome
+void Chunk::genChunk(int bio)
 {
-	//cout << bio;
-	bioChange1();
-	//cout << bio;
-	//if (biome1[h][w] == 0)
+	//bio = 0; //DEBUG
 
-
-	//if (biome1[h][w] == 0)
-	//{
-		cout << "grass" << endl;
+	if (bio == 0)
+	{
+		cout << "grass" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::GRASS); //sets the initial grid to a single tile type
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
-		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
-		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
-		
 		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::WATER, Tile::TEMP_WATER, 5); //spread 'lake' tiles
 		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_WATER, Tile::WATER); //changes temp files to 'lake' tiles
 
-	//}
-	/*
-	else if (biome1[h][w] > 0)
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
+	}
+	
+	else if (bio > 0)
 	{
-		cout << "dessert" << endl;
+		cout << "dessert" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SAND); //sets the initial grid to a single tile type
-		//terrainLayer = gen.setTileGrid(terrainLayer, Tile::QUICK); ////places other tiles
+		terrainLayer = gen.setTileGrid(terrainLayer, Tile::QUICK); ////places other tiles
 
-		//oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
-		//oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
+		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
 
-		//terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
-		//terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-	else if (biome1[h][w] < 0)
+	
+	else if (bio < 0)
 	{
-		cout << "snow" << endl;
+		cout << "snow" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SNOW); //sets the initial grid to a single tile type
-		//terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
+		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
-		//oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
-		//oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
+		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
 
-		//terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
-		//terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-	if (h < 4)
-	{
-		h++;
-	}
-	else
-	{
-		h = 0;
-		w++;
-	}
-	*/
 
 	/*
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
@@ -145,71 +132,3 @@ void Chunk::genChunk() //Might be worthless
 	*/
 }
 
-void Chunk::bioChange1()
-{
-	/*
-	int r = rand() % 4;
-	if (r == 0)
-	{
-		cout << "was " << bio << " - ";
-		bio++;
-		cout << "now " << bio << " - ";
-	}
-	else if (r == 1)
-	{
-		cout << "was " << bio << " - ";
-		bio--;
-		cout << "now " << bio << " - ";
-	}
-	else
-	{
-		cout << "stays " << bio << " - ";
-	}
-	*/
-
-	int bio;
-	int r;
-
-	for (int i = 0; i < 5; i++) //5x5 world
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			r = rand() % 2;
-			if (r == 0 && i != 0)
-			{
-				bio = biome1[i - 1][j]; //choose the topper
-			}
-			else if (r == 1 && j != 0)
-			{
-				bio = biome1[i][j - 1]; //choose the lefter
-			}
-			else if (r == 0 && i == 0 && j != 0) //choose the left when we're at the top
-			{
-				bio = biome1[i][j - 1];
-			}
-			else if(r == 1 && j == 0 && i != 0) //choose the top when we're at the left
-			{
-				bio = biome1[i - 1][j];
-			}
-			else //biome1[0][0]
-			{
-				bio = 0;
-			}
-
-			
-			r = rand() % 3 - 1;
-
-			biome1[i][j] = bio + r;
-			//biome1;
-		}
-	}
-
-	//DEBUG
-	for (int i = 0; i < 5; i++) //5x5 world
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			cout << biome1[i][j];
-		}
-	}
-}
