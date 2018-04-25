@@ -38,9 +38,19 @@ public:
 	void updateWorld(int charWorldW, int charWorldH);
 		
 	//! World 2D vector Getter.
-	std::vector<std::vector<Chunk>>& getChunk() { return world; };
+	std::vector<std::vector<Chunk>> getChunk() { return world; };
 
 	//! Draw the world to back buffer
 	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref);
+
+	//! placeholder for biome stat
+	vector < vector <int> > biome; //added by brandon
+
+	//! changes biomestat
+	vector < vector <int> > bioChange1(vector < vector <int> > &biome); //added by brandon
+
+	//! changes the edges of the chunks
+	std::vector<std::vector<Chunk>> borderControl(std::vector<std::vector<Chunk>> world); //added by brandon, used later for border manipulation
+
 };
 

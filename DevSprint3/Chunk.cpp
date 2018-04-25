@@ -79,56 +79,56 @@ void Chunk::initalGen()
 }
 
 // UNDER CONSTRUCTION
-void Chunk::genChunk() //Might be worthless
+// edited by brandon. uses the int bio to determine the biome
+void Chunk::genChunk(int bio)
 {
-
-	bio = rand() % 2; //2 biomes right now
-	
-	//cout << bio;
+	//bio = 0; //DEBUG
 
 	if (bio == 0)
-
 	{
-
-		//cout << "grass" << endl;
-
+		cout << "grass" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::GRASS); //sets the initial grid to a single tile type
-
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
-		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
-
-		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
-
 		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::WATER, Tile::TEMP_WATER, 5); //spread 'lake' tiles
+		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_WATER, Tile::WATER); //changes temp files to 'lake' tiles
 
-		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_WATER, Tile::WATER); //changes temp files to 'lake' tiles    }
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
 	}
-	else
-
+	
+	else if (bio > 0)
 	{
-
-		//cout << "dessert" << endl;
-		
+		cout << "dessert" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SAND); //sets the initial grid to a single tile type
-
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::QUICK); ////places other tiles
 
-		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
+		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
+		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
 
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+	}
+	
+	else if (bio < 0)
+	{
+		cout << "snow" << endl; //DEBUG
+		terrainLayer = gen.initTerrain(terrainLayer, Tile::SNOW); //sets the initial grid to a single tile type
+		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
 		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
-
 		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
-		
-	}
 
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+	}
 
 	/*
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
 	oreLayer = gen.newOreAlGore(oreLayer, terrainLayer);
 	terrainLayer = gen.setTileGrid(terrainLayer);
 	terrainLayer = gen.newLakeAlGore(oreLayer,terrainLayer);
-	terrainLayer = gen.revampWater(terrainLayer);*/
+	terrainLayer = gen.revampWater(terrainLayer);
+	*/
 }
+
