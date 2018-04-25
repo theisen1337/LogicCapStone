@@ -32,6 +32,8 @@ This Function allows us to interact with objects, the world, and even the charac
 #include <stdlib.h>
 #include <time.h>
 
+#include "GlobalConstants.h"
+
 class Interact
 {
 public:
@@ -41,6 +43,27 @@ public:
 	
 	//! Deconstructor
 	~Interact();
+
+	//! Swaps the Active Placement Modes
+	void swapActive(bool &active);
+
+	//! Check for Active State
+	int checkActive();
+
+	//! Place Objects onto the Map and Update Hotbar
+	void placeObject(ObjectManager &OM, int X, int Y, int index);
+
+	//! Spawn Objects into the Game for Testing
+	void spawnObject(ObjectManager &OM, int X, int Y);
+
+	//! Prints out the Current Hotbar Slot
+	void printSlot(ObjectManager &OM, bool &slot, int index);
+
+	//! Prints out the Entire Hotbar
+	void printHotbar(ObjectManager &OM);
+
+	//! Main Function for Placing Objects
+	void placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
 
 	//! Main Function for Interacting with Objects
 	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
@@ -69,22 +92,27 @@ public:
 	bool redraw = true;
 
 
+
 	//! Counter to Show In-Game FPS
 	int fps, fpsAccum;
 	double fpsTime;
 
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
-	int charXPosition = 1000;
-	int charYPosition = 1000;
-	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
+	int charXPosition = 0;
+	int charYPosition = 0;
+
+	//! Variables to store which chunck the character is in
+	int chunkX = charXPosition % (GC::chunkDim * GC::tileDim);
+	int chunkY = charYPosition % (GC::chunkDim * GC::tileDim);
+
 	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
 	int numberOfChunks = 5;
-	int mapXBoundary = 32 * 64 * al_get_bitmap_width(character);
-	int mapYBoundary = 32 * 64 * al_get_bitmap_height(character);
+	int mapXBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgDim;
+	int mapYBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgDim;
 
 	//! Gives positioning with player in the center
-	float scrollX = charYPosition + al_get_bitmap_height(character) / 2;
-	float scrollY = charXPosition + al_get_bitmap_width(character) / 2;
+	float scrollX = charYPosition + GC::charImgDim / 2;
+	float scrollY = charXPosition + GC::charImgDim / 2;
 
 
 	//! bool for debug menu
@@ -97,12 +125,10 @@ public:
 private:
 
 	//! Transformed X and Y Position from Button Press
-	float startX;
-	float startY;
+	float startX, startY;
 
 	//! Transformed X and Y Position from Button Release
-	float endX;
-	float endY;
+	float endX, endY;
 
 	//! Used to Store Distance Between Objects
 	float distance;
@@ -114,8 +140,17 @@ private:
 	float endScreenY;
 
 	//! The Max/Mins are Used to Define the Boundaries of an Object
-	float maxX;
-	float minX;
-	float maxY;
-	float minY;
+	float maxX, minX, maxY, minY;
+
+	//! Booleans Used to Determine Placement State
+	bool slot1 = false; bool slot2 = false; bool slot3 = false; bool slot4 = false;
+	bool slot5 = false; bool slot6 = false; bool slot7 = false; bool slot8 = false;
+	bool machineMode = false; bool itemMode = false; bool trackMode = false;
+	bool interactMode = true;
+
+	//! Array to Store Boolean States
+	bool *stateArray[12] = { &slot1, &slot2, &slot3, &slot4,
+							&slot5, &slot6, &slot7, &slot8,
+							&machineMode, &itemMode, &trackMode, 
+							&interactMode };
 };
