@@ -673,10 +673,61 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 // ####################################
 // # Mouse and Keyboard Functionality #
 // ####################################
-bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic)
 {
 	al_wait_for_event(queue, &event);
 
+	switch (globStatic.getState())
+	{
+	case GlobalStatics::MAINMENU:
+		return MainMenuInteractions(globStatic);
+		break;
+
+	case GlobalStatics::GAME:
+		return GameInteractions(Map, Art, display, font, queue, OM, screenX, screenY, globStatic);
+		break;
+
+	case GlobalStatics::PAUSE:
+
+		break;
+
+	default:
+
+		break;
+	}
+
+}
+
+bool Interact::MainMenuInteractions(GlobalStatics & globStatic)
+{
+
+	// Checks to See if Window Closed
+	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+	{
+		return false;
+	}
+
+	if (event.type == ALLEGRO_EVENT_KEY_UP)
+	{
+		if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+		{
+			globStatic.setState(GlobalStatics::GAME);
+			redraw = true;
+		}
+	}
+	else if (event.type == ALLEGRO_EVENT_KEY_DOWN)
+	{
+		if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+		{
+			globStatic.setState(GlobalStatics::GAME);
+			redraw = true;
+		}
+	}
+
+}
+
+bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE * queue, ObjectManager & OM, float screenX, float screenY, GlobalStatics & globStatic)
+{
 	// Checks to See if Window Closed
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 	{
@@ -841,7 +892,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	}
 
 	// Checks for Mouse Button Press
-	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) 
+	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 	{
 		// Grab X and Y Coordinates of Top Left of Screen
 		startScreenX = screenX;
@@ -865,7 +916,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	}
 
 	// Checks for Mouse Button Release
-	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) 
+	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 	{
 		// Grab X and Y Coordinates of Top Left of Screen
 		endScreenX = screenX;
@@ -885,7 +936,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		//std::cout << "End Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
 		//std::cout << "End Screen: (" << abs(endScreenX) << ", " << abs(endScreenY) << ")" << endl;
 		//std::cout << "End Coordinates: (" << endX << ", " << endY << ")" << endl << endl;
-		
+
 		// Calculate Distance from Start to End Position
 		distance = sqrt(pow((endScreenX - startScreenX), 2) + pow((endScreenY - startScreenY), 2));
 
@@ -909,7 +960,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 
 	// Actions for Mouse Movement
 	if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-		
+
 		// If it was a Left Click, Scroll Across the Map
 		if (mouse == 1) {
 			float x = event.mouse.dx / zoom;
@@ -917,9 +968,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			scrollX -= x * cos(rotate) + y * sin(rotate);
 			scrollY -= y * cos(rotate) - x * sin(rotate);
 		}
-		
+
 		// If it was a Right Click, Zoom/Rotate the Map [CURRENTLY NOT AVAILABLE]
-		if (mouse == 2) 
+		if (mouse == 2)
 		{
 			//rotate += event.mouse.dx * 0.01;
 			//zoom += event.mouse.dy * 0.01 * zoom;
@@ -934,11 +985,12 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		redraw = true;
 
 	// Redraws when Window Changes Size
-	if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) 
+	if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 	{
 		al_acknowledge_resize(display);
 		redraw = true;
 	}
 
 	return true;
+
 }

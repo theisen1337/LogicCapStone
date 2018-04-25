@@ -4,15 +4,15 @@
 
 #include "allegro5/allegro_native_dialog.h"
 
-class Coal : public OreBase
+class Coal
 {
 public:
 	
 	//! Constructor
-	Coal() : OreBase()
+	Coal()
 	{
-		setTravelSpeed(2);
-		setHealth(3);
+		//setTravelSpeed(2);
+		//setHealth(3);
 	}
 
 	//! Performs Interactions

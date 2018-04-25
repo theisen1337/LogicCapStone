@@ -5,6 +5,7 @@
 #include <vector>
 #include "Chunk.h"
 #include "GlobalConstants.h"
+#include "ObjectManager.h"
 
 class World
 {
@@ -42,5 +43,7 @@ public:
 
 	//! Draw the world to back buffer
 	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref);
+	
+	void popOreLayer(ObjectManager &objm);
 };
 

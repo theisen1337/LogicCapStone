@@ -20,9 +20,21 @@
 
 
 static int TicksPerSecond;
+static GlobalStatics::State gameState = GlobalStatics::MAINMENU;
 
 
 int & GlobalStatics::getCPS()
 {
 	return TicksPerSecond;
 }
+
+GlobalStatics::State & GlobalStatics::getState()
+{
+	return gameState;
+}
+
+void GlobalStatics::setState(GlobalStatics::State st)
+{
+	gameState = st;
+}
+

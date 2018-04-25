@@ -64,5 +64,41 @@ void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std
 
 }
 
+void World::popOreLayer(ObjectManager & objm)
+{
+	for (int g = 0; g < world.size(); g++)
+	{
+		for (int h = 0; h < world[g].size(); h++)
+		{
+			for (int i = 0; i < world[g][h].getOre().size(); i++)
+			{
+				for (int j = 0; j < world[g][h].getOre()[i].size(); j++)
+				{
+					if (world[g][h].getOre()[i][j].getType() != Tile::EMPTY)
+					{
+						Tile::Types oreType = world[g][h].getOre()[i][j].getType();
+						switch (oreType)
+						{
+						case Tile::COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 

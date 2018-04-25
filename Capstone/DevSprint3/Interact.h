@@ -45,25 +45,25 @@ public:
 	~Interact();
 
 	//! Swaps the Active Placement Modes
-	void Interact::swapActive(bool &active);
+	void swapActive(bool &active);
 
 	//! Check for Active State
-	int Interact::checkActive();
+	int checkActive();
 
 	//! Place Objects onto the Map and Update Hotbar
-	void Interact::placeObject(ObjectManager &OM, int X, int Y, int index);
+	void placeObject(ObjectManager &OM, int X, int Y, int index);
 
 	//! Spawn Objects into the Game for Testing
-	void Interact::spawnObject(ObjectManager &OM, int X, int Y);
+	void spawnObject(ObjectManager &OM, int X, int Y);
 
 	//! Prints out the Current Hotbar Slot
-	void Interact::printSlot(ObjectManager &OM, bool &slot, int index);
+	void printSlot(ObjectManager &OM, bool &slot, int index);
 
 	//! Prints out the Entire Hotbar
-	void Interact::printHotbar(ObjectManager &OM);
+	void printHotbar(ObjectManager &OM);
 
 	//! Main Function for Placing Objects
-	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
+	void placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
 
 	//! Main Function for Interacting with Objects
 	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
@@ -77,7 +77,7 @@ public:
 		<> *queue -> Gives access to the Queue for Different Events
 		<> &OM -> References the Object Manager for Accessibility
 	*/
-	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY);
+	bool beginInteractions(World &Map,MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic);
 
 	//! Used to Tell if Mouse was Pressed by Left or Right Button
 	ALLEGRO_MOUSE_STATE mousepos;
@@ -116,6 +116,9 @@ public:
 
 	//! bool for fps
 	bool showFPS = true;
+
+	bool GameInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic);
+	bool MainMenuInteractions(GlobalStatics &globStatic);
 
 
 private:
