@@ -801,10 +801,14 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			scrollX = al_get_display_width(display);
 		}
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for right boundary)
+		else if (scrollX > mapXBoundary - al_get_display_width(display) + 48 || movement.getCharacterXPosition() > mapXBoundary - al_get_display_width(display) + 48)
+		{
+			scrollX = mapXBoundary - al_get_display_width(display) + 48;
+		}
 
 		movement.moveCharacterY();
 		scrollY += movement.vy;
-
 		if (movement.getCharacterYPosition() > mapYBoundary)
 		{
 			movement.setCharacterYPosition(mapYBoundary);
@@ -813,12 +817,89 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		{
 			movement.setCharacterYPosition(0);
 		}
-
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
 		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < 480)
 		{
 			scrollY = al_get_display_height(display);
 		}
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for bottom boundary)
+		else if (scrollY > mapYBoundary - al_get_display_height(display) + 48 || movement.getCharacterYPosition() > mapYBoundary - al_get_display_height(display) + 48)
+		{
+			scrollY = mapYBoundary - al_get_display_height(display) + 48;
+		}
+
+		chunkX = movement.getCharacterXPosition() / (32 * 64);
+		chunkY = movement.getCharacterYPosition() / (32 * 64);
+
+		//! check to see if the character can move into the sqaure it is trying to go into (TOP LEFT CORNER OF CHARACTER)
+		if (Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		{
+			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
+			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
+			if (scrollX != 640)
+			{
+				scrollX -= movement.vx;
+			}
+			if (scrollY != 480)
+			{
+				scrollY -= movement.vy;
+			}
+		}
+		//! check to see if the character can move into the sqaure it is trying to go into (BOTTOM LEFT CORNER OF CHARACTER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		{
+			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
+			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
+			if (scrollX != 640)
+			{
+				scrollX -= movement.vx;
+			}
+			if (scrollY != 480)
+			{
+				scrollY -= movement.vy;
+			}
+		}
+		//! check to see if the character can move into the square it is tryping to go into (TOP RIGHT CORNER OF CHARACTER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		{
+			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
+			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
+			if (scrollX != 640)
+			{
+				scrollX -= movement.vx;
+			}
+			if (scrollY != 480)
+			{
+				scrollY -= movement.vy;
+			}
+		}
+		//! check to see if the character can move into the sqaure it is trying to go into (BOTTOM RIGHT CORNER OF CHARACTER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		{
+			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
+			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
+			if (scrollX != 640)
+			{
+				scrollX -= movement.vx;
+			}
+			if (scrollY != 480)
+			{
+				scrollY -= movement.vy;
+			}
+		}
+
 
 		break;
 

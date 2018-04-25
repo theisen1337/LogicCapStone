@@ -99,11 +99,17 @@ public:
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
 	int charXPosition = 1000;
 	int charYPosition = 1000;
+	int charXPosition = 0;
+	int charYPosition = 0;
+
+	//! Variables to store which chunck the character is in
+	int chunkX = charXPosition % (GC::chunkDim * GC::tileDim);
+	int chunkY = charYPosition % (GC::chunkDim * GC::tileDim);
 
 	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
 	int numberOfChunks = 5;
-	int mapXBoundary = 32 * 64 * 64;
-	int mapYBoundary = 32 * 64 * 48;
+	int mapXBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgDim;
+	int mapYBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgDim;
 
 	//! Gives positioning with player in the center
 	float scrollX = charYPosition + GC::charImgDim / 2;

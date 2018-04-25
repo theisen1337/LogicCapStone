@@ -175,6 +175,18 @@ void StateManager::Drawing()
 				al_draw_textf(font, al_map_rgb(127, 255, 0),
 					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CamY: %f", interactions.scrollY);
 				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "chunkX: %d", interactions.chunkX);
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(510, 30 + numberOfMenuItems * 20, 586, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "chunkY: %d", interactions.chunkY);
+				numberOfMenuItems++;
+
+				
 			}
 
 		}
