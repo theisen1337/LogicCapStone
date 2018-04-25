@@ -1,11 +1,5 @@
 #pragma once
 
-/*
-
-This Function allows us to interact with objects, the world, and even the character
-
-*/
-
 // Include Allegro Addons
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -31,6 +25,8 @@ This Function allows us to interact with objects, the world, and even the charac
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include "GlobalConstants.h"
 
 class Interact
 {
@@ -60,11 +56,16 @@ public:
 	//! Prints out the Entire Hotbar
 	void Interact::printHotbar(ObjectManager &OM);
 
+	int Interact::findSlot(ObjectManager &OM, std::string name);
+
+	//! Searches for Closest Object on Map
+	void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY);
+
 	//! Main Function for Placing Objects
-	void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
+	void Interact::placement(ObjectManager &OM, int mouseX, int mouseY);
 
 	//! Main Function for Interacting with Objects
-	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
+	void interactions(ObjectManager &OM, int mouse_x, int mouse_y);
 
 	/*! Allows Keyboard and Mouse Functionality
 		- Parameters:
@@ -89,23 +90,48 @@ public:
 	//! Used when Drawing
 	bool redraw = true;
 
-	//! Gives Positioning to Center of Map
-	float scrollX = 100 * 32 / 2;
-	float scrollY = 100 * 32 / 2;
+
 
 	//! Counter to Show In-Game FPS
 	int fps, fpsAccum;
 	double fpsTime;
 
 	//! Variables for the Positioning and Movement of our Character as well as it's Image
-	int charXPosition = 0;
-	int charYPosition = 0;
-	ALLEGRO_BITMAP *character = al_load_bitmap("Terrain//Dev//test.png");
-	CharacterMovement movement;
-	int mapXBoundary = 6100;
-	int mapYBoundary = 6100;
+	int charXPosition = 1000;
+	int charYPosition = 1000;
+
+	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
+	int numberOfChunks = 5;
+	int mapXBoundary = 32 * 64 * 64;
+	int mapYBoundary = 32 * 64 * 48;
+
+	//! Gives positioning with player in the center
+	float scrollX = charYPosition + GC::charImgDim / 2;
+	float scrollY = charXPosition + GC::charImgDim / 2;
+
+
+	//! bool for debug menu
+	bool showDebugMenu = false;
+
+	//! bool for fps
+	bool showFPS = true;
+
 
 private:
+
+	//! Struct to Store Closest Object Information
+	struct CloseObject
+	{
+		bool machine = false;
+		bool item = false;
+		bool ore = false;
+		int objectX = 0;
+		int objectY = 0;
+		int objectIndex = 0;
+		std::string objectName = "";
+	};
+
+	CloseObject closeObject;
 
 	//! Transformed X and Y Position from Button Press
 	float startX, startY;

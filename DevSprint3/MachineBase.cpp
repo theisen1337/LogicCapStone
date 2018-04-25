@@ -1,18 +1,12 @@
 #include "MachineBase.h"
 #include "FileIO.h"
 
-
 MachineBase::MachineBase()
 {
 	Busy = false;
 }
 
-
-
-
-MachineBase::~MachineBase()
-{
-}
+MachineBase::~MachineBase() {}
 
 //Recipe information
 
@@ -152,6 +146,16 @@ void MachineBase::setPlacement(float x, float y)
 {
 	placementX = x;
 	placementY = y;
+}
+
+void MachineBase::setName(std::string m_name)
+{
+	name = m_name;
+}
+
+std::string MachineBase::getName()
+{
+	return name;
 }
 
 float MachineBase::getPlacementX()

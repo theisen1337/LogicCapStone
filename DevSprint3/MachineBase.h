@@ -65,6 +65,9 @@ public:
 	std::vector<Stack> InputBuffer;
 	Stack OutBuffer;
 
+	void setName(std::string name);
+	std::string getName();
+
 private:
 
 	void doWork();
@@ -78,6 +81,8 @@ private:
 	//Height, and Width
 	float Width = 64;
 	float Height = 64;
+
+	std::string name;
 
 
 	// AS = AnimateSheet

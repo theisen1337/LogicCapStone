@@ -1,8 +1,14 @@
+#include "GlobalStatics.h"
+#include "World.h"
+#include "Tile.h"
+#include <vector>
+#include <math.h>
 #pragma once
 
 class CharacterMovement
 {
 public:
+
 	//! Default Constructor
 	CharacterMovement();
 	//! Constructor with starting position parameters
@@ -29,6 +35,8 @@ public:
 	int getSpeed();
 
 private:
+	
+
 	//! y position for the character
 	int characterYPosition = 0;
 	//! x position for the character

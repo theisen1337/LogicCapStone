@@ -1,158 +1,5 @@
 #include "Interact.h"
 
-// #####################
-// # OLD K-D TREE CODE #
-// #####################
-/*
-
-const int MAX_DIM = 3;
-
-struct kd_node_t
-{
-	double x[MAX_DIM];
-	struct kd_node_t *left, *right;
-};
-
-inline double dist(struct kd_node_t *a, struct kd_node_t *b, int dim)
-{
-	double t, d = 0;
-	while (dim--)
-	{
-		t = a->x[dim] - b->x[dim];
-		d += t*t;
-	}
-	return d;
-}
-
-inline void swap(struct kd_node_t *x, struct kd_node_t *y)
-{
-	double tmp[MAX_DIM];
-	memcpy(tmp, x->x, sizeof(tmp));
-	memcpy(x->x, y->x, sizeof(tmp));
-	memcpy(y->x, tmp, sizeof(tmp));
-}
-
-struct kd_node_t* find_median(struct kd_node_t *start, struct kd_node_t *end, int idx)
-{
-	if (end <= start) return NULL;
-	if (end == start + 1) return start;
-
-	struct kd_node_t *p, *store, *md = start + (end - start) / 2;
-	double pivot;
-
-	while (1)
-	{
-		pivot = md->x[idx];
-
-		swap(md, end - 1);
-		for (store = p = start; p < end; p++)
-		{
-			if (p->x[idx] < pivot)
-			{
-				if (p != store)
-					swap(p, store);
-				store++;
-			}
-		}
-		swap(store, end - 1);
-
-		// if the median has duplicate values
-		if (store->x[idx] == md->x[idx])
-			return md;
-
-		if (store > md) end = store;
-		else start = store;
-	}
-}
-
-struct kd_node_t* make_tree(struct kd_node_t *t, int len, int i, int dim)
-{
-	struct kd_node_t *n;
-
-	if (!len) return 0;
-
-	if ((n = find_median(t, t + len, i)))
-	{
-		i = (i + 1) % dim;
-		n->left = make_tree(t, n - t, i dim);
-		n->right = make_tree(n + 1, t + len - (n + 1), i, dim);
-	}
-	return n;
-}
-
-// Global for Now, Will Change
-int visited = 0;
-
-void nearest(struct kd_node_t *root, struct kd_node_t *nd, int i, int dim, struct kd_node_t **best, double *best_dist)
-{
-	double d, dx, dx2;
-
-	// If there is no root, then return
-	if (!root) return;
-
-	// Calculate Distance
-	// root = root tree
-	// nd = mouse position
-	// dim = number of dimensions
-	d = dist(root, nd, dim);
-
-	dx = root->x[i] - nd->x[i];
-	dx2 = dx * dx;
-
-	visited++;
-
-	// If found is not a set variable or if new distance is less than current best
-	if (!*best || d < *best_dist)
-	{
-		// Set the new best distance
-		*best_dist = d;
-		// update the root
-		*best = root;
-	}
-
-	// If there is no best distance, return
-	if (!*best_dist) return;
-
-	// Performs dimension shifts (horizontal, vertical, horizontal, etc.)
-	if (++i >= dim) i = 0;
-
-	// Recursively search left tree
-	nearest(dx > 0 ? root->left : root->right, nd, i, dim, best, best_dist);
-
-	// If dx2 is larger than the best_dist, then return (base case)
-	if (dx2 >= *best_dist) return;
-
-	// recursively search right tree
-	nearest(dx > 0 ? root->right : root->left, nd, i, dim, best, best_dist);
-}
-
-// PLACE BELOW CODE IN INITIALIZATION
-
-struct kd_node_t wp[] = { current X, Y positions }
-struct kd_node_t testNode = { mouse positioning }
-struct kd_node_t *root, *found;
-double best_dist;
-
-root = make_tree(wp, sizeof(wp) / sizeof(wp[1]), 0, 2);
-
-visited = 0;
-found = 0;
-
-// Root = Origin of Tree
-// TestNode = Where Mouse is Located
-// 0 is single iteration
-// 2 is the dimensions
-// Found is where the nearest coordinate is
-// best_dist is what the distance is
-nearest(root, &testNode, 0, 2, &found, &best_dist);
-
-cout << "Searching for " + testNode.x[0] + testNode.x[1] << endl;
-cout << "Found " + found->x[0], found->x[1];
-cout << "Distance " + sqrt(best_dist);
-cout << "Visited " + visited + " nodes.";
-
-*/
-
 // ####################
 // # Create our Event #
 // ####################
@@ -208,6 +55,7 @@ int Interact::checkActive()
 // ###############################
 void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 {
+
 	if (OM.hotbar[index].machine)
 	{
 		// Calculates Positioning of Machines
@@ -220,7 +68,11 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 		cout << "Placed " << OM.hotbar[index].machineType << endl << endl;
 
 		if (OM.hotbar[index].num == 0)
+		{
 			cout << "Slot " << index + 1 << " is Empty" << endl;
+			OM.hotbar[index].machine = false;
+			OM.hotbar[index].machineType = "";
+		}
 		else if (OM.hotbar[index].num == 1)
 			cout << "Slot " << index + 1 << " Now Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << endl;
 		else
@@ -247,7 +99,7 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 		cout << "[ " << arrHotbar[6] << " ] ";
 		cout << "[ " << arrHotbar[7] << " ] " << endl << endl;
 	}
-	else if (OM.hotbar[0].item)
+	else if (OM.hotbar[index].item)
 	{
 		// Calculates Positioning of Items
 		int itemX = X - 8;
@@ -258,8 +110,12 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 
 		cout << "Placed " << OM.hotbar[index].itemType << endl << endl;
 
-		if (OM.hotbar[index].num == 0)
+		if (OM.hotbar[index].num == 0) 
+		{
 			cout << "Slot " << index + 1 << " is Empty" << endl;
+			OM.hotbar[index].item = false;
+			OM.hotbar[index].itemType = "";
+		}
 		else if (OM.hotbar[index].num == 1)
 			cout << "Slot " << index + 1 << " New Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << endl;
 		else
@@ -288,7 +144,7 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 	}
 	else
 	{
-		cout << "ERROR, NO TYPE DEFINED. FIX ME" << endl;
+		cout << "Slot " << index + 1 << "is Empty" << endl;
 	}
 }
 
@@ -297,9 +153,22 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 // ##############################
 void Interact::spawnObject(ObjectManager &OM, int X, int Y)
 {
-	// If Spawning Machine
-	// If Spawning Item
-	// If Spawning Track
+	if (*stateArray[8] == true) // Spawn Machines
+	{
+		//OM.addMachine(OM, X, Y);
+	}
+	else if (*stateArray[9] == true) // Spawn Items
+	{
+
+	}
+	else if (*stateArray[10] == true) // Spawn Tracks
+	{
+
+	}
+	else
+	{
+		cout << "You tried to spawn an object, but currently are not able to. This shouldn't happen. You broke it bill." << endl;
+	}
 }
 
 // ##############################
@@ -332,7 +201,7 @@ void Interact::printSlot(ObjectManager &OM, bool &slot, int index)
 				}
 				else
 				{
-					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
+cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
 				}
 			}
 			else
@@ -376,11 +245,11 @@ void Interact::printHotbar(ObjectManager &OM)
 {
 	cout << "#########################################################################################################" << endl << endl;
 	cout << "[ h1 ] [ h2 ] [ h3 ] [ h4 ] [ h5 ] [ h6 ] [ h7 ] [ h8 ] " << endl << endl;
-	
+
 
 	for (int i = 0; i < 8; i++)
 	{
-		cout << "[ h" << i+1 << " ] = ";
+		cout << "[ h" << i + 1 << " ] = ";
 		if (OM.hotbar[i].num == 0)
 		{
 			cout << "Empty" << endl;
@@ -415,10 +284,173 @@ void Interact::printHotbar(ObjectManager &OM)
 	}
 }
 
+// ################################
+// # Finds First Open Hotbar Slot #
+// ################################
+int Interact::findSlot(ObjectManager &OM, std::string name)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		if (name.compare(OM.hotbar[i].itemType) == 0)
+		{
+			return i;
+		}
+
+		if (name.compare(OM.hotbar[i].machineType) == 0)
+		{
+			return i;
+		}
+
+		if (!OM.hotbar[i].item && !OM.hotbar[i].machine)
+		{
+			return i;
+		}
+	}
+}
+
+// ####################################
+// # Search for Closest Object on Map #
+// ####################################
+void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY)
+{
+	int prevDistance = 0;
+	int newDistance = 0;
+	int objectX = 1000000; // IMPROVE
+	int objectY = 1000000; // IMPROVE
+	int objectIndex = 0;
+
+	// Initialize Distance
+	prevDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
+
+	// ##################
+	// # LOOP FOR ITEMS #
+	// ##################
+
+	// Loops Through the Item Layer and Finds Closest Item to the Mouse Release
+	for (int i = 0; i < OM.getIL().arrItems.size(); i++)
+	{
+		// Calculates New Distance Between Mouse and Object from Item Layer
+		newDistance = sqrt(pow((mouseX - OM.getIL().arrItems[i].getCoordinateX()), 2) + pow((mouseY - OM.getIL().arrItems[i].getCoordinateY()), 2));
+
+		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
+		{
+			prevDistance = newDistance;
+
+			// Grab X and Y of Object
+			objectX = OM.getIL().arrItems[i].getCoordinateX();
+			objectY = OM.getIL().arrItems[i].getCoordinateY();
+
+			// Set X and Y to Center of Object
+			objectX += 8; closeObject.objectX = objectX;
+			objectY += 8; closeObject.objectY = objectY;
+
+			objectIndex = i; closeObject.objectIndex = objectIndex;
+
+			closeObject.objectName = OM.getIL().arrItems[i].getName();
+		}
+	}
+
+	// Set Boundaries of Object
+	maxX = objectX + 8; minX = objectX - 8;
+	maxY = objectY + 8; minY = objectY - 8;
+
+	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If user clicks on an Item ...
+	{
+		closeObject.machine = false; closeObject.ore = false;
+		closeObject.item = true;
+		return;
+	}
+
+	// #########################
+	// # LOOP FOR THE MACHINES #
+	// #########################
+
+	// Loops Through the Machine Layer and Finds Closest Machine to the Mouse Release
+	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
+	{
+		// Calculates New Distance Between Mouse and Object from Machine Layer
+		newDistance = sqrt(pow((mouseX - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouseY - OM.getML().arrMachines[j].getPlacementY()), 2));
+
+		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
+		{
+			prevDistance = newDistance;
+
+			// Grab World X and Y
+			objectX = OM.getML().arrMachines[j].getPlacementX();
+			objectY = OM.getML().arrMachines[j].getPlacementY();
+
+			// Set X and Y to Center of Object
+			objectX += 32; closeObject.objectX = objectX;
+			objectY += 32; closeObject.objectY = objectY;
+
+			objectIndex = j; closeObject.objectIndex = objectIndex;
+
+			closeObject.objectName = OM.getML().arrMachines[j].getName();
+		}
+	}
+
+	// Sets the Boundaries of the Nearest Object
+	maxX = objectX + 32; minX = objectX - 32;
+	maxY = objectY + 32; minY = objectY - 32;
+
+	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If the User Clicked Within the Object's Boundaries ...
+	{
+		closeObject.item = false; closeObject.ore = false;
+		closeObject.machine = true;
+		return;
+	}
+
+	// #####################
+	// # LOOP FOR THE ORES #
+	// #####################
+
+	// Loops through the Ore Layer and Finds Closest Ore to Mouse Release
+	for (int k = 0; k < OM.getOL().layer.size(); k++)
+	{
+		// Calculate New Distance Between Mouse and Object from Ore Layer
+		newDistance = sqrt(pow((mouseX - OM.getOL().layer[k].getXCoordinate()), 2) + pow((mouseY - OM.getOL().layer[k].getYCoordinate()), 2));
+
+		if (newDistance < prevDistance) // If Newly Calculated Distance is Closer than Previous ...
+		{
+			prevDistance = newDistance;
+
+			// Grab World X and Y
+			objectX = OM.getOL().layer[k].getXCoordinate();
+			objectY = OM.getOL().layer[k].getYCoordinate();
+
+			// Set X and Y to Center of Object
+			objectX += 32; closeObject.objectX = objectX;
+			objectY += 32; closeObject.objectY = objectY;
+
+			objectIndex = k; closeObject.objectIndex = objectIndex;
+
+			//closeObject.objectName = OM.getOL().layer[k].getName();
+		}
+	}
+
+	// Sets Boundaries of Nearest Object
+	maxX = objectX + 32; minX = objectX - 32;
+	maxY = objectY + 32; minY = objectY - 32;
+
+	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY))
+	{
+		closeObject.item = false; closeObject.machine = false;
+		closeObject.ore = true;
+		return;
+	}
+
+	closeObject.machine = false;
+	closeObject.item = false;
+	closeObject.ore = false;
+	closeObject.objectX = 0;
+	closeObject.objectY = 0;
+	closeObject.objectIndex = 0;
+}
+
 // #################
 // # Place Objects #
 // #################
-void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM)
+void Interact::placement(ObjectManager &OM, int mouseX, int mouseY)
 {
 	switch (checkActive())
 	{
@@ -508,114 +540,22 @@ void Interact::placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM)
 // #########################
 // # Interact with Objects #
 // #########################
-void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &OM, float screenX, float screenY)
+void Interact::interactions(ObjectManager &OM, int mouseX, int mouseY)
 {
-	int prevDistance = 0;
-	int newDistance = 0;
-	// Stores X Position of Object [UPDATE IN FUTURE FOR BETTER METHOD]
-	int objectX = 1000000;
-	// Stores Y Position of Object [UPDATE IN FUTURE FOR BETTER METHOD]
-	int objectY = 1000000;
-	// Stores Index in Array of Object
-	int objectIndex = 0;
+	objectSearch(OM, mouseX, mouseY);
 
-	// Initializes Distance
-	prevDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
+	//cout << "Object is item? " << closeObject.item << endl;
+	//cout << "Object is machine? " << closeObject.machine << endl;
+	//cout << "Object is ore? " << closeObject.ore << endl;
+	//cout << "ObjectX: " << closeObject.objectX << endl;
+	//cout << "ObjectY: " << closeObject.objectY << endl;
+	//cout << "ObjectIndex: " << closeObject.objectIndex << endl;
 
-	// #########################
-	// # LOOP FOR ITEM OBJECTS #
-	// #########################
+	int objectIndex = closeObject.objectIndex;
 
-	// Loops Through the Item Layer and Finds Closest Item to the Mouse Release
-	for (int i = 0; i < OM.getIL().arrItems.size(); i++)
-	{
-		// Calculates New Distance Between Mouse and Object from Item Layer
-		newDistance = sqrt(pow((mouseX - OM.getIL().arrItems[i].getCoordinateX()), 2) + pow((mouseY - OM.getIL().arrItems[i].getCoordinateY()), 2));
+	int hotbarIndex;
 
-		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
-		{
-			prevDistance = newDistance;
-
-			// Grab X and Y of Object
-			objectX = OM.getIL().arrItems[i].getCoordinateX();
-			objectY = OM.getIL().arrItems[i].getCoordinateY();
-
-			// Set X and Y to Center of Object
-			objectX += 8;
-			objectY += 8;
-
-			objectIndex = i;
-		}
-	}
-
-	// Calculate Distance Between Mouse and Center of Object
-	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
-
-	// Print Distance for Debugging
-	/*std::cout << "Distance to Nearest Object: " << newDistance << endl;*/
-
-	// Set Boundaries of Object
-	maxX = objectX + 8; minX = objectX - 8;
-	maxY = objectY + 8; minY = objectY - 8;
-
-	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If user clicks on an object ...
-	{
-		if (mouse == 1) // If the Left Button was Pressed ...
-		{
-			// 'Left Click' Object
-			OM.getIL().arrItems[objectIndex].leftClick();
-			return;
-		}
-		else if (mouse == 2) // If the Right Button was Pressed ...
-		{
-			// 'Right Click' Object
-			OM.getIL().arrItems[objectIndex].rightClick();
-			return;
-		}
-		else // If Somehow No Button was Pressed (Possibly Error) ...
-		{
-			cout << "ERROR, Please fix" << endl;
-			return;
-		}
-	}
-
-	// #########################
-	// # LOOP FOR THE MACHINES #
-	// #########################
-
-	// Loops Through the Machine Layer and Finds Closest Machine to the Mouse Release
-	for (int j = 0; j < OM.getML().arrMachines.size(); j++)
-	{
-		// Calculates New Distance Between Mouse and Object from Machine Layer
-		newDistance = sqrt(pow((mouseX - OM.getML().arrMachines[j].getPlacementX()), 2) + pow((mouseY - OM.getML().arrMachines[j].getPlacementY()), 2));
-
-		if (newDistance < prevDistance) // If the Newly Calculated Distance is Closer than the Previous ...
-		{
-			prevDistance = newDistance;
-
-			// Grab World X and Y
-			objectX = OM.getML().arrMachines[j].getPlacementX();
-			objectY = OM.getML().arrMachines[j].getPlacementY();
-
-			// Set X and Y to Center of Object
-			objectX += 32;
-			objectY += 32;
-
-			objectIndex = j;
-		}
-	}
-
-	// Calculates the Newest Distance between Mouse and Center of Object
-	newDistance = sqrt(pow((mouseX - objectX), 2) + pow((mouseY - objectY), 2));
-
-	// Print Distance for Debugging
-	/*std::cout << "Distance to Nearest Object: " << newDistance << endl;*/
-
-	// Sets the Boundaries of the Nearest Object
-	maxX = objectX + 32; minX = objectX - 32;
-	maxY = objectY + 32; minY = objectY - 32;
-
-	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY)) // If the User Clicked Within the Object's Boundaries ...
+	if (closeObject.machine)
 	{
 		if (mouse == 1) // If the Left Button was Pressed ...
 		{
@@ -626,7 +566,18 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 		else if (mouse == 2) // If the Right Button was Pressed ...
 		{
 			// 'Right Click' Machine
-			OM.getML().arrMachines[objectIndex].rightClick();
+			//OM.getML().arrMachines[objectIndex].rightClick();
+			//return;
+
+			//std::string name = OM.getML().arrMachines[objectIndex].getName();
+
+			hotbarIndex = findSlot(OM, closeObject.objectName);
+
+			OM.hotbar[hotbarIndex].machine = true;
+			OM.hotbar[hotbarIndex].machineType = closeObject.objectName;
+			OM.hotbar[hotbarIndex].num++;
+
+			OM.getML().arrMachines.erase(OM.getML().arrMachines.begin() + objectIndex);
 			return;
 		}
 		else // If Somehow No Button was Pressed (Possibly Error or middle mouse click) ...
@@ -635,39 +586,65 @@ void Interact::interactions(int mouseX, int mouseY, int mouseB, ObjectManager &O
 			return;
 		}
 	}
-
-	// LOOP THROUGH ORE OBJECTS (CURRENTLY NONE) (ALSO DEPRECIATED)
-	/*
-	for (int k = 0; k < oreLayer.arrOres.size(); k++)
+	else if (closeObject.item)
 	{
-		new_distance = sqrt(pow((mouse_x - oreLayer.arrOres[k].getXCoordinate()), 2) + pow((mouse_y - oreLayer.arrOres[k].getYCoordinate()), 2));
-
-		if (new_distance < prev_distance)
+		if (mouse == 1) // If the Left Button was Pressed ...
 		{
-			prev_distance = new_distance;
-			object_x = oreLayer.arrOres[k].getXCoordinate();
-			object_y = oreLayer.arrOres[k].getYCoordinate();
-			object_index = k;
+			// 'Left Click' Object
+			OM.getIL().arrItems[objectIndex].leftClick();
+			return;
+		}
+		else if (mouse == 2) // If the Right Button was Pressed ...
+		{
+			// 'Right Click' Object
+
+			hotbarIndex = findSlot(OM, closeObject.objectName);
+
+			OM.hotbar[hotbarIndex].item = true;
+			OM.hotbar[hotbarIndex].itemType = closeObject.objectName;
+			OM.hotbar[hotbarIndex].num++;
+
+			OM.getIL().arrItems.erase(OM.getIL().arrItems.begin() + objectIndex);
+			return;
+		}
+		else // If Somehow No Button was Pressed (Possibly Error) ...
+		{
+			cout << "ERROR, Please fix" << endl;
+			return;
 		}
 	}
-	
-	if (prev_distance < 10)
+	else if (closeObject.ore)
 	{
-		if (mouse == 1)
+		if (mouse == 1) // If left clicked ...
 		{
-			oreLayer.arrOres[object_index].leftClick();
+			// 'Left Click' Ore
+			OM.getOL().layer[objectIndex].leftClickInteract();
 			return;
 		}
 		else if (mouse == 2)
 		{
-			oreLayer.arrOres[object_index].rightClick();
+			// 'Right Click' Ore
+			OM.getOL().layer[objectIndex].rightClickInteract();
+
+			if (OM.getOL().layer[objectIndex].getHealth() == 0)
+			{
+				// Convert closeObject.objectName to coal item name
+				hotbarIndex = findSlot(OM, closeObject.objectName);
+
+				OM.hotbar[hotbarIndex].item = true;
+				OM.hotbar[hotbarIndex].itemType = closeObject.objectName; // Set to coal item name
+				OM.hotbar[hotbarIndex].num++;
+
+				OM.getOL().layer.erase(OM.getOL().layer.begin() + objectIndex);
+			}
 			return;
 		}
 		else
 		{
+			cout << "Error, please fix" << endl;
 			return;
 		}
-	}*/
+	}
 }
 
 // ####################################
@@ -691,17 +668,27 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		case ALLEGRO_KEY_UP:
 			movement.vy -= movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_DOWN:
 			movement.vy += movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_LEFT:
 			movement.vx -= movement.getSpeed();
 			break;
+
 		case ALLEGRO_KEY_RIGHT:
 			movement.vx += movement.getSpeed();
 			break;
-		case ALLEGRO_KEY_R:
-			Map.initialGeneration();
+
+		case ALLEGRO_KEY_F1:
+			showDebugMenu = !showDebugMenu;
+			break;
+
+		case ALLEGRO_KEY_F2:
+			showFPS = !showFPS;
+			break;
+
 		case ALLEGRO_KEY_ESCAPE:
 			return false;
 		}
@@ -799,6 +786,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	case ALLEGRO_EVENT_TIMER:
 		movement.moveCharacterX();//DF
 
+		scrollX += movement.vx;
 		if (movement.getCharacterXPosition() > mapXBoundary)
 		{
 			movement.setCharacterXPosition(mapXBoundary);
@@ -808,7 +796,14 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.setCharacterXPosition(0);
 		}
 
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for left boundary)
+		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < 540)
+		{
+			scrollX = al_get_display_width(display);
+		}
+
 		movement.moveCharacterY();
+		scrollY += movement.vy;
 
 		if (movement.getCharacterYPosition() > mapYBoundary)
 		{
@@ -819,8 +814,14 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.setCharacterYPosition(0);
 		}
 
+		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
+		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < 480)
+		{
+			scrollY = al_get_display_height(display);
+		}
+
 		break;
-		redraw = true; // WHY IS THIS HERE?
+
 	}
 
 	// Checks for Mouse Button Press
@@ -878,11 +879,11 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			// If interaction mode is not enabled ...
 			if (!interactMode)
 			{
-				placement(endX, endY, mouse, OM);
+				placement(OM, endX, endY);
 			}
 			else
 			{
-				interactions(endX, endY, mouse, OM, endScreenX, endScreenY);
+				interactions(OM, endX, endY);
 			}
 		}
 
@@ -907,6 +908,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			//rotate += event.mouse.dx * 0.01;
 			//zoom += event.mouse.dy * 0.01 * zoom;
 		}
+
 		zoom += event.mouse.dz * 0.1 * zoom;
 		if (zoom < 0.1) zoom = 0.1;
 		if (zoom > 10) zoom = 10;

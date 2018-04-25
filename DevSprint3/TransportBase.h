@@ -41,7 +41,7 @@ private:
 	void MoveObject(int index);
 	bool TrackStop = false;
 
-	void TransportBase::checkEndMachine();
+	void checkEndMachine();
 	
 	MachineBase * startMachine;
 	MachineBase * endMachine;

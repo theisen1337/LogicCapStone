@@ -25,6 +25,11 @@ using namespace std;
 
 vector < vector<Tile> > NewGen::initTerrain(vector < vector <Tile> > tiles, Tile::Types type)
 {
+	//Creating a vector full of the initial type.
+	std::vector<std::vector<Tile>> tempTiles;
+	tempTiles.resize(GC::chunkDim, std::vector<Tile>(GC::chunkDim, Tile(type)));
+
+	/*
 	for (int i = 0; i < chunkSize; i++) //grid[this][][] 
 	{
 
@@ -33,8 +38,8 @@ vector < vector<Tile> > NewGen::initTerrain(vector < vector <Tile> > tiles, Tile
 			tiles[i][j].setType(type);
 		}
 	}
-
-	return tiles;
+	*/
+	return tempTiles;
 }
 vector < vector<Tile> > NewGen::initOre(vector < vector <Tile> > ores, Tile::Types type)
 {

@@ -3,6 +3,7 @@
 #include <vector>
 #include "generate.h"
 #include "GlobalConstants.h"
+#include "NewGen.h"
 
 #pragma once
 class Chunk
@@ -10,12 +11,12 @@ class Chunk
 public:
 	//! Constructor
 	Chunk();
-
+	int bio;
 	//! Return the Tile Layer
-	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
+	std::vector<std::vector<Tile>>& getTiles() { return terrainLayer; };
 
 	//! Return the Ore Layer
-	std::vector<std::vector<Tile>> getOre() { return oreLayer; };
+	std::vector<std::vector<Tile>>& getOre() { return oreLayer; };
 
 	//! Set world X position
 	void setWorldPosW(int w) { worldPosW = w; };
@@ -68,6 +69,6 @@ private:
 	ALLEGRO_BITMAP *map;
 
 	//! Generation Object
-	Generation gen;
+	NewGen gen;
 };
 

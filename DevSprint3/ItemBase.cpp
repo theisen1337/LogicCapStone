@@ -3,25 +3,16 @@
 FileIO IO;
 
 // Constructor
-ItemBase::ItemBase()
-{
-	//loadItems(); No! bad taylor
-}
+ItemBase::ItemBase() {}
+
+// Deconstructor
+ItemBase::~ItemBase() {}
 
 ItemBase::ItemBase(std::string name)
 {
 	ItemsName = name;
-}
-
-void ItemBase::setPic(std::string path)
-{
-	FileIO file;
-	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
-}
-
-void ItemBase::setName(std::string name)
-{
-	ItemsName = name;
+	xCoordinate = 0;
+	yCoordinate = 0;
 }
 
 // Overloaded Constructor
@@ -38,8 +29,15 @@ ItemBase::ItemBase(std::string name, std::string category, float value, int widt
 	yCoordinate = y;
 }
 
-// Deconstructor
-ItemBase::~ItemBase() {}
+void ItemBase::setPic(std::string path)
+{
+	FileIO file;
+	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
+}
+void ItemBase::setName(std::string name)
+{
+	ItemsName = name;
+}
 
 float ItemBase::getCoordinateX()
 {
@@ -65,7 +63,8 @@ void ItemBase::rightClick()
 
 void ItemBase::setXY(float x, float y)
 {
-	xCoordinate = x, yCoordinate = y;
+	xCoordinate = x;
+	yCoordinate = y;
 }
 
 // Getters which Get Values of Object
@@ -118,8 +117,6 @@ void ItemBase::placeItems()
 	// To Do
 }
 
-
-
 void ItemBase::loadItems()
 {
 	checkItemsDirectory();
@@ -128,6 +125,7 @@ void ItemBase::loadItems()
 	//load_Weapons(); ...
 }
 
+// Ensures we have Access to the Item Image Directory
 void ItemBase::checkItemsDirectory()
 {
 	if (!IO.DirectoryExist("Items"))
@@ -138,11 +136,13 @@ void ItemBase::checkItemsDirectory()
 
 void ItemBase::load_Ores()
 {
+	// Checks for Ore Images
 	if (!IO.DirectoryExist("Items\\Ores"))
 	{
 		IO.CreateDir("Items\\Ores");
 	}
 
+	// Loads up Coal Items
 	std::string test[] = { "Items_COAL.png" };
 
 	for (int i = 0; i < test->length(); i++)
@@ -155,12 +155,11 @@ void ItemBase::load_Ores()
 
 ALLEGRO_BITMAP * ItemBase::getBitMap()
 {
-
 	return ItemsImage;
 }
 
 void ItemBase::Draw()
 {
-	al_draw_bitmap(ItemsImage, xCoordinate, yCoordinate,0);
+	al_draw_bitmap(ItemsImage, xCoordinate, yCoordinate, 0);
 	//al_draw_scaled_bitmap(ItemsImage,0,0, 16,16, xCoordinate, yCoordinate, 32,32,0);
 }
