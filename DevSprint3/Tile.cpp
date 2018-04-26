@@ -126,9 +126,10 @@ void Tile::genPicture()
 			atLoc = "sand.png";
 			break;
 		default:
-			atLoc = "sand5.png";
+			atLoc = "sand.png";
 			break;
 		}
+		break;
 	case Tile::QUICK: //added by brandon
 		//IF dirt set pic to dirt image
 		r = rand() % 4 + 1;
@@ -150,7 +151,7 @@ void Tile::genPicture()
 			atLoc = "qSand5.png";
 			break;
 		}
-
+		break;
 	case Tile::TEMP_QUICK: //addded by brandon
 		atLoc = "qSand1.png";
 		break;
@@ -169,9 +170,9 @@ void Tile::genPicture()
 				atLoc = "snow3.png";
 				break;
 		}
-
+		break;
 	case Tile::ICE: //added by brandon
-		atLoc = "SNOWNEW1.png";
+		atLoc = "ICE.png";
 		break;
 
 	case Tile::EMPTY:

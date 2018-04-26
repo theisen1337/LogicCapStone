@@ -86,7 +86,7 @@ void Chunk::genChunk(int bio)
 
 	if (bio == 0)
 	{
-		cout << "grass" << endl; //DEBUG
+		//cout << "grass" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::GRASS); //sets the initial grid to a single tile type
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
@@ -99,7 +99,7 @@ void Chunk::genChunk(int bio)
 	
 	else if (bio > 0)
 	{
-		cout << "dessert" << endl; //DEBUG
+		//cout << "dessert" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SAND); //sets the initial grid to a single tile type
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::QUICK); ////places other tiles
 
@@ -112,7 +112,7 @@ void Chunk::genChunk(int bio)
 	
 	else if (bio < 0)
 	{
-		cout << "snow" << endl; //DEBUG
+		//cout << "snow" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SNOW); //sets the initial grid to a single tile type
 		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
 
@@ -122,6 +122,10 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
+
+
+
+
 
 	/*
 	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);

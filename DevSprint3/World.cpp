@@ -24,7 +24,7 @@ vector < vector <int> > World::bioChange1(vector < vector <int> > &biome)
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			cout << biome[i][j]; //DEBUG
+			//cout << biome[i][j]; //DEBUG
 		}
 	}
 
@@ -57,12 +57,12 @@ vector < vector <int> > World::bioChange1(vector < vector <int> > &biome)
 				bio = 0;
 			}
 
-			cout << "r: " << r << ", bio: " << bio << endl;
+			//cout << "r: " << r << ", bio: " << bio << endl;
 
 			r = rand() % 3 - 1;
 			biome[i][j] = bio + r;
 
-			cout << "r: " << r << ", biome: " << biome[i][j] << endl << endl;
+			//cout << "r: " << r << ", biome: " << biome[i][j] << endl << endl;
 		}
 	}
 
@@ -71,9 +71,9 @@ vector < vector <int> > World::bioChange1(vector < vector <int> > &biome)
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			cout << biome[i][j] << " ";
+			//cout << biome[i][j] << " ";
 		}
-		cout << endl;
+		//cout << endl;
 	}
 
 	return biome;
@@ -132,7 +132,7 @@ void World::initialGeneration(ObjectManager &obj)
 	//CONSTRUCTION
 	//ADD HERE!!
 	biome.resize(GC::worldDim, vector<int>(GC::worldDim, 0)); //resize the vector to be the same as the World
-	cout << biome.size() << biome[0].size();
+	//cout << biome.size() << biome[0].size();
 	bioChange1(biome); //change the biome stats for the biome vector
 
 	//DEBUG
@@ -140,9 +140,9 @@ void World::initialGeneration(ObjectManager &obj)
 	{
 		for (int j = 0; j < GC::worldDim; j++)
 		{
-			cout << biome[i][j] << " ";
+			//cout << biome[i][j] << " ";
 		}
-		cout << endl;
+		//cout << endl;
 	}
 
 	//Actual Generation
