@@ -5,6 +5,14 @@
 #include <math.h>
 #pragma once
 
+
+struct Compass {
+bool N;
+bool E;
+bool S;
+bool W;
+};
+
 class CharacterMovement
 {
 public:
@@ -14,11 +22,11 @@ public:
 	//! Constructor with starting position parameters
 	CharacterMovement(int xPosition, int yPosition);
 	//! Get the x position of the character
-	int getCharacterXPosition();
+	int & getCharacterXPosition();
 	//! Set the x position of the character
 	void setCharacterXPosition(int x);
 	//! Get the y position of the character
-	int getCharacterYPosition();
+	int & getCharacterYPosition();
 	//! Set the y position of the character
 	void setCharacterYPosition(int y);
 	//! check current tile to see if the character can be there
@@ -33,10 +41,14 @@ public:
 	void moveCharacterY();
 	//! get the speed of the character
 	int getSpeed();
+	
+	//!direction of player;
+	Compass CharCompass;
+
 
 private:
 	
-
+	
 	//! y position for the character
 	int characterYPosition = 0;
 	//! x position for the character

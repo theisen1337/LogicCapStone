@@ -73,6 +73,23 @@ terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP
 terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //revamp(vector < vector <Tile> > tiles, Tile::Types temp, Tile::Types newTile);
 }
 
-
-
-********************************/
+biomechange1 world.cpp
+/*
+int r = rand() % 4;
+if (r == 0)
+{
+cout << "was " << bio << " - ";
+bio++;
+cout << "now " << bio << " - ";
+}
+else if (r == 1)
+{
+cout << "was " << bio << " - ";
+bio--;
+cout << "now " << bio << " - ";
+}
+else
+{
+cout << "stays " << bio << " - ";
+}
+*/

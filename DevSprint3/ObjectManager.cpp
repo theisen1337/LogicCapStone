@@ -32,6 +32,14 @@ void ObjectManager::Init()
 	hotbar[1].machine = true;
 	hotbar[1].machineType = "Smith";
 	hotbar[1].num = 1;
+
+	hotbar[3].item = true;
+	hotbar[3].itemType = "Coal";
+	hotbar[3].num = 4;
+
+	hotbar[4].item = true;
+	hotbar[4].itemType = "Iron";
+	hotbar[4].num = 3;
 }
 
 MachineBase & ObjectManager::getMLMachine(std::vector<MachineBase> & Machines, int index)
@@ -46,19 +54,26 @@ void ObjectManager::addMachine(float X, float Y)
 
 void ObjectManager::addMachine(float X, float Y, int i)
 {
-	if (hotbar[i].machineType == "Smith")
+
+	if (i == -1)
+	{
+		
+	}
+	else if (hotbar[i].machineType == "Smith")
 	{
 		Smith smith;
 
 		smith.setPlacement(X, Y);
+		smith.setName("Smith");
 
 		ML.arrMachines.push_back(smith);
 	}
-	if (hotbar[i].machineType == "Miner")
+	else if (hotbar[i].machineType == "Miner")
 	{
 		Miner miner;
 
 		miner.setPlacement(X, Y);
+		miner.setName("Miner");
 
 		ML.arrMachines.push_back(miner);
 	}
@@ -107,22 +122,24 @@ void ObjectManager::addItem(float X, float Y, ItemBase item)
 
 void ObjectManager::addItem(float X, float Y, int i)
 {
-	/*if (hotbar[i].itemType == "Coal")
+	if (hotbar[i].itemType == "Coal")
 	{
-		Coal coal;
+		CoalOreItem coal;
 
-		coal.setPlacement(X, Y);
+		coal.setXY(X, Y);
+		coal.setName("Coal");
 
 		IL.arrItems.push_back(coal);
 	}
 	if (hotbar[i].itemType == "Iron")
 	{
-		Iron iron;
+		IronOreItem iron;
 
-		iron.setPlacement(X, Y);
+		iron.setXY(X, Y);
+		iron.setName("Iron");
 
 		IL.arrItems.push_back(iron);
-	}*/
+	}
 }
 #pragma endregion
 

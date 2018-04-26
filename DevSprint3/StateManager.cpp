@@ -12,6 +12,7 @@ void StateManager::run()
 
 void StateManager::MainLoop()
 {
+
 	while (GAMERUN)
 	{
 		switch (GlobStat.getState())
@@ -59,9 +60,10 @@ void StateManager::Initialization()
 
 	//INITIALIZE THE OBJECTS
 	ObjMang.Init();
-	Map.InitalizeClass();
+	Map.InitalizeClass(ObjMang);
 	player.InitializeClass();
 	mainDraw.Init();
+	GlobStat.InitializeTime();
 
 	timer = al_create_timer(1.0 / 60);
 
@@ -158,7 +160,7 @@ void StateManager::Drawing()
 				al_draw_filled_rounded_rectangle(4, 4, 100, 30,
 					8, 8, al_map_rgba(0, 0, 0, 200));
 				al_draw_textf(font, al_map_rgb(255, 255, 255),
-					54, 8, ALLEGRO_ALIGN_CENTRE, "FPS: %d", interactions.fps);
+					8, 8, ALLEGRO_ALIGN_LEFT, "FPS: %d", interactions.fps);
 			}
 
 			int numberOfMenuItems = 0;
@@ -193,6 +195,22 @@ void StateManager::Drawing()
 				al_draw_textf(font, al_map_rgb(127, 255, 0),
 					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "CamY: %f", interactions.scrollY);
 				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(470, 30 + numberOfMenuItems * 20, 606, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "RunTime: %f", GlobStat.getRunTime());
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(470, 30 + numberOfMenuItems * 20, 606, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "GameTime: %f", GlobStat.getGameTime());
+				numberOfMenuItems++;
+
+				al_draw_filled_rounded_rectangle(470, 30 + numberOfMenuItems * 20, 606, 56 + numberOfMenuItems * 20, 8, 8, al_map_rgba(0, 0, 0, 200));
+				al_draw_textf(font, al_map_rgb(127, 255, 0),
+					550, 34 + numberOfMenuItems * 20, ALLEGRO_ALIGN_CENTRE, "PauseTime: %f", GlobStat.getPauseTime());
+				numberOfMenuItems++;
+
 			}
 
 		}

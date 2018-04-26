@@ -21,14 +21,14 @@ CharacterMovement::CharacterMovement(int xPosition, int yPosition)
 // #####################
 // # RETURN X POSITION #
 // #####################
-int CharacterMovement::getCharacterXPosition()
+int & CharacterMovement::getCharacterXPosition()
 {
 	return characterXPosition;
 }
 // #####################
 // # RETURN Y POSITION #
 // #####################
-int CharacterMovement::getCharacterYPosition()
+int & CharacterMovement::getCharacterYPosition()
 {
 	return characterYPosition;
 }
@@ -39,6 +39,7 @@ int CharacterMovement::getSpeed()
 {
 	return speed;
 }
+
 
 // ##################
 // # SET X POSITION #

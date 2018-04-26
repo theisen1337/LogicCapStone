@@ -31,20 +31,20 @@ void Tile::genPicture()
 			atLoc = "grass1.png";
 			break;
 		case 2:
-			atLoc = "grass2.png";
+			atLoc = "grass1.png";
 			break;
 		case 3:
-			atLoc = "grass3.png";
+			atLoc = "grass1.png";
 			break;
 		case 4:
-			atLoc = "grass4.png";
+			atLoc = "grass1.png";
 			break;
 		default:
 			atLoc = "grass1.png";
 			break;
 		}
 		break;
-
+		
 	case Tile::WATER:
 		//IF water set pic to water image
 		r = rand() % 4 + 1;
@@ -108,11 +108,7 @@ void Tile::genPicture()
 		atLoc = "coal.png";
 		break;
 
-	case Tile::EMPTY:
-		atLoc = "empty.png";
-		break;
-
-	case Tile::SAND:
+	case Tile::SAND: //added by brandon
 		//IF dirt set pic to dirt image
 		r = rand() % 4 + 1;
 		switch (r)
@@ -133,8 +129,7 @@ void Tile::genPicture()
 			atLoc = "sand5.png";
 			break;
 		}
-
-	case Tile::QUICK:
+	case Tile::QUICK: //added by brandon
 		//IF dirt set pic to dirt image
 		r = rand() % 4 + 1;
 		switch (r)
@@ -154,10 +149,34 @@ void Tile::genPicture()
 		default:
 			atLoc = "qSand5.png";
 			break;
-		}    
-	case Tile::TEMP_QUICK:
-			atLoc = "sand.png";
-			break;
+		}
+
+	case Tile::TEMP_QUICK: //addded by brandon
+		atLoc = "qSand1.png";
+		break;
+
+	case Tile::SNOW:
+		r = rand() % 3 + 1;
+		switch (r)
+		{
+			case 1:
+				atLoc = "snow1.png";
+				break;
+			case 2:
+				atLoc = "snow2.png";
+				break;
+			case 3:
+				atLoc = "snow3.png";
+				break;
+		}
+
+	case Tile::ICE: //added by brandon
+		atLoc = "ICE.png";
+		break;
+
+	case Tile::EMPTY:
+		atLoc = "empty.png";
+		break;
 	default:
 		break;
 	}

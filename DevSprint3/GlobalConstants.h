@@ -17,6 +17,9 @@ namespace GC
 	//! Item Image Start Size
 	extern const int itemImgDim;
 
-	//! Character Dimensions
-	extern const int charImgDim;
+	//Character Dimensions
+	extern const int charImgHeight;
+
+	//Character Dimensions
+	extern const int charImgWidth;
 }

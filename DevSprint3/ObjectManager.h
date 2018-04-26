@@ -59,8 +59,8 @@ public:
 		int num = 0;
 	};
 
-	void ObjectManager::addMachine(float X, float Y, int i);
-	void ObjectManager::addItem(float X, float Y, int i);
+	void addMachine(float X, float Y, int i);
+	void addItem(float X, float Y, int i);
 
 	std::vector<hotbarItems> hotbar = std::vector<hotbarItems>(8); // CHECK SIZE IN MEMORY
 

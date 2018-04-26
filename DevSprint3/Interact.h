@@ -1,11 +1,5 @@
 #pragma once
 
-/*
-
-This Function allows us to interact with objects, the world, and even the character
-
-*/
-
 // Include Allegro Addons
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -62,11 +56,16 @@ public:
 	//! Prints out the Entire Hotbar
 	void printHotbar(ObjectManager &OM);
 
+	int findSlot(ObjectManager &OM, std::string name);
+
+	//! Searches for Closest Object on Map
+	void objectSearch(ObjectManager &OM, int mouseX, int mouseY);
+
 	//! Main Function for Placing Objects
-	void placement(int mouseX, int mouseY, int mouseB, ObjectManager &OM);
+	void placement(ObjectManager &OM, int mouseX, int mouseY);
 
 	//! Main Function for Interacting with Objects
-	void interactions(int mouse_x, int mouse_y, int mouse_b, ObjectManager &OM, float screenX, float screenY);
+	void interactions(ObjectManager &OM, int mouse_x, int mouse_y);
 
 	/*! Allows Keyboard and Mouse Functionality
 		- Parameters:
@@ -101,14 +100,18 @@ public:
 	int charXPosition = 1000;
 	int charYPosition = 1000;
 
+	//! Variables to store which chunck the character is in
+	int chunkX = charXPosition % (GC::chunkDim * GC::tileDim);
+	int chunkY = charYPosition % (GC::chunkDim * GC::tileDim);
+
 	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
 	int numberOfChunks = 5;
-	int mapXBoundary = 32 * 64 * 64;
-	int mapYBoundary = 32 * 64 * 48;
+	int mapXBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgWidth;
+	int mapYBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgHeight;
 
 	//! Gives positioning with player in the center
-	float scrollX = charYPosition + GC::charImgDim / 2;
-	float scrollY = charXPosition + GC::charImgDim / 2;
+	float scrollX = charYPosition + GC::charImgWidth / 2;
+	float scrollY = charXPosition + GC::charImgHeight / 2;
 
 
 	//! bool for debug menu
@@ -122,6 +125,20 @@ public:
 
 
 private:
+
+	//! Struct to Store Closest Object Information
+	struct CloseObject
+	{
+		bool machine = false;
+		bool item = false;
+		bool ore = false;
+		int objectX = 0;
+		int objectY = 0;
+		int objectIndex = 0;
+		std::string objectName = "";
+	};
+
+	CloseObject closeObject;
 
 	//! Transformed X and Y Position from Button Press
 	float startX, startY;
