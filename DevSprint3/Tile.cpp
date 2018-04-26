@@ -114,16 +114,16 @@ void Tile::genPicture()
 		switch (r)
 		{
 		case 1:
-			atLoc = "sand1.png";
+			atLoc = "sand.png";
 			break;
 		case 2:
-			atLoc = "sand2.png";
+			atLoc = "sand.png";
 			break;
 		case 3:
-			atLoc = "sand3.png";
+			atLoc = "sand.png";
 			break;
 		case 4:
-			atLoc = "sand4.png";
+			atLoc = "sand.png";
 			break;
 		default:
 			atLoc = "sand5.png";
@@ -171,7 +171,7 @@ void Tile::genPicture()
 		}
 
 	case Tile::ICE: //added by brandon
-		atLoc = "ICE.png";
+		atLoc = "SNOWNEW1.png";
 		break;
 
 	case Tile::EMPTY:
