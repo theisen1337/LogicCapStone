@@ -51,7 +51,7 @@ public:
 	Tile(Tile::Types tileType);
 
 	//! Getter for tile type
-	Tile::Types getType() { return type; };
+	Tile::Types & getType() { return type; };
 	
 	//! Setter for tile type
 	void setType(Tile::Types tileType);

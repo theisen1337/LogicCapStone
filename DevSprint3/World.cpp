@@ -7,13 +7,13 @@ World::World()
 		
 }
 
-void World::InitalizeClass()
+void World::InitalizeClass(ObjectManager &obj)
 {
 	//worldSize = 5;
 	//Sets the vector size
 	world.resize(GC::worldDim, std::vector<Chunk>(GC::worldDim, Chunk()));
 	//Runs the initial generation of map
-	initialGeneration();
+	initialGeneration(obj);
 }
 
 
@@ -125,7 +125,7 @@ vector< vector <Chunk> > World::borderControl(vector< vector <Chunk> > world)
 	return world;
 }
 
-void World::initialGeneration()
+void World::initialGeneration(ObjectManager &obj)
 {
 	//Assign world positions to chunks
 
@@ -156,6 +156,26 @@ void World::initialGeneration()
 			world[i][j].genChunk(biome[i][j]); //use the biome stat from the biome vector
 		}
 	}
+
+	mastTiles.resize(GC::chunkDim*GC::worldDim, std::vector<std::reference_wrapper<Tile>>(GC::chunkDim*GC::worldDim, world[0][0].getTiles()[0][0]));
+	mastOres.resize(GC::chunkDim*GC::worldDim, std::vector<std::reference_wrapper<Tile>>(GC::chunkDim*GC::worldDim, world[0][0].getTiles()[0][0]));
+
+	for (int i = 0; i < world.size(); i++)
+	{
+		for (int j = 0; j < world[i].size(); j++)
+		{
+			for (int k = 0; k < GC::chunkDim; k++)
+			{
+				for (int l = 0; l < GC::chunkDim; l++)
+				{
+					mastTiles[(i * GC::chunkDim) + k][(j * GC::chunkDim) + l] = std::ref(world[i][j].getTiles()[k][l]);
+					mastOres[(i * GC::chunkDim) + k][(j * GC::chunkDim) + l] = std::ref(world[i][j].getOre()[k][l]);
+				}
+			}
+		}
+	}
+
+	popOreLayer(obj);
 }
 
 //Required for Infinate Map
@@ -192,3 +212,39 @@ void World::drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std
 
 //32x32-tile chunks, 5x5-chunk world, resulting in 160x160-tile world
 
+void World::popOreLayer(ObjectManager & objm)
+{
+	for (int g = 0; g < world.size(); g++)
+	{
+		for (int h = 0; h < world[g].size(); h++)
+		{
+			for (int i = 0; i < world[g][h].getOre().size(); i++)
+			{
+				for (int j = 0; j < world[g][h].getOre()[i].size(); j++)
+				{
+					if (world[g][h].getOre()[i][j].getType() != Tile::EMPTY)
+					{
+						Tile::Types oreType = world[g][h].getOre()[i][j].getType();
+						switch (oreType)
+						{
+						case Tile::COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_COAL:
+							objm.getOL().addToLayer(OreBase(OreBase::Coal, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						case Tile::TEMP_IRON:
+							objm.getOL().addToLayer(OreBase(OreBase::Iron, world[g][h].getOre()[i][j], g, h, i, j));
+							break;
+						default:
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+}

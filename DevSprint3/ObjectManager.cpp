@@ -54,6 +54,7 @@ void ObjectManager::addMachine(float X, float Y)
 
 void ObjectManager::addMachine(float X, float Y, int i)
 {
+
 	if (i == -1)
 	{
 		

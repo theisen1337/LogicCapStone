@@ -22,11 +22,11 @@ public:
 	//! Constructor with starting position parameters
 	CharacterMovement(int xPosition, int yPosition);
 	//! Get the x position of the character
-	int getCharacterXPosition();
+	int & getCharacterXPosition();
 	//! Set the x position of the character
 	void setCharacterXPosition(int x);
 	//! Get the y position of the character
-	int getCharacterYPosition();
+	int & getCharacterYPosition();
 	//! Set the y position of the character
 	void setCharacterYPosition(int y);
 	//! check current tile to see if the character can be there

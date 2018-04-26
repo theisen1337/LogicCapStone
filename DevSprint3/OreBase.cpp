@@ -1,15 +1,14 @@
 #include "OreBase.h"
 
-
-OreBase::OreBase()
+OreBase::OreBase(Type OT, Tile &t, int wX, int wY, int cX, int cY) :tileRef(t)
 {
+	oreType = OT;
+	xWorld = wX;
+	yWorld = wY;
+	xChunk = cX;
+	yChunk = cY;
+
 }
-
-OreBase::OreBase(std::string oreType)
-{
-
-}
-
 int OreBase::getHealth()
 {
 	return health;
@@ -31,11 +30,13 @@ void OreBase::leftClickInteract()
 
 void OreBase::rightClickInteract()
 {
-	al_show_native_message_box(al_get_current_display(),
-		"Character Interaction",
-		"Character right clicked on an ore ore",
-		"Success",
-		NULL, ALLEGRO_MESSAGEBOX_ERROR);
+	health--;
+	if (health = 0)
+	{
+		tileRef.setType(Tile::EMPTY);
+
+
+	}
 }
 
 void OreBase::Drop()
@@ -45,25 +46,25 @@ void OreBase::Drop()
 
 void OreBase::gotHit(int damage)
 {
-	health -= damage;
-	if (health < 0)
-	{
-		Drop();
-	}
+	
 }
 
 void OreBase::draw()
 {
 }
 
-void OreBase::setXCoordinate(int x)
+int OreBase::getLocX()
 {
-	xCoordinate = x;
+	int loc;
+	loc = (xWorld * GC::chunkDim * GC::tileDim) + (xChunk * GC::tileDim);
+	return loc;
 }
 
-void OreBase::setYCoordinate(int y)
+int OreBase::getLocY()
 {
-	yCoordinate = y;
+	int loc;
+	loc = (yWorld * GC::chunkDim * GC::tileDim) + (yChunk * GC::tileDim);
+	return loc;
 }
 
 OreBase::~OreBase()
@@ -72,10 +73,28 @@ OreBase::~OreBase()
 
 void OreBase::setTravelSpeed(int speed)
 {
-	travelSpeed = speed;
+	
 }
 
 void OreBase::setHealth(int health)
 {
-	this->health = health;
+	
+}
+
+std::string OreBase::getName()
+{
+	std::string name;
+	switch (oreType)
+	{
+	case OreBase::Iron:
+		name = "Iron";
+		break;
+	case OreBase::Coal:
+		name = "Coal";
+		break;
+	default:
+		break;
+	}
+
+	return name;
 }

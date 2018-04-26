@@ -4,6 +4,14 @@
 class GlobalStatics 
 {
 public:
+
+	enum State {
+		MAINMENU,
+		GAME,
+		PAUSE,
+		LOADING
+	};
+
 	int & getCPS();
 
 	float getRunTime();
@@ -16,6 +24,10 @@ public:
 
 
 	void InitializeTime();
+
+	GlobalStatics::State & getState();
+
+	void setState(GlobalStatics::State st);
 private:
 
 	

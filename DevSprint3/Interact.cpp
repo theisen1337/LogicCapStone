@@ -408,15 +408,15 @@ void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY)
 	for (int k = 0; k < OM.getOL().layer.size(); k++)
 	{
 		// Calculate New Distance Between Mouse and Object from Ore Layer
-		newDistance = sqrt(pow((mouseX - OM.getOL().layer[k].getXCoordinate()), 2) + pow((mouseY - OM.getOL().layer[k].getYCoordinate()), 2));
+		newDistance = sqrt(pow((mouseX - OM.getOL().layer[k].getLocX()), 2) + pow((mouseY - OM.getOL().layer[k].getLocY()), 2));
 
 		if (newDistance < prevDistance) // If Newly Calculated Distance is Closer than Previous ...
 		{
 			prevDistance = newDistance;
 
 			// Grab World X and Y
-			objectX = OM.getOL().layer[k].getXCoordinate();
-			objectY = OM.getOL().layer[k].getYCoordinate();
+			objectX = OM.getOL().layer[k].getLocX();
+			objectY = OM.getOL().layer[k].getLocY();
 
 			// Set X and Y to Center of Object
 			objectX += 32; closeObject.objectX = objectX;
@@ -635,7 +635,8 @@ void Interact::interactions(ObjectManager &OM, int mouseX, int mouseY)
 				OM.hotbar[hotbarIndex].itemType = closeObject.objectName; // Set to coal item name
 				OM.hotbar[hotbarIndex].num++;
 
-				OM.getOL().layer.erase(OM.getOL().layer.begin() + objectIndex);
+				//THIS LINE HAD A PROBLEM -DUSTIN
+				//OM.getOL().layer.erase(OM.getOL().layer.begin() + objectIndex);
 			}
 			return;
 		}
@@ -650,10 +651,32 @@ void Interact::interactions(ObjectManager &OM, int mouseX, int mouseY)
 // ####################################
 // # Mouse and Keyboard Functionality #
 // ####################################
-bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY)
+bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic)
 {
 	al_wait_for_event(queue, &event);
+	switch (globStatic.getState())
+	{
+	case GlobalStatics::MAINMENU:
+		return MainMenuInteractions(globStatic);
+		break;
 
+	case GlobalStatics::GAME:
+		return GameInteractions(Map, Art, display, font, queue, OM, screenX, screenY, globStatic);
+		break;
+
+	case GlobalStatics::PAUSE:
+
+		break;
+
+	default:
+
+		break;
+	}
+	
+}
+
+bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE * queue, ObjectManager & OM, float screenX, float screenY, GlobalStatics & globStatic)
+{
 	// Checks to See if Window Closed
 	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 	{
@@ -673,7 +696,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			movement.vx += movement.getSpeed();
 			movement.CharCompass.E = true;
 		}
-		else if (event.keyboard.keycode == ALLEGRO_KEY_DOWN )
+		else if (event.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			movement.vy += movement.getSpeed();
 			movement.CharCompass.S = true;
@@ -686,30 +709,30 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		/*switch (event.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_UP:
-			
-			break;
+
+		break;
 		case ALLEGRO_KEY_DOWN:
-			movement.vy += movement.getSpeed();
-			movement.setDirection(South);
-			break;
+		movement.vy += movement.getSpeed();
+		movement.setDirection(South);
+		break;
 		case ALLEGRO_KEY_LEFT:
-			movement.vx -= movement.getSpeed();
-			movement.setDirection(West);
-			break;
+		movement.vx -= movement.getSpeed();
+		movement.setDirection(West);
+		break;
 		case ALLEGRO_KEY_RIGHT:
-			movement.vx += movement.getSpeed();
-			movement.setDirection(East);
-			break;
+		movement.vx += movement.getSpeed();
+		movement.setDirection(East);
+		break;
 		case ALLEGRO_KEY_F1:
-			showDebugMenu = !showDebugMenu;
-			break;
+		showDebugMenu = !showDebugMenu;
+		break;
 		case ALLEGRO_KEY_F2:
-			showFPS = !showFPS;
-			break;
+		showFPS = !showFPS;
+		break;
 		case ALLEGRO_KEY_R:
-			Map.initialGeneration();
+		Map.initialGeneration();
 		case ALLEGRO_KEY_ESCAPE:
-			return false;
+		return false;
 		}*/
 		break;
 
@@ -872,10 +895,10 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			}
 		}
 		//! check to see if the character can move into the sqaure it is trying to go into (BOTTOM LEFT CORNER OF CHARACTER)
-		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
-			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at((movement.getCharacterXPosition() / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
@@ -889,10 +912,10 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			}
 		}
 		//! check to see if the character can move into the square it is tryping to go into (TOP RIGHT CORNER OF CHARACTER)
-		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
-			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at((movement.getCharacterYPosition() / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
@@ -906,10 +929,10 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			}
 		}
 		//! check to see if the character can move into the sqaure it is trying to go into (BOTTOM RIGHT CORNER OF CHARACTER)
-		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
-			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
-			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgDim) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
+		else if (Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::COAL
+			|| Map.getChunk().at(chunkX).at(chunkY).getOre().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::IRON
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::QUICK
+			|| Map.getChunk().at(chunkX).at(chunkY).getTiles().at(((movement.getCharacterXPosition() + GC::charImgWidth) / GC::tileDim) % GC::chunkDim).at(((movement.getCharacterYPosition() + GC::charImgHeight) / GC::tileDim) % GC::chunkDim).getType() == Tile::WATER)
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
@@ -929,7 +952,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	}
 
 	// Checks for Mouse Button Press
-	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) 
+	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 	{
 		// Grab X and Y Coordinates of Top Left of Screen
 		startScreenX = screenX;
@@ -953,7 +976,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	}
 
 	// Checks for Mouse Button Release
-	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) 
+	if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 	{
 		// Grab X and Y Coordinates of Top Left of Screen
 		endScreenX = screenX;
@@ -973,7 +996,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		//std::cout << "End Mouse: (" << mouseposX << ", " << mouseposY << ")" << endl;
 		//std::cout << "End Screen: (" << abs(endScreenX) << ", " << abs(endScreenY) << ")" << endl;
 		//std::cout << "End Coordinates: (" << endX << ", " << endY << ")" << endl << endl;
-		
+
 		// Calculate Distance from Start to End Position
 		distance = sqrt(pow((endScreenX - startScreenX), 2) + pow((endScreenY - startScreenY), 2));
 
@@ -997,7 +1020,7 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 
 	// Actions for Mouse Movement
 	if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-		
+
 		// If it was a Left Click, Scroll Across the Map
 		if (mouse == 1) {
 			float x = event.mouse.dx / zoom;
@@ -1005,9 +1028,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 			scrollX -= x * cos(rotate) + y * sin(rotate);
 			scrollY -= y * cos(rotate) - x * sin(rotate);
 		}
-		
+
 		// If it was a Right Click, Zoom/Rotate the Map [CURRENTLY NOT AVAILABLE]
-		if (mouse == 2) 
+		if (mouse == 2)
 		{
 			//rotate += event.mouse.dx * 0.01;
 			//zoom += event.mouse.dy * 0.01 * zoom;
@@ -1023,11 +1046,42 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 		redraw = true;
 
 	// Redraws when Window Changes Size
-	if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) 
+	if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE)
 	{
 		al_acknowledge_resize(display);
 		redraw = true;
 	}
 
 	return true;
+
 }
+
+bool Interact::MainMenuInteractions(GlobalStatics & globStatic)
+{
+
+	// Checks to See if Window Closed
+	if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+	{
+		return false;
+	}
+
+	if (event.type == ALLEGRO_EVENT_KEY_UP)
+	{
+		if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+		{
+			globStatic.setState(GlobalStatics::GAME);
+			redraw = true;
+		}
+	}
+	else if (event.type == ALLEGRO_EVENT_KEY_DOWN)
+	{
+		if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
+		{
+			globStatic.setState(GlobalStatics::GAME);
+			redraw = true;
+		}
+	}
+
+}
+
+

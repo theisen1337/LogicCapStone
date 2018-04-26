@@ -27,6 +27,8 @@ static bool InitialClock = true;
 static bool isPausedB = false;
 static float TotalPauseTime = 0;
 
+static GlobalStatics::State gameState = GlobalStatics::MAINMENU;
+
 void GlobalStatics::InitializeTime()
 {
 	//only allow the RunTime Clock to be set to zero once.
@@ -95,4 +97,14 @@ bool GlobalStatics::isPaused()
 int & GlobalStatics::getCPS()
 {
 	return TicksPerSecond;
+}
+
+GlobalStatics::State & GlobalStatics::getState()
+{
+	return gameState;
+}
+
+void GlobalStatics::setState(GlobalStatics::State st)
+{
+	gameState = st;
 }

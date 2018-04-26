@@ -13,10 +13,10 @@ public:
 	Chunk();
 
 	//! Return the Tile Layer
-	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
+	std::vector<std::vector<Tile>> & getTiles() { return terrainLayer; };
 
 	//! Return the Ore Layer
-	std::vector<std::vector<Tile>> getOre() { return oreLayer; };
+	std::vector<std::vector<Tile>> & getOre() { return oreLayer; };
 
 	//! Set world X position
 	void setWorldPosW(int w) { worldPosW = w; };
