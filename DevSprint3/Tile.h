@@ -30,6 +30,7 @@ public:
 		SNOW, // added by brandon
 		ICE, // added by brandon
 		TEMP_ICE, // added by brandon
+		DEPORE,
 		EMPTY/*! Empty tile*/
 	};
 	//! Loaded Tile Boolean

@@ -32,9 +32,9 @@ void OreBase::leftClickInteract()
 void OreBase::rightClickInteract()
 {
 	health--;
-	if (health = 0)
+	if (health == 0)
 	{
-		tileRef.setType(Tile::EMPTY);
+		tileRef.setType(Tile::DEPORE);
 
 
 	}
