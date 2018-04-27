@@ -49,7 +49,7 @@ public:
 	//void Chunk::genChunk() //void Chunk::genChunk(vector < vector <int> > biome) 
 	void genChunk(int bio);
 
-	
+
 
 private:
 	//! used as a bio stat
@@ -67,7 +67,7 @@ private:
 	//! Biome stat
 	int temp = 0; //added by Brandon
 
-	//! Temp location on atlas for picture drawing
+				  //! Temp location on atlas for picture drawing
 	std::string tempLoc;
 
 	//! 2D vectors for terrain layer of map
@@ -84,4 +84,3 @@ private:
 	//! Generation Object
 	NewGen gen;
 };
-

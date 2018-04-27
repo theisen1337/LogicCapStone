@@ -25,7 +25,7 @@ void Chunk::genChunkMap(ALLEGRO_BITMAP* atl, std::vector<std::vector<std::string
 				for (int j = 0; j < ref[i].size(); j++)
 				{
 					tempLoc = terrainLayer[l][m].getAtLoc();
-					if (ref[i][j].compare(tempLoc)==0)
+					if (ref[i][j].compare(tempLoc) == 0)
 					{
 						al_draw_scaled_bitmap(atl,
 							(i*GC::tileDim), (j*GC::tileDim),
@@ -96,7 +96,7 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
 	}
-	
+
 	else if (bio > 0)
 	{
 		//cout << "dessert" << endl; //DEBUG
@@ -109,7 +109,7 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-	
+
 	else if (bio < 0)
 	{
 		//cout << "snow" << endl; //DEBUG
@@ -135,4 +135,3 @@ void Chunk::genChunk(int bio)
 	terrainLayer = gen.revampWater(terrainLayer);
 	*/
 }
-
