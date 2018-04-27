@@ -7,6 +7,7 @@ OreBase::OreBase(Type OT, Tile &t, int wX, int wY, int cX, int cY) :tileRef(t)
 	yWorld = wY;
 	xChunk = cX;
 	yChunk = cY;
+	status = true;
 
 }
 int OreBase::getHealth()

@@ -43,6 +43,8 @@ public:
 	~OreBase();
 
 	std::string getName();
+	bool getStatus() { return status; };
+	void setStatus(bool b) { status = b; };
 
 private:
 	ALLEGRO_BITMAP * OreImage;
@@ -57,6 +59,7 @@ private:
 	int yChunk = 0;
 	Type oreType;
 	Tile & tileRef;
+	bool status;
 protected:
 	void setTravelSpeed(int speed);
 	void setHealth(int health);
