@@ -96,7 +96,7 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
 	}
-
+	
 	else if (bio > 0)
 	{
 		//cout << "dessert" << endl; //DEBUG
@@ -109,7 +109,7 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-
+	
 	else if (bio < 0)
 	{
 		//cout << "snow" << endl; //DEBUG
@@ -135,3 +135,4 @@ void Chunk::genChunk(int bio)
 	terrainLayer = gen.revampWater(terrainLayer);
 	*/
 }
+

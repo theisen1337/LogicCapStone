@@ -295,15 +295,17 @@ int Interact::findSlot(ObjectManager &OM, std::string name)
 		{
 			return i;
 		}
-
-		if (name.compare(OM.hotbar[i].machineType) == 0)
+		else if (name.compare(OM.hotbar[i].machineType) == 0)
 		{
 			return i;
 		}
+	}
 
-		if (!OM.hotbar[i].item && !OM.hotbar[i].machine)
+	for (int j = 0; j < 8; j++)
+	{
+		if (!OM.hotbar[j].item && !OM.hotbar[j].machine)
 		{
-			return i;
+			return j;
 		}
 	}
 }
@@ -418,19 +420,38 @@ void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY)
 			objectX = OM.getOL().layer[k].getLocX();
 			objectY = OM.getOL().layer[k].getLocY();
 
+			cout << "Top Left Corner X: " << objectX << endl;
+			cout << "Top Left Corner Y: " << objectY << endl << endl;
+
 			// Set X and Y to Center of Object
-			objectX += 32; closeObject.objectX = objectX;
-			objectY += 32; closeObject.objectY = objectY;
+			objectX += 32; 
+			closeObject.objectX = objectX;
+			objectY += 32; 
+			closeObject.objectY = objectY;
+
+			cout << "Center X: " << objectX << endl;
+			cout << "Center Y: " << objectY << endl << endl;
 
 			objectIndex = k; closeObject.objectIndex = objectIndex;
 
-			//closeObject.objectName = OM.getOL().layer[k].getName();
+			closeObject.objectName = OM.getOL().layer[k].getName();
 		}
 	}
 
 	// Sets Boundaries of Nearest Object
 	maxX = objectX + 32; minX = objectX - 32;
 	maxY = objectY + 32; minY = objectY - 32;
+
+	cout << "Bottom Barrier: " << maxX << endl;
+	cout << "Top Barrier: " << minX << endl;
+	cout << "Left Barrier: " << minY << endl;
+	cout << "Right Barrier: " << maxY << endl << endl;
+	cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
+
+	cout << maxX << endl;
+	cout << minX << endl;
+	cout << maxY << endl;
+	cout << minY << endl;
 
 	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY))
 	{
@@ -540,7 +561,7 @@ void Interact::placement(ObjectManager &OM, int mouseX, int mouseY)
 // #########################
 // # Interact with Objects #
 // #########################
-void Interact::interactions(ObjectManager &OM, int mouseX, int mouseY)
+void Interact::interactions(ObjectManager &OM, World &Map, int mouseX, int mouseY)
 {
 	objectSearch(OM, mouseX, mouseY);
 
@@ -628,15 +649,18 @@ void Interact::interactions(ObjectManager &OM, int mouseX, int mouseY)
 
 			if (OM.getOL().layer[objectIndex].getHealth() == 0)
 			{
-				// Convert closeObject.objectName to coal item name
-				hotbarIndex = findSlot(OM, closeObject.objectName);
+				if (OM.getOL().layer[objectIndex].getStatus())
+				{
+					hotbarIndex = findSlot(OM, closeObject.objectName);
 
-				OM.hotbar[hotbarIndex].item = true;
-				OM.hotbar[hotbarIndex].itemType = closeObject.objectName; // Set to coal item name
-				OM.hotbar[hotbarIndex].num++;
+					OM.hotbar[hotbarIndex].item = true;
+					OM.hotbar[hotbarIndex].itemType = closeObject.objectName; // Set to coal item name
+					OM.hotbar[hotbarIndex].num++;
 
-				//THIS LINE HAD A PROBLEM -DUSTIN
-				//OM.getOL().layer.erase(OM.getOL().layer.begin() + objectIndex);
+					OM.getOL().layer[objectIndex].setStatus(false);
+
+					Map.getChunk()[OM.getOL().layer[objectIndex].getWorldX()][OM.getOL().layer[objectIndex].getWorldY()].toggleGen();
+				}
 			}
 			return;
 		}
@@ -706,34 +730,19 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			movement.vx -= movement.getSpeed();
 			movement.CharCompass.W = true;
 		}
-		/*switch (event.keyboard.keycode)
+		switch (event.keyboard.keycode)
 		{
-		case ALLEGRO_KEY_UP:
 
-		break;
-		case ALLEGRO_KEY_DOWN:
-		movement.vy += movement.getSpeed();
-		movement.setDirection(South);
-		break;
-		case ALLEGRO_KEY_LEFT:
-		movement.vx -= movement.getSpeed();
-		movement.setDirection(West);
-		break;
-		case ALLEGRO_KEY_RIGHT:
-		movement.vx += movement.getSpeed();
-		movement.setDirection(East);
-		break;
 		case ALLEGRO_KEY_F1:
 		showDebugMenu = !showDebugMenu;
 		break;
 		case ALLEGRO_KEY_F2:
 		showFPS = !showFPS;
 		break;
-		case ALLEGRO_KEY_R:
-		Map.initialGeneration();
+
 		case ALLEGRO_KEY_ESCAPE:
 		return false;
-		}*/
+		}
 		break;
 
 	case ALLEGRO_EVENT_KEY_UP:
@@ -1010,7 +1019,7 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			}
 			else
 			{
-				interactions(OM, endX, endY);
+				interactions(OM, Map, endX, endY);
 			}
 		}
 
@@ -1083,5 +1092,3 @@ bool Interact::MainMenuInteractions(GlobalStatics & globStatic)
 	}
 
 }
-
-

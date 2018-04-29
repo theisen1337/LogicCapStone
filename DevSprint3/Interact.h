@@ -65,7 +65,7 @@ public:
 	void placement(ObjectManager &OM, int mouseX, int mouseY);
 
 	//! Main Function for Interacting with Objects
-	void interactions(ObjectManager &OM, int mouse_x, int mouse_y);
+	void interactions(ObjectManager &OM, World &Map, int mouse_x, int mouse_y);
 
 	/*! Allows Keyboard and Mouse Functionality
 		- Parameters:

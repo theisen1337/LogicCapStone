@@ -32,11 +32,10 @@ void OreBase::leftClickInteract()
 void OreBase::rightClickInteract()
 {
 	health--;
+	std::cout << "Health is " << health << std::endl;
 	if (health == 0)
 	{
-		tileRef.setType(Tile::DEPORE);
-
-
+		tileRef.setType(Tile::EMPTY);
 	}
 }
 
