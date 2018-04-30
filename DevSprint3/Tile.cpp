@@ -175,6 +175,10 @@ void Tile::genPicture()
 		atLoc = "ICE.png";
 		break;
 
+	case Tile::DEPORE: //added by brandon
+		atLoc = "dirt1.png";
+		break;
+
 	case Tile::EMPTY:
 		atLoc = "empty.png";
 		break;
