@@ -852,7 +852,7 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		}
 
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for left boundary)
-		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < 540)
+		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < al_get_display_height(display) - 100)
 		{
 			scrollX = al_get_display_width(display);
 		}
@@ -873,7 +873,7 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			movement.setCharacterYPosition(0);
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
-		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < 480)
+		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < al_get_display_width(display))
 		{
 			scrollY = al_get_display_height(display);
 		}
@@ -894,11 +894,11 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
-			if (scrollX != 640)
+			if (scrollX != al_get_display_height(display))
 			{
 				scrollX -= movement.vx;
 			}
-			if (scrollY != 480)
+			if (scrollY != al_get_display_width(display))
 			{
 				scrollY -= movement.vy;
 			}
@@ -911,11 +911,11 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
-			if (scrollX != 640)
+			if (scrollX != al_get_display_height(display))
 			{
 				scrollX -= movement.vx;
 			}
-			if (scrollY != 480)
+			if (scrollY != al_get_display_width(display))
 			{
 				scrollY -= movement.vy;
 			}
@@ -928,11 +928,11 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
-			if (scrollX != 640)
+			if (scrollX != al_get_display_height(display))
 			{
 				scrollX -= movement.vx;
 			}
-			if (scrollY != 480)
+			if (scrollY != al_get_display_width(display))
 			{
 				scrollY -= movement.vy;
 			}
@@ -945,11 +945,11 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		{
 			movement.setCharacterXPosition(movement.getCharacterXPosition() - movement.vx);
 			movement.setCharacterYPosition(movement.getCharacterYPosition() - movement.vy);
-			if (scrollX != 640)
+			if (scrollX != al_get_display_height(display))
 			{
 				scrollX -= movement.vx;
 			}
-			if (scrollY != 480)
+			if (scrollY != al_get_display_width(display))
 			{
 				scrollY -= movement.vy;
 			}
