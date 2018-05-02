@@ -436,17 +436,11 @@ void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY)
 			objectX = OM.getOL().layer[k].getLocX();
 			objectY = OM.getOL().layer[k].getLocY();
 
-			cout << "Top Left Corner X: " << objectX << endl;
-			cout << "Top Left Corner Y: " << objectY << endl << endl;
-
 			// Set X and Y to Center of Object
 			objectX += 32; 
 			closeObject.objectX = objectX;
 			objectY += 32; 
 			closeObject.objectY = objectY;
-
-			cout << "Center X: " << objectX << endl;
-			cout << "Center Y: " << objectY << endl << endl;
 
 			objectIndex = k; closeObject.objectIndex = objectIndex;
 
