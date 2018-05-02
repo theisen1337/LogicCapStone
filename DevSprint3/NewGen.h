@@ -38,6 +38,8 @@ public:
 	//vector < vector <Tile> > revampWater(vector < vector <Tile> > tiles);
 	vector < vector <Tile> > revamp(vector < vector <Tile> > tiles, Tile::Types temp, Tile::Types newTile);
 
+	vector < vector <Tile> > spawnPoint(vector < vector <Tile> > tiles, vector < vector <Tile> > &ores, Tile::Types type);
+
 private:
 	int randy; //for random number generation
 	int chunkSize = 32;

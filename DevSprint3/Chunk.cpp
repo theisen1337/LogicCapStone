@@ -95,8 +95,11 @@ void Chunk::genChunk(int bio)
 		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_WATER, Tile::WATER); //changes temp files to 'lake' tiles
 
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
-		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 15); //spreads ores
+
+		terrainLayer = gen.spawnPoint(terrainLayer, oreLayer, Tile::GRASS);
 	}
+	
 	else if (bio > 0)
 	{
 		//cout << "dessert" << endl; //DEBUG
@@ -107,18 +110,24 @@ void Chunk::genChunk(int bio)
 		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
 
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
-		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 25); //spreads ores
+
+		terrainLayer = gen.spawnPoint(terrainLayer, oreLayer, Tile::SAND);
 	}
+	
 	else if (bio < 0)
 	{
 		//cout << "snow" << endl; //DEBUG
 		terrainLayer = gen.initTerrain(terrainLayer, Tile::SNOW); //sets the initial grid to a single tile type
-		terrainLayer = gen.setTileGrid(terrainLayer, Tile::WATER); ////places other tiles
+		terrainLayer = gen.setTileGrid(terrainLayer, Tile::ICE); ////places other tiles
 
-		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::QUICK, Tile::TEMP_QUICK, 4); //spread 'lake' tiles
-		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_QUICK, Tile::QUICK); //changes temp files to 'lake' tiles
+		terrainLayer = gen.newLakeAlGore(oreLayer, terrainLayer, Tile::ICE, Tile::TEMP_ICE, 4); //spread 'lake' tiles
+		terrainLayer = gen.revamp(terrainLayer, Tile::TEMP_ICE, Tile::ICE); //changes temp files to 'lake' tiles
 
-		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
-		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
+		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::ICE); //places ores
+		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 20); //spreads ores
+
+		terrainLayer = gen.spawnPoint(terrainLayer, oreLayer, Tile::SNOW);
 	}
 }
+

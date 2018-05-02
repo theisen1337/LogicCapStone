@@ -112,14 +112,14 @@ void NewGen::spreadOre(vector < vector <Tile> > &ores, vector < vector <Tile> > 
 	int bll = baseChance / 2; //50% to spawn both right and down and 2/4 chancer
 	int blll = baseChance * 3 / 4; // 3/4 chancer
 
-	if (randy < bl && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK)
+	if (randy < bl && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK && tiles[i + 1][j].type != Tile::ICE)
 	{
 		ores[i + 1][j].type = ore; //% chance of making the lower tile a lake. also allows for another Lake roll
 		//tiles[i + 1][j].type = Tile::DIRT;
 		chance++; //decreases the % chance of increasing the Lake size
 
 	}
-	else if (randy < bl && i == chunkSize - 1 && tiles[i - 1][j].type != Tile::WATER && tiles[i - 1][j].type != Tile::QUICK) //if we're already at the bottom, then we can't just make one below it
+	else if (randy < bl && i == chunkSize - 1 && tiles[i - 1][j].type != Tile::WATER && tiles[i - 1][j].type != Tile::QUICK && tiles[i - 1][j].type != Tile::ICE) //if we're already at the bottom, then we can't just make one below it
 	{
 		if (j == tiles.size() - 1) //if we are at the very very bottom-right corner of the world.
 		{
@@ -131,13 +131,13 @@ void NewGen::spreadOre(vector < vector <Tile> > &ores, vector < vector <Tile> > 
 			//tiles[i - 1][j].type = Tile::DIRT;
 		}
 	}
-	else if (randy < bll && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK)
+	else if (randy < bll && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK && tiles[i][j + 1].type != Tile::ICE)
 	{
 		ores[i][j + 1].type = ore; //% chance of making the right tile a lake. also allows for another Lake roll
 		//tiles[i][j + 1].type = Tile::DIRT;
 		chance++; //decreases the % chance of increasing the Lake size
 	}
-	else if (randy < bll && j == chunkSize - 1 && tiles[i][j - 1].type != Tile::WATER && tiles[i][j - 1].type != Tile::QUICK)
+	else if (randy < bll && j == chunkSize - 1 && tiles[i][j - 1].type != Tile::WATER && tiles[i][j - 1].type != Tile::QUICK && tiles[i][j - 1].type != Tile::ICE)
 	{
 		if (i == tiles.size() - 1)
 		{
@@ -151,13 +151,13 @@ void NewGen::spreadOre(vector < vector <Tile> > &ores, vector < vector <Tile> > 
 	}
 	else if (randy < blll && i > 0)
 	{
-		if (ores[i - 1][j].type == ore && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK)
+		if (ores[i - 1][j].type == ore && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK && tiles[i + 1][j].type != Tile::ICE)
 		{
 			ores[i + 1][j].type = ore; //% chance of making the lower tile a lake. also allows for another Lake roll
 			//tiles[i + 1][j].type = Tile::DIRT;
 			chance++;
 		}
-		else if (tiles[i - 1][j].type != Tile::WATER && tiles[i - 1][j].type != Tile::QUICK)
+		else if (tiles[i - 1][j].type != Tile::WATER && tiles[i - 1][j].type != Tile::QUICK && tiles[i - 1][j].type != Tile::ICE)
 		{
 			ores[i - 1][j].type = ore; //% chance of making the upper tile a Lake as well
 			//tiles[i - 1][j].type = Tile::DIRT;
@@ -166,13 +166,13 @@ void NewGen::spreadOre(vector < vector <Tile> > &ores, vector < vector <Tile> > 
 	}
 	else if (randy < baseChance && j > 0)
 	{
-		if (ores[i][j - 1].type == ore && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK)
+		if (ores[i][j - 1].type == ore && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK && tiles[i][j + 1].type != Tile::ICE)
 		{
 			ores[i][j + 1].type = ore; //% chance of making the lower tile a lake. also allows for another Lake roll
 			//tiles[i][j + 1].type = Tile::DIRT;
 			chance++;
 		}
-		else if (tiles[i][j - 1].type != Tile::WATER && tiles[i][j - 1].type != Tile::QUICK)
+		else if (tiles[i][j - 1].type != Tile::WATER && tiles[i][j - 1].type != Tile::QUICK && tiles[i][j - 1].type != Tile::ICE)
 		{
 			ores[i][j - 1].type = ore; //% chance of making the left tile a Lake as well
 			//tiles[i][j - 1].type = Tile::DIRT;
@@ -210,7 +210,7 @@ vector < vector<Tile> > NewGen::newOreAlGore(vector < vector <Tile> > &ores, vec
 				{
 					//25% chance the first Lake tile will spread downward, leading to another check with 100% spread chance.
 					//Cannot happen if already at the bottom, otherwise we get an error for placing an 'L' outside of the grid
-					if (randy < bl && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK) //bl = 3
+					if (randy < bl && i != chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK && tiles[i + 1][j].type != Tile::ICE) //bl = 3
 					{
 						ores[i + 1][j].type = thisOre;
 						//tiles[i + 1][j].type = Tile::DIRT;
@@ -218,7 +218,7 @@ vector < vector<Tile> > NewGen::newOreAlGore(vector < vector <Tile> > &ores, vec
 					}
 					//25% chance the first Lake tile will spread rightward, leading to another check with 100% spread chance
 					//Cannot happen if already at the right edge, otherwise we get an error for placing an 'L' outside of the grid
-					else if (randy < bll && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK) //bll = 6
+					else if (randy < bll && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK && tiles[i][j + 1].type != Tile::ICE) //bll = 6
 					{
 						ores[i][j + 1].type = thisOre;
 						//tiles[i][j + 1].type = Tile::DIRT;
@@ -226,13 +226,13 @@ vector < vector<Tile> > NewGen::newOreAlGore(vector < vector <Tile> > &ores, vec
 					}
 					//50% chance the first Lake tile will spread downward, leading to another check with 100% spread chance
 					//HOWEVER we might be at the edge, which causes many issues, we will rig it a bit more with THREE OPTIONS
-					else if (randy >= bll && i != chunkSize - 1 && j == chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK) //if we're not at the bottom, but at the right, then we only change the lower tile
+					else if (randy >= bll && i != chunkSize - 1 && j == chunkSize - 1 && tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK && tiles[i + 1][j].type != Tile::ICE) //if we're not at the bottom, but at the right, then we only change the lower tile
 					{
 						ores[i + 1][j].type = thisOre;
 						//tiles[i + 1][j].type = Tile::DIRT;
 						firstLake = 0;
 					}
-					else if (randy >= bll && i == chunkSize - 1 && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK) //if we're not at the right but at the bottom, then we only change the right
+					else if (randy >= bll && i == chunkSize - 1 && j != chunkSize - 1 && tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK && tiles[i][j + 1].type != Tile::ICE) //if we're not at the right but at the bottom, then we only change the right
 					{
 						ores[i][j + 1].type = thisOre;
 						//tiles[i][j + 1].type = Tile::DIRT;
@@ -240,12 +240,12 @@ vector < vector<Tile> > NewGen::newOreAlGore(vector < vector <Tile> > &ores, vec
 					}
 					else if (randy >= bll && i != chunkSize - 1 && j != chunkSize - 1) //If we are NOT at the bottom and not the right, then we change both
 					{
-						if (tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK)
+						if (tiles[i + 1][j].type != Tile::WATER && tiles[i + 1][j].type != Tile::QUICK && tiles[i + 1][j].type != Tile::ICE)
 						{
 							ores[i + 1][j].type = thisOre;
 							//tiles[i + 1][j].type = Tile::DIRT;
 						}
-						if (tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK)
+						if (tiles[i][j + 1].type != Tile::WATER && tiles[i][j + 1].type != Tile::QUICK && tiles[i][j + 1].type != Tile::ICE)
 						{
 							ores[i][j + 1].type = thisOre;
 							//tiles[i][j + 1].type = Tile::DIRT;
@@ -418,5 +418,19 @@ vector < vector <Tile> > NewGen::revamp(vector < vector <Tile> > tiles, Tile::Ty
 			}
 		}
 	}
+	return tiles;
+}
+
+vector < vector <Tile> > NewGen::spawnPoint(vector < vector <Tile> > tiles, vector < vector <Tile> > &ores, Tile::Types type)
+{
+	for (int i = 15; i < 17; i++)
+	{
+		for (int j = 15; j < 18; j++)
+		{
+			tiles[i][j].type = type;
+			ores[i][j].type = Tile::EMPTY;
+		}
+	}
+
 	return tiles;
 }

@@ -53,7 +53,7 @@ public:
 	vector < vector <int> > bioChange1(vector < vector <int> > &biome); //added by brandon
 
 	//! changes the edges of the chunks
-	std::vector<std::vector<Chunk>> borderControl(std::vector<std::vector<Chunk>> world); //added by brandon, used later for border manipulation
+	void borderControl(std::vector<std::vector<Chunk>> &world); //added by brandon, used later for border manipulation
 
 
 	void popOreLayer(ObjectManager &objm);
