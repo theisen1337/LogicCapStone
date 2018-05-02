@@ -2,29 +2,22 @@
 #include "FileIO.h"
 FileIO IO;
 
-// Constructor
-ItemBase::ItemBase()
-{
-	//loadItems(); No! bad taylor
-}
+// #######################
+// # Default Constructor #
+// #######################
+ItemBase::ItemBase() {}
 
+// ##########################
+// # Overloaded Constructor #
+// ##########################
 ItemBase::ItemBase(std::string name)
 {
 	ItemsName = name;
 }
 
-void ItemBase::setPic(std::string path)
-{
-	FileIO file;
-	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
-}
-
-void ItemBase::setName(std::string name)
-{
-	ItemsName = name;
-}
-
-// Overloaded Constructor
+// ##########################
+// # Overloaded Constructor #
+// ##########################
 ItemBase::ItemBase(std::string name, std::string category, float value, int width, int height, int stackSize, int x, int y)
 {
 	ItemsName = name;
@@ -38,18 +31,47 @@ ItemBase::ItemBase(std::string name, std::string category, float value, int widt
 	yCoordinate = y;
 }
 
-// Deconstructor
+// #################
+// # Deconstructor #
+// #################
 ItemBase::~ItemBase() {}
 
+// ###################
+// # Set Item Bitmap #
+// ###################
+void ItemBase::setPic(std::string path)
+{
+	FileIO file;
+	ItemsImage = al_load_bitmap(file.openPicture(path).c_str());
+}
+
+// #################
+// # Set Item Name #
+// #################
+void ItemBase::setName(std::string name)
+{
+	ItemsName = name;
+}
+
+// ####################
+// # Get X Coordinate #
+// ####################
 float ItemBase::getCoordinateX()
 {
 	return xCoordinate;
 }
+
+// ####################
+// # Get Y Coordinate #
+// ####################
 float ItemBase::getCoordinateY()
 {
 	return yCoordinate;
 }
 
+// ###################
+// # Left Click Item #
+// ###################
 void ItemBase::leftClick()
 {
 	al_show_native_message_box(al_get_current_display(),
@@ -58,11 +80,18 @@ void ItemBase::leftClick()
 		"Success",
 		NULL, ALLEGRO_MESSAGEBOX_ERROR);
 }
+
+// ####################
+// # Right Click Item #
+// ####################
 void ItemBase::rightClick()
 {
 
 }
 
+// ###############################
+// # Set the X and Y Coordinates #
+// ###############################
 void ItemBase::setXY(float x, float y)
 {
 	xCoordinate = x, yCoordinate = y;
@@ -94,32 +123,41 @@ int ItemBase::getStackSize()
 	return ItemstackSize;
 }
 
-// Setters to Change Values of Object
+// ##############################
+// # Set the Item Dropped Check #
+// ##############################
 void ItemBase::setDropped(bool boolVar)
 {
 	ItemsDropped = boolVar;
 }
 
-// Checks to see if Items is dropped or not
+// #########################
+// # Check if Item Dropped #
+// #########################
 bool ItemBase::checkDropped()
 {
 	return ItemsDropped;
 }
 
-// This is called from Interactions Class when Items is left Clicked
+// ################
+// # Pickup Items #
+// ################
 void ItemBase::pickupItems()
 {
 	// To Do
 }
 
-// This is called from Interactions Class when tile is right clicked with Items
+// ###############
+// # Place Items #
+// ###############
 void ItemBase::placeItems()
 {
 	// To Do
 }
 
-
-
+// ##############
+// # Load Items #
+// ##############
 void ItemBase::loadItems()
 {
 	checkItemsDirectory();
@@ -128,6 +166,9 @@ void ItemBase::loadItems()
 	//load_Weapons(); ...
 }
 
+// #############################
+// # Checks for Item Directory #
+// #############################
 void ItemBase::checkItemsDirectory()
 {
 	if (!IO.DirectoryExist("Items"))
@@ -136,6 +177,9 @@ void ItemBase::checkItemsDirectory()
 	}
 }
 
+// ############################
+// # Checks for Ore Directory #
+// ############################
 void ItemBase::load_Ores()
 {
 	if (!IO.DirectoryExist("Items\\Ores"))
@@ -153,14 +197,18 @@ void ItemBase::load_Ores()
 	}
 }
 
+// ######################
+// # Returns the Bitmap #
+// ######################
 ALLEGRO_BITMAP * ItemBase::getBitMap()
 {
-
 	return ItemsImage;
 }
 
+// ##################
+// # Draws the Item #
+// ##################
 void ItemBase::Draw()
 {
 	al_draw_bitmap(ItemsImage, xCoordinate, yCoordinate,0);
-	//al_draw_scaled_bitmap(ItemsImage,0,0, 16,16, xCoordinate, yCoordinate, 32,32,0);
 }

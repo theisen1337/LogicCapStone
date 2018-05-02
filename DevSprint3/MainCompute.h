@@ -1,14 +1,15 @@
 #pragma once
 
+// Custom Includes
 #include "ObjectManager.h"
 #include "GlobalStatics.h"
 
 class MainCompute
 {
 public:
+	//! Perform Computations
 	void Compute(ObjectManager &OM);
 	void ComputeTPS();
-
 
 private:
 	GlobalStatics GS;
@@ -16,4 +17,3 @@ private:
 	double waitticks = 0;
 
 };
-

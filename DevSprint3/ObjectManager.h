@@ -1,13 +1,14 @@
 #pragma once
 
+// Standard Includes
+#include <array>
+
+// Custom Includes
 #include "MachineLayer.h"
 #include "TransportLayer.h"
 #include "ItemLayer.h"
 #include "OreLayer.h" 
-// #include "PlayerLayer"
-
 #include "MachineTemplate.h"
-#include <array>
 #include "GlobalConstants.h"
 
 class ObjectManager
@@ -47,8 +48,6 @@ public:
 	MachineLayer & getML() { return ML; }
 	TransportLayer & getTL() { return TL; }
 	ItemLayer & getIL() { return IL; }
-
-	// TAYLOR ADDED CODE
 
 	struct hotbarItems
 	{

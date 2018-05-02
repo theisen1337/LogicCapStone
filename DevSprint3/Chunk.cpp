@@ -78,8 +78,9 @@ void Chunk::initalGen()
 	map = al_create_bitmap(GC::tileDim * GC::chunkDim, GC::tileDim * GC::chunkDim);
 }
 
-// UNDER CONSTRUCTION
-// edited by brandon. uses the int bio to determine the biome
+// #######################
+// # BIOME DETERMINATION #
+// #######################
 void Chunk::genChunk(int bio)
 {
 	//bio = 0; //DEBUG
@@ -96,7 +97,6 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::WATER); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 12); //spreads ores
 	}
-	
 	else if (bio > 0)
 	{
 		//cout << "dessert" << endl; //DEBUG
@@ -109,7 +109,6 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-	
 	else if (bio < 0)
 	{
 		//cout << "snow" << endl; //DEBUG
@@ -122,17 +121,4 @@ void Chunk::genChunk(int bio)
 		oreLayer = gen.setOreGrid(oreLayer, terrainLayer, Tile::ICE, Tile::IRON, Tile::QUICK); //places ores
 		oreLayer = gen.newOreAlGore(oreLayer, terrainLayer, Tile::COAL, Tile::IRON, 10); //spreads ores
 	}
-
-
-
-
-
-	/*
-	oreLayer = gen.setOreGrid(oreLayer,terrainLayer);
-	oreLayer = gen.newOreAlGore(oreLayer, terrainLayer);
-	terrainLayer = gen.setTileGrid(terrainLayer);
-	terrainLayer = gen.newLakeAlGore(oreLayer,terrainLayer);
-	terrainLayer = gen.revampWater(terrainLayer);
-	*/
 }
-

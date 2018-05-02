@@ -1,15 +1,19 @@
 #include "ItemTemplate.h"
 
+// ###############
+// # Constructor #
+// ###############
 CoalOreItem::CoalOreItem()
 {
-	//ItemBase("Coal-Ore");
 	setPic("Resources//Items//ITEM_COAL.png");
 	setName("Coal-Ore");
 }
 
+// ###############
+// # Constructor #
+// ###############
 IronOreItem::IronOreItem()
 {
-	//ItemBase("Iron-Ore"); // <----- Bug
 	setPic("Resources//Items//ITEM_IRON.png");
 	setName("Iron-Ore");
 }

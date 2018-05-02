@@ -1,10 +1,13 @@
 //! Manages Drawing of Objects to the Screen
-
 #pragma once
+
+// Standard Includes
 #include <iostream>
 #include <vector>
 #include <string>
 #include <filesystem>
+
+// Custom Includes
 #include "MachineLayer.h"
 #include "World.h"
 #include "Chunk.h"
@@ -45,6 +48,7 @@ private:
 
 	//! Reference For Images
 	std::vector<std::vector<std::string>> machineRef;
+
 public:
 	//! Initialization of Drawing
 	void Init();
@@ -58,5 +62,4 @@ public:
 	//! Draw the Character Layer
 	void drawCharacter(CharacterPlayer &c, CharacterMovement &movement);
 
-	
 };

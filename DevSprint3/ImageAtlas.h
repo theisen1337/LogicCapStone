@@ -1,12 +1,15 @@
-//! Manages and Creates Image Atlases
-
-
 #pragma once
+
+// Allegro Includes
+#include <allegro5/allegro.h>
+
+// Standard Includes
 #include <iostream>
 #include <vector>
 #include <string>
 #include <filesystem>
-#include <allegro5/allegro.h>
+
+// Custom Includes
 #include "GlobalConstants.h"
 
 namespace fs = std::experimental::filesystem;

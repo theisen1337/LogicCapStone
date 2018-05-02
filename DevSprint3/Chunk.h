@@ -1,11 +1,14 @@
-//! Manages 2D vector of Tiles and Image of the Chunk
-#include "Tile.h"
+#pragma once
+
+// Standard Includes
 #include <vector>
 #include <ctime>
+
+// Custom Includes
+#include "Tile.h"
 #include "NewGen.h"
 #include "GlobalConstants.h"
 
-#pragma once
 class Chunk
 {
 public:
@@ -46,18 +49,11 @@ public:
 	void initalGen();
 
 	//! Generate Chunk Resources
-	//void Chunk::genChunk() //void Chunk::genChunk(vector < vector <int> > biome) 
 	void genChunk(int bio);
-
-	
 
 private:
 	//! used as a bio stat
-	//int bio = 0;
 	int h, w;
-
-	//! used as placeholder for biome stats
-	//vector < vector <int> > biome1;
 
 	//! World X Position
 	int worldPosW;
@@ -65,7 +61,7 @@ private:
 	int worldPosH;
 
 	//! Biome stat
-	int temp = 0; //added by Brandon
+	int temp = 0;
 
 	//! Temp location on atlas for picture drawing
 	std::string tempLoc;
@@ -84,4 +80,3 @@ private:
 	//! Generation Object
 	NewGen gen;
 };
-

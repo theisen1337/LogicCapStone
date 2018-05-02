@@ -1,21 +1,22 @@
 #include "MachineBase.h"
 #include "FileIO.h"
 
-
+// ###############
+// # Constructor #
+// ###############
 MachineBase::MachineBase()
 {
 	Busy = false;
 }
 
+// #################
+// # Deconstructor #
+// #################
+MachineBase::~MachineBase() {}
 
-
-
-MachineBase::~MachineBase()
-{
-}
-
-//Recipe information
-
+// #######################
+// # Get Crafting Recipe #
+// #######################
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 {
 	CraftRecipe = recipe;
@@ -30,7 +31,6 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe)
 		
 	InputBuffer = recipe;
 }
-
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 {
 	CraftRecipe = recipe;
@@ -45,7 +45,6 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe,int multiplier)
 	}
 	InputBuffer = recipe;
 }
-
 void MachineBase::setCraftRecipe(std::vector<Stack> recipe, int *multiplier)
 {
 	CraftRecipe = recipe;
@@ -60,19 +59,26 @@ void MachineBase::setCraftRecipe(std::vector<Stack> recipe, int *multiplier)
 	InputBuffer = recipe;
 }
 
+// ##########################
+// # Return Crafting Recipe #
+// ##########################
 std::vector<Stack> MachineBase::getCraftRecipe()
 {
 	return CraftRecipe;
 }
 
-//Work for the machine
-
+// ################
+// # Set Machine Work #
+// ################
 void MachineBase::setTotalWork(float totalWork)
 {
 	MachineBase::totalWork = totalWork;
 	jobWork = totalWork;
 }
 
+// #######################
+// # Return Machine Work #
+// #######################
 float MachineBase::getTotalWork()
 {
 	return totalWork;
@@ -87,8 +93,6 @@ float MachineBase::getWorkPerSecond()
 {
 	return WorkPerSecond;
 }
-
-//
 
 bool MachineBase::isWorking()
 {
@@ -306,5 +310,3 @@ void MachineBase::leftClick()
 void MachineBase::rightClick()
 {
 }
-
-

@@ -1,5 +1,8 @@
 #include "ImageAtlas.h"
 
+// #############################
+// # Initialize the ImageAtlas #
+// #############################
 void ImageAtlas::Initialize()
 {
 	fs::path pl;
@@ -43,6 +46,9 @@ void ImageAtlas::Initialize()
 	*/
 }
 
+// ##############################
+// # Return File Names of Atlas #
+// ##############################
 std::vector<std::string> ImageAtlas::getFileNames(fs::path path)
 {
 	const fs::directory_iterator end{};
@@ -59,6 +65,9 @@ std::vector<std::string> ImageAtlas::getFileNames(fs::path path)
 	return fileNames;
 }
 
+// ##############################
+// # Get a Vector of References #
+// ##############################
 void ImageAtlas::genRefVect(std::vector<std::vector<std::string>>& ref)
 {
 	//Finds the closest two factors for the number of files
@@ -83,6 +92,9 @@ void ImageAtlas::genRefVect(std::vector<std::vector<std::string>>& ref)
 
 }
 
+// ##########################
+// # Generate Image Atlases #
+// ##########################
 void ImageAtlas::genImageAtlases()
 {
 
@@ -163,6 +175,9 @@ void ImageAtlas::genImageAtlases()
 	al_save_bitmap("Resources//itemAtlas.png", temp);
 }
 
+// ##############################
+// # Load the Images from Atlas #
+// ##############################
 ALLEGRO_BITMAP* ImageAtlas::LoadImageAtlas(AtlasType type)
 {
 	switch (type)

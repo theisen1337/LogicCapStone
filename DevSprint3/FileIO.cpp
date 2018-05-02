@@ -8,17 +8,19 @@
 
 */
 
+// ###############
+// # Constructor #
+// ###############
+FileIO::FileIO() {}
 
+// #################
+// # Deconstructor #
+// #################
+FileIO::~FileIO() {}
 
-
-FileIO::FileIO()
-{
-}
-
-FileIO::~FileIO()
-{
-}
-
+// ########################
+// # Check if File Exists #
+// ########################
 bool FileIO::FileExist(std::string path)
 {
 	std::fstream file;
@@ -31,6 +33,10 @@ bool FileIO::FileExist(std::string path)
 	file.close();
 	return true;
 }
+
+// ###################
+// # Create New File #
+// ###################
 void FileIO::createFile(std::string path)
 {
 	std::fstream file;
@@ -41,6 +47,10 @@ void FileIO::createFile(std::string path)
 	}
 	file.close();
 }
+
+// ###############
+// # Delete File #
+// ###############
 void FileIO::deleteFile(std::string path)
 {
 	std::fstream file;
@@ -54,6 +64,9 @@ void FileIO::deleteFile(std::string path)
 	remove(path.c_str());
 }
 
+// #############################
+// # Check if Directory Exists #
+// #############################
 bool FileIO::DirectoryExist(const std::string& dirName)
 {
 	DWORD ftyp = GetFileAttributesA(dirName.c_str());
@@ -66,6 +79,9 @@ bool FileIO::DirectoryExist(const std::string& dirName)
 	return false;    // this is not a directory!
 }
 
+// ####################
+// # Create Directory #
+// ####################
 void FileIO::CreateDir(std::string folder)
 {
 	if (CreateDirectory(folder.c_str(), NULL) ||
@@ -79,6 +95,9 @@ void FileIO::CreateDir(std::string folder)
 	}
 }
 
+// ###############
+// # Read a File #
+// ###############
 std::vector<std::string> FileIO::readFile(std::string path)
 {
 	std::vector<std::string> filedata;
@@ -95,6 +114,9 @@ std::vector<std::string> FileIO::readFile(std::string path)
 	return filedata;
 }
 
+// #################
+// # Open an Image #
+// #################
 std::string FileIO::openPicture(std::string path)
 {
 	std::fstream file;

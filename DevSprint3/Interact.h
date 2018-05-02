@@ -16,6 +16,7 @@
 #include "OreLayer.h"
 #include "CharacterMovement.h"
 #include "ObjectManager.h"
+#include "GlobalConstants.h"
 
 // Include Standard Libraries
 #include <math.h>
@@ -25,8 +26,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#include "GlobalConstants.h"
 
 class Interact
 {
@@ -90,8 +89,6 @@ public:
 	//! Used when Drawing
 	bool redraw = true;
 
-
-
 	//! Counter to Show In-Game FPS
 	int fps, fpsAccum;
 	double fpsTime;
@@ -104,7 +101,10 @@ public:
 	int chunkX = charXPosition % (GC::chunkDim * GC::tileDim);
 	int chunkY = charYPosition % (GC::chunkDim * GC::tileDim);
 
+	//! Create Movement Object
 	CharacterMovement movement = CharacterMovement(charXPosition, charYPosition);
+
+	//! Sets Chunks and Map Boundaries
 	int numberOfChunks = 5;
 	int mapXBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgWidth;
 	int mapYBoundary = GC::chunkDim * GC::tileDim * numberOfChunks - GC::charImgHeight;
@@ -113,14 +113,16 @@ public:
 	float scrollX = charYPosition + GC::charImgWidth / 2;
 	float scrollY = charXPosition + GC::charImgHeight / 2;
 
-
 	//! bool for debug menu
 	bool showDebugMenu = false;
 
 	//! bool for fps
 	bool showFPS = true;
 
+	//! Function for Performing Game Interactions
 	bool GameInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic);
+	
+	//! Function for MainMenu Interactions
 	bool MainMenuInteractions(GlobalStatics &globStatic);
 
 
@@ -138,6 +140,7 @@ private:
 		std::string objectName = "";
 	};
 
+	//! Create Object Struct for Hotbar
 	CloseObject closeObject;
 
 	//! Transformed X and Y Position from Button Press

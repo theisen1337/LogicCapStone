@@ -1,21 +1,29 @@
 #pragma once
 
+// Standard Includes
+#include <vector>
 
+// Custom Includes
 #include "MachineTemplate.h"
 #include "transportTemplate.h"
 #include "ItemTemplate.h"
-#include <vector>
 
 class MachineLayer
 {
 public:
-
-	std::vector<MachineBase> arrMachines;
-	void Init(FastTrack & fast, SlowTrack & slow);
-	void Compute();
-	void Draw();
+	//! Constructor
 	MachineLayer();
+	//! Deconstructor
 	~MachineLayer();
-private:
+
+	//! Create ARray of Machines
+	std::vector<MachineBase> arrMachines;
+	//! Initialize Machine Layer
+	void Init(FastTrack & fast, SlowTrack & slow);
+	//! Perform Layer Computations
+	void Compute();
+	//! DRaw the Layer
+	void Draw();
+
 };
 

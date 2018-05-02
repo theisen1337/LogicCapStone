@@ -1,11 +1,14 @@
 #pragma once
 
+// Standard Includes
 #include <stdio.h>
 #include <math.h>
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+
+// Custom Includes
 #include "OreBase.h"
 #include "Tile.h"
 

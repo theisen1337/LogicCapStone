@@ -1,4 +1,6 @@
 #pragma once
+
+// Allegro Includes
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
@@ -6,11 +8,12 @@
 //Imgui for Messagebox
 //#include "imgui.h"
 
-#include "ItemBase.h"
-
+// Standard Includes
 #include <vector>
 #include <string>
 
+// Custom Includes
+#include "ItemBase.h"
 
 struct Stack 
 {
@@ -22,7 +25,9 @@ struct Stack
 class MachineBase
 {
 public:
+	//! Constructor
 	MachineBase();
+	//! Deconstructor
 	~MachineBase();
 
 	void setCraftRecipe(std::vector<Stack> recipe);
@@ -69,9 +74,8 @@ public:
 	std::string getName() { return name; };
 
 private:
-
+	//! Performs Work
 	void doWork();
-
 
 	// MAS = MachineAnimateSheet
 	ALLEGRO_BITMAP * MAS_OFF_Image;
@@ -103,7 +107,7 @@ private:
 	int OutBufferMultiplier = 1;
 	
 protected:
-
+	//! Changes Animations
 	void setAnimateSheet_OFF(std::string path);
 	void setAnimateSheet_ON(std::string path);
 	void setAnimateSheet_IDLE(std::string path);
