@@ -771,11 +771,13 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			break;
 
 		case ALLEGRO_KEY_P:
+			GS.setPause(true);
 			al_show_native_message_box(al_get_current_display(),
 				"",
 				"Paused",
 				"",
 				NULL, ALLEGRO_MESSAGEBOX_ERROR);
+			GS.setPause(false);
 			break;
 
 		case ALLEGRO_KEY_1:

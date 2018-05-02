@@ -17,6 +17,7 @@
 #include "CharacterMovement.h"
 #include "ObjectManager.h"
 #include "GlobalConstants.h"
+#include "GlobalStatics.h"
 
 // Include Standard Libraries
 #include <math.h>
@@ -127,6 +128,9 @@ public:
 
 
 private:
+
+	//! Taylor is a piece of shit
+	GlobalStatics GS;
 
 	//! Struct to Store Closest Object Information
 	struct CloseObject
