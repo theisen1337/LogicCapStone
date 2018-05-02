@@ -5,6 +5,7 @@
 #include <vector>
 #include "Chunk.h"
 #include "GlobalConstants.h"
+#include "ObjectManager.h"
 
 class World
 {
@@ -13,6 +14,8 @@ private:
 public:
 	//! 2D vector of the chunks in the world
 	std::vector<std::vector<Chunk>> world; 
+	std::vector < std::vector<std::reference_wrapper<Tile>>> mastTiles;
+	std::vector < std::vector<std::reference_wrapper <Tile>>> mastOres;
 
 	//! World Constructor
 	World();
@@ -21,13 +24,13 @@ public:
 	/*!
 		Used to initalize the world after the objects creation.
 	*/
-	void InitalizeClass();
+	void InitalizeClass(ObjectManager &obj);
 
 	//! Chunk Initial Generation.
 	/*!
 		Used to generate the chunks.
 	*/
-	void initialGeneration();
+	void initialGeneration(ObjectManager &obj);
 
 
 	//! Update World Method
@@ -38,7 +41,7 @@ public:
 	void updateWorld(int charWorldW, int charWorldH);
 		
 	//! World 2D vector Getter.
-	std::vector<std::vector<Chunk>> getChunk() { return world; };
+	std::vector<std::vector<Chunk>> & getChunk() { return world; };
 
 	//! Draw the world to back buffer
 	void drawWorld(ALLEGRO_BITMAP* atl, ALLEGRO_DISPLAY &dis, std::vector<std::vector<std::string>> &ref);
@@ -50,7 +53,11 @@ public:
 	vector < vector <int> > bioChange1(vector < vector <int> > &biome); //added by brandon
 
 	//! changes the edges of the chunks
-	std::vector<std::vector<Chunk>> borderControl(std::vector<std::vector<Chunk>> world); //added by brandon, used later for border manipulation
+	void borderControl(std::vector<std::vector<Chunk>> &world); //added by brandon, used later for border manipulation
 
+
+	void popOreLayer(ObjectManager &objm);
+
+	
 };
 

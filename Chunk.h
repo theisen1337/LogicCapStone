@@ -13,10 +13,10 @@ public:
 	Chunk();
 
 	//! Return the Tile Layer
-	std::vector<std::vector<Tile>> getTiles() { return terrainLayer; };
+	std::vector<std::vector<Tile>> & getTiles() { return terrainLayer; };
 
 	//! Return the Ore Layer
-	std::vector<std::vector<Tile>> getOre() { return oreLayer; };
+	std::vector<std::vector<Tile>> & getOre() { return oreLayer; };
 
 	//! Set world X position
 	void setWorldPosW(int w) { worldPosW = w; };
@@ -49,7 +49,6 @@ public:
 	//void Chunk::genChunk() //void Chunk::genChunk(vector < vector <int> > biome) 
 	void genChunk(int bio);
 
-	
 
 private:
 	//! used as a bio stat
