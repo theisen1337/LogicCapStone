@@ -129,7 +129,6 @@ public:
 
 private:
 
-	//! Taylor is a piece of shit
 	GlobalStatics GS;
 
 	//! Struct to Store Closest Object Information
