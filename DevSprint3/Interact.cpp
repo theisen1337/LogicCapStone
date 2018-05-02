@@ -860,14 +860,14 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		}
 
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for left boundary)
-		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < al_get_display_height(display) - 100)
+		if (scrollX < al_get_display_width(display)  || movement.getCharacterXPosition() < al_get_display_height(display) +  100 + GC::charImgWidth)
 		{
 			scrollX = al_get_display_width(display);
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for right boundary)
-		else if (scrollX > mapXBoundary - al_get_display_width(display) + 48 || movement.getCharacterXPosition() > mapXBoundary - al_get_display_width(display) + 48)
+		else if (scrollX > mapXBoundary - al_get_display_width(display) + GC::charImgWidth || movement.getCharacterXPosition() > mapXBoundary - al_get_display_width(display) + GC::charImgWidth)
 		{
-			scrollX = mapXBoundary - al_get_display_width(display) + 48;
+			scrollX = mapXBoundary - al_get_display_width(display) + GC::charImgWidth;
 		}
 
 		movement.moveCharacterY();
@@ -881,14 +881,14 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			movement.setCharacterYPosition(0);
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
-		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < al_get_display_width(display))
+		if (scrollY < al_get_display_height(display) + GC::charImgHeight || movement.getCharacterYPosition() < al_get_display_width(display)- 100 - GC::charImgHeight)
 		{
-			scrollY = al_get_display_height(display);
+			scrollY = al_get_display_height(display) + GC::charImgHeight;
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for bottom boundary)
-		else if (scrollY > mapYBoundary - al_get_display_height(display) + 48 || movement.getCharacterYPosition() > mapYBoundary - al_get_display_height(display) + 48)
+		else if (scrollY > mapYBoundary - al_get_display_height(display) + GC::charImgHeight || movement.getCharacterYPosition() > mapYBoundary - al_get_display_height(display) + GC::charImgHeight)
 		{
-			scrollY = mapYBoundary - al_get_display_height(display) + 48;
+			scrollY = mapYBoundary - al_get_display_height(display) + GC::charImgHeight;
 		}
 
 		chunkX = movement.getCharacterXPosition() / (32 * 64);
