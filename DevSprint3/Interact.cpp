@@ -1,8 +1,6 @@
 #include "Interact.h"
 
-// ####################
-// # Create our Event #
-// ####################
+// Creates Allegro Event for Monitoring Inputs
 ALLEGRO_EVENT event;
 
 // ###############
@@ -20,12 +18,13 @@ Interact::~Interact() {}
 // ##############################
 void Interact::swapActive(bool &active)
 {
-	if (active)
+	if (active) // If you are in a mode other than interact ...
 	{
-		active = false;
 		interactMode = true;
+
+		active = false;
 	}
-	else
+	else // If you are in interact mode ...
 	{
 		slot1 = false; slot2 = false; slot3 = false; slot4 = false;
 		slot5 = false; slot6 = false; slot7 = false; slot8 = false;
@@ -47,6 +46,7 @@ int Interact::checkActive()
 			return i;
 		}
 	}
+
 	return -1;
 }
 
@@ -55,28 +55,32 @@ int Interact::checkActive()
 // ###############################
 void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 {
-
-	if (OM.hotbar[index].machine)
+	if (OM.hotbar[index].machine) // If placing machine from hotbar ...
 	{
 		// Calculates Positioning of Machines
 		int machineX = X / 64; machineX *= 64;
 		int machineY = Y / 64; machineY *= 64;
 
+		// Places Machine In-game
 		OM.addMachine(machineX, machineY, index);
 		OM.hotbar[index].num -= 1;
 
 		cout << "Placed " << OM.hotbar[index].machineType << endl << endl;
 
-		if (OM.hotbar[index].num == 0)
+		if (OM.hotbar[index].num == 0) // If out of objects in hotbar slot ...
 		{
 			cout << "Slot " << index + 1 << " is Empty" << endl;
 			OM.hotbar[index].machine = false;
 			OM.hotbar[index].machineType = "";
 		}
-		else if (OM.hotbar[index].num == 1)
+		else if (OM.hotbar[index].num == 1) // If plural ...
+		{
 			cout << "Slot " << index + 1 << " Now Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << endl;
+		}
 		else
+		{
 			cout << "Slot " << index + 1 << " Now Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << "'s" << endl;
+		}
 
 		std::vector<string> arrHotbar;
 		for (int i = 0; i < 8; i++)
@@ -90,6 +94,7 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 				arrHotbar.push_back(" ");
 			}
 		}
+
 		cout << "[ " << arrHotbar[0] << " ] ";
 		cout << "[ " << arrHotbar[1] << " ] ";
 		cout << "[ " << arrHotbar[2] << " ] ";
@@ -99,9 +104,8 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 		cout << "[ " << arrHotbar[6] << " ] ";
 		cout << "[ " << arrHotbar[7] << " ] " << endl << endl;
 	}
-	else if (OM.hotbar[index].item)
+	else if (OM.hotbar[index].item) // If placing item from hotbar ...
 	{
-		// Calculates Positioning of Items
 		int itemX = X - 8;
 		int itemY = Y - 8;
 
@@ -117,9 +121,13 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 			OM.hotbar[index].itemType = "";
 		}
 		else if (OM.hotbar[index].num == 1)
+		{
 			cout << "Slot " << index + 1 << " New Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << endl;
+		}
 		else
+		{
 			cout << "Slot " << index + 1 << " New Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
+		}
 		
 		std::vector<string> arrHotbar;
 		for (int i = 0; i < 8; i++)
@@ -133,6 +141,7 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 				arrHotbar.push_back(" ");
 			}
 		}
+
 		cout << "[ " << arrHotbar[0] << " ] ";
 		cout << "[ " << arrHotbar[1] << " ] ";
 		cout << "[ " << arrHotbar[2] << " ] ";
@@ -149,13 +158,14 @@ void Interact::placeObject(ObjectManager &OM, int X, int Y, int index)
 }
 
 // ##############################
-// # Spawn Objects onto the Map #
+// # Spawn Objects onto the Map # [Not Implemented Yet]
 // ##############################
 void Interact::spawnObject(ObjectManager &OM, int X, int Y)
 {
 	if (*stateArray[8] == true) // Spawn Machines
 	{
 		//OM.addMachine(OM, X, Y);
+		// Need way to specify type of machine
 	}
 	else if (*stateArray[9] == true) // Spawn Items
 	{
@@ -178,13 +188,13 @@ void Interact::printSlot(ObjectManager &OM, bool &slot, int index)
 {
 	swapActive(slot);
 
-	if (slot)
+	if (slot) // If you are selecting a hotbar slot ...
 	{
-		if (OM.hotbar[index].num != 0)
+		if (OM.hotbar[index].num != 0) // If there are objects in the slot ...
 		{
-			if (OM.hotbar[index].machine)
+			if (OM.hotbar[index].machine) // If the objects are machines ...
 			{
-				if (OM.hotbar[index].num == 1)
+				if (OM.hotbar[index].num == 1) // Plural Printing
 				{
 					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << endl;
 				}
@@ -193,15 +203,15 @@ void Interact::printSlot(ObjectManager &OM, bool &slot, int index)
 					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].machineType << "'s" << endl;
 				}
 			}
-			else if (OM.hotbar[index].item)
+			else if (OM.hotbar[index].item) // If the objects are item ...
 			{
-				if (OM.hotbar[index].num == 1)
+				if (OM.hotbar[index].num == 1) // Plural Printing
 				{
 					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << endl;
 				}
 				else
 				{
-cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
+					cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << OM.hotbar[index].itemType << "'s" << endl;
 				}
 			}
 			else
@@ -221,6 +231,7 @@ cout << "Slot " << index + 1 << " Contains: " << OM.hotbar[index].num << " " << 
 					arrHotbar.push_back(" ");
 				}
 			}
+
 			cout << "[ " << arrHotbar[0] << " ] ";
 			cout << "[ " << arrHotbar[1] << " ] ";
 			cout << "[ " << arrHotbar[2] << " ] ";
@@ -250,6 +261,7 @@ void Interact::printHotbar(ObjectManager &OM)
 	for (int i = 0; i < 8; i++)
 	{
 		cout << "[ h" << i + 1 << " ] = ";
+
 		if (OM.hotbar[i].num == 0)
 		{
 			cout << "Empty" << endl;
@@ -279,7 +291,9 @@ void Interact::printHotbar(ObjectManager &OM)
 				}
 			}
 			else
+			{
 				cout << "ERROR, FIX ME" << endl;
+			}
 		}
 	}
 }
@@ -289,6 +303,7 @@ void Interact::printHotbar(ObjectManager &OM)
 // ################################
 int Interact::findSlot(ObjectManager &OM, std::string name)
 {
+	// Checks if Item is Already in Hotbar
 	for (int i = 0; i < 8; i++)
 	{
 		if (name.compare(OM.hotbar[i].itemType) == 0)
@@ -301,6 +316,7 @@ int Interact::findSlot(ObjectManager &OM, std::string name)
 		}
 	}
 
+	// Checks for Empty Slots in Hotbar
 	for (int j = 0; j < 8; j++)
 	{
 		if (!OM.hotbar[j].item && !OM.hotbar[j].machine)
@@ -441,17 +457,6 @@ void Interact::objectSearch(ObjectManager &OM, int mouseX, int mouseY)
 	// Sets Boundaries of Nearest Object
 	maxX = objectX + 32; minX = objectX - 32;
 	maxY = objectY + 32; minY = objectY - 32;
-
-	cout << "Bottom Barrier: " << maxX << endl;
-	cout << "Top Barrier: " << minX << endl;
-	cout << "Left Barrier: " << minY << endl;
-	cout << "Right Barrier: " << maxY << endl << endl;
-	cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
-
-	cout << maxX << endl;
-	cout << minX << endl;
-	cout << maxY << endl;
-	cout << minY << endl;
 
 	if ((mouseX < maxX && mouseX > minX) && (mouseY < maxY && mouseY > minY))
 	{
@@ -672,9 +677,9 @@ void Interact::interactions(ObjectManager &OM, World &Map, int mouseX, int mouse
 	}
 }
 
-// ####################################
-// # Mouse and Keyboard Functionality #
-// ####################################
+// ############################################
+// # Main Game Loop for Checking Interactions #
+// ############################################
 bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE  *queue, ObjectManager &OM, float screenX, float screenY, GlobalStatics &globStatic)
 {
 	al_wait_for_event(queue, &event);
@@ -699,6 +704,9 @@ bool Interact::beginInteractions(World &Map, MainDraw &Art, ALLEGRO_DISPLAY * di
 	
 }
 
+// ###################################
+// # Interactions with Game Elements #
+// ###################################
 bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * display, ALLEGRO_FONT * font, ALLEGRO_EVENT_QUEUE * queue, ObjectManager & OM, float screenX, float screenY, GlobalStatics & globStatic)
 {
 	// Checks to See if Window Closed
@@ -852,14 +860,14 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 		}
 
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for left boundary)
-		if (scrollX < al_get_display_width(display) || movement.getCharacterXPosition() < al_get_display_height(display) - 100)
+		if (scrollX < al_get_display_width(display)  || movement.getCharacterXPosition() < al_get_display_height(display) +  100 + GC::charImgWidth)
 		{
 			scrollX = al_get_display_width(display);
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for right boundary)
-		else if (scrollX > mapXBoundary - al_get_display_width(display) + 48 || movement.getCharacterXPosition() > mapXBoundary - al_get_display_width(display) + 48)
+		else if (scrollX > mapXBoundary - al_get_display_width(display) + GC::charImgWidth || movement.getCharacterXPosition() > mapXBoundary - al_get_display_width(display) + GC::charImgWidth)
 		{
-			scrollX = mapXBoundary - al_get_display_width(display) + 48;
+			scrollX = mapXBoundary - al_get_display_width(display) + GC::charImgWidth;
 		}
 
 		movement.moveCharacterY();
@@ -873,14 +881,14 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 			movement.setCharacterYPosition(0);
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for top boundary)
-		if (scrollY < al_get_display_height(display) || movement.getCharacterYPosition() < al_get_display_width(display))
+		if (scrollY < al_get_display_height(display) + GC::charImgHeight || movement.getCharacterYPosition() < al_get_display_width(display)- 100 - GC::charImgHeight)
 		{
-			scrollY = al_get_display_height(display);
+			scrollY = al_get_display_height(display) + GC::charImgHeight;
 		}
 		//! checks to see if the camera needs to stay where it is until the player is back to the middle of the view (for bottom boundary)
-		else if (scrollY > mapYBoundary - al_get_display_height(display) + 48 || movement.getCharacterYPosition() > mapYBoundary - al_get_display_height(display) + 48)
+		else if (scrollY > mapYBoundary - al_get_display_height(display) + GC::charImgHeight || movement.getCharacterYPosition() > mapYBoundary - al_get_display_height(display) + GC::charImgHeight)
 		{
-			scrollY = mapYBoundary - al_get_display_height(display) + 48;
+			scrollY = mapYBoundary - al_get_display_height(display) + GC::charImgHeight;
 		}
 
 		chunkX = movement.getCharacterXPosition() / (32 * 64);
@@ -1065,6 +1073,9 @@ bool Interact::GameInteractions(World & Map, MainDraw & Art, ALLEGRO_DISPLAY * d
 
 }
 
+// ###################################
+// # Interactions with Menu Elements #
+// ###################################
 bool Interact::MainMenuInteractions(GlobalStatics & globStatic)
 {
 
